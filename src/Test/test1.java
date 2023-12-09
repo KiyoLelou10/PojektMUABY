@@ -8,7 +8,7 @@ public class test1 {
 
 	public static void main(String[] args) {
 		DroneBuilder x = new DroneBuilder();
-		System.out.println(Count.list.toString());
+		Count.printlist();
 		
 		
 	}
