@@ -12,22 +12,30 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 	private int speed;
 	private double latitude;
 	private double longitude;
-	private String time;
-	private String lastSeen;
+	private DroneTime time;
+	private DroneTime lastSeen;
 	private int BatteryStatus; 
 	private String Status;
+	private double align_roll;
+	private double align_pitch;
+	private double align_yaw;
+	
 	
 	private final static Logger LOG = Logger.getLogger(DroneDynamics.class.getName());
 	
+	
 	public DroneDynamics(int id,int speed,double latitude, 
-			double longitude,String time,String last,int battstat,String stat) throws ValueLessZeroException{
+			double longitude,String time,String last,int battstat,String stat,double roll,double pitch,double yaw) throws ValueLessZeroException{
 		
+		align_roll = roll;
+		align_pitch = pitch;
+		align_yaw = yaw;
 		this.id = id;
 		this.speed = speed;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.time = time;
-		lastSeen = last;
+		this.time = new DroneTime(time);
+		lastSeen = new DroneTime(last);
 		BatteryStatus = battstat;
 		if(stat.equals("OF"))this.Status = "OFF";
 		else if(stat.equals("ON"))this.Status = "ON";
@@ -51,12 +59,10 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 		
 	}
 	
-	
-	
-
-	
-	
-	
+	//gets the exact time for this object from class DroneTime and returns it
+	public double getExactTime() {
+		return time.getExactTime();
+	}
 	
 	
 
@@ -66,7 +72,7 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 				"\nIts current coordinates are: " +latitude +"/"+ longitude+
 				"\nIt was last seen on: "+ lastSeen+
 				"\nIts battery status is currently: " +BatteryStatus+
-				"\nIts Status is: " +Status+"\n";
+				"\nIts Status is: " +Status;
 		
 		
 	}
@@ -79,32 +85,54 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 		return longitude;
 	}
 	
+	
 	public double getLatitude() {
 		return latitude;
 	}
+	
 	
 	public int getBatteryStatus() {
 		return BatteryStatus;
 	}
 	
+	
 	public int getId() {
 		return id;
 	}
 	
+	
+	public DroneTime getTime() {
+		return time;
+	}
+	
+	public DroneTime getLastSeen() {
+		return lastSeen;
+	}
+	
+	public String getStatus() {
+		return Status;
+	}
+	
+	public double getAlign_roll() {
+		return align_roll;
+	}
+
+	public double getAlign_pitch() {
+		return align_pitch;
+	}
+
+	public double getAlign_yaw() {
+		return align_yaw;
+	}
+
+
+
 	public boolean equals(Object object) {
 		DroneDynamics other = (DroneDynamics) object;
 		
 		
 		return this.speed == other.speed;
 	}
-
-	
-
-
-
-
-
-
 
 	@Override
 	public boolean opmore(Object object) {
