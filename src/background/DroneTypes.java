@@ -8,13 +8,15 @@ public class DroneTypes extends Dronemethods implements Comparison{
 	protected String manufacturer;
 	protected String typename;
 	protected int max_speed;
+	protected int weight;
 	protected int battery_capacity;
 	protected int control_range;
 	protected int max_carriage;
 	private final static Logger LOG = Logger.getLogger(DroneTypes.class.getName());
 	
-	public DroneTypes(int id, String manu,String name, int maxspeed,int batterycap,int controlrange,int maxcarr) throws ValueLessZeroException,NullPointerException{
+	public DroneTypes(int id, String manu,String name, int maxspeed,int batterycap,int controlrange,int maxcarr,int weight) throws ValueLessZeroException,NullPointerException{
 		
+		this.weight = weight;
 		typeid = id;
 		manufacturer = manu;
 		typename = name;
@@ -27,7 +29,7 @@ public class DroneTypes extends Dronemethods implements Comparison{
 			LOG.severe("Drone was given with id <= 0");
 			return;
 		}
-		if(max_speed<0 || battery_capacity<0 || control_range<0 || max_carriage<0)throw new ValueLessZeroException("Drone id:" + typeid +
+		if(max_speed<0 || battery_capacity<0 || control_range<0 || max_carriage<0 || weight<0)throw new ValueLessZeroException("Drone id:" + typeid +
 				" has (an) attributes");
 		if(typename == null || manufacturer == null)throw new NullPointerException();
 		entity++;
