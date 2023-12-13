@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class DroneBuilder {
 	
 	private int droneid,carrweight,maxcarr;
-	private String created,number,cartype;
+	private String created,serialnumber,cartype;
 	
 	
 	private String drone;
@@ -91,7 +91,7 @@ public class DroneBuilder {
 			cartype = o.getString("carriage_type");
 			carrweight = o.getInt("carriage_weight");
 			droneid = o.getInt("id");
-			number = o.getString("serialnumber");
+			serialnumber = o.getString("serialnumber");
 			droneType = o.getString("dronetype");
 			DronesTypesbuilder();
 				
@@ -111,7 +111,7 @@ public class DroneBuilder {
 		int contrange = o.getInt("control_range");
 		maxcarr = o.getInt("max_carriage");	
 		try{
-			Drones x = new Drones(droneid,created,number,carrweight,cartype,typeid,manu,name,maxspeed,battcap,contrange,maxcarr);		
+			Drones x = new Drones(droneid,created,serialnumber,carrweight,cartype,typeid,manu,name,maxspeed,battcap,contrange,maxcarr,weight);		
 			
 		}
 		catch(ValueLessZeroException | NullPointerException e) {
@@ -136,8 +136,12 @@ public class DroneBuilder {
 			String lastseen = o.getString("last_seen");
 			int speed = o.getInt("speed");
 			drone = o.getString("drone");
+			double roll = o.getDouble("align_roll");
+			double pitch = o.getDouble("align_pitch");
+			double yaw = o.getDouble("align_yaw");
+			
 			int id = getid();
-			DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status);
+			DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status,roll,pitch,yaw);
 			list.add(x);
 			
 				
