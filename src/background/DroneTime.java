@@ -59,7 +59,8 @@ public class DroneTime {
 	//test with toString method
 	
 	public String toString() {
-		return year+"/"+month+"/"+day+"\t  "+hour+":"+minute+":"+seconds;
+		Months monthName = Months.values()[month-1];
+		return year+"/"+monthName+"/"+day+"\t  "+hour+":"+minute+":"+seconds;
 	}
 	
 	
