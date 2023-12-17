@@ -1,4 +1,4 @@
-package drone_drone;
+package frontend;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -78,6 +78,8 @@ public class Drone_Gui extends JFrame {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton_1_1 = new JButton("Middle drones");
+		Image img2 = new ImageIcon(this.getClass().getResource("/middle.png")).getImage();
+		btnNewButton_1_1.setIcon(new ImageIcon(img2));
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();
@@ -89,6 +91,8 @@ public class Drone_Gui extends JFrame {
 		frame.getContentPane().add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_2 = new JButton("Slow drones");
+		Image img3 = new ImageIcon(this.getClass().getResource("/slow.png")).getImage();
+		btnNewButton_1_2.setIcon(new ImageIcon(img3));
 		btnNewButton_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();

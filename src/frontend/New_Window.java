@@ -1,4 +1,4 @@
-package drone_drone;
+package frontend;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

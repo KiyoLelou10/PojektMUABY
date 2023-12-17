@@ -1,4 +1,4 @@
-package drone_drone;
+package frontend;
 
 import java.awt.EventQueue;
 import java.awt.Image;
