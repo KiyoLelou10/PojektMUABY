@@ -1,4 +1,4 @@
-package drone_drone;
+package frontend;
 
 import java.awt.event.*;
 import java.awt.event.ActionListener;
