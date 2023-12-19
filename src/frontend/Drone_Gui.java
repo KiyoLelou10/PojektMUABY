@@ -1,4 +1,4 @@
-package frontend;
+package drone_drone;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -15,35 +15,18 @@ import java.awt.event.ActionEvent;
 
 public class Drone_Gui extends JFrame {
 
-	protected JFrame frame;
+	protected JFrame  frame;
+	protected JLabel  label1;
+	protected JButton backbutton;
+	protected JButton quickbutton;
+	protected JButton middlebutton;
+	protected JButton slowbutton;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Drone_Gui window = new Drone_Gui();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public Drone_Gui() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	
      public void windowClosing(WindowEvent e) {
          // When closing the second frame, show the main frame again
         Firstwindow window1 = new Firstwindow();
@@ -57,10 +40,10 @@ public class Drone_Gui extends JFrame {
 		frame.setDefaultCloseOperation(Drone_Gui.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Quick drones");
+		quickbutton = new JButton();
 		Image img1 = new ImageIcon(this.getClass().getResource("/quick1.png")).getImage();
-		btnNewButton_1.setIcon(new ImageIcon(img1));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		quickbutton.setIcon(new ImageIcon(img1));
+		quickbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        List<String> information = Arrays.asList("Item 1", "Item 2", "Item 3");
 		        Information_Window newWindow1 = new Information_Window(information);
@@ -68,39 +51,50 @@ public class Drone_Gui extends JFrame {
 		        frame.setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(188, 658, 221, 122);
-		frame.getContentPane().add(btnNewButton_1);
+		quickbutton.setBounds(188, 658, 221, 122);
+		frame.getContentPane().add(quickbutton);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		label1 = new JLabel("New label");
 		Image img = new ImageIcon(this.getClass().getResource("/drone4.png")).getImage();
-		lblNewLabel.setIcon(new ImageIcon(img));
-		lblNewLabel.setBounds(261, 30, 637, 620);
-		frame.getContentPane().add(lblNewLabel);
+		label1.setIcon(new ImageIcon(img));
+		label1.setBounds(261, 30, 637, 620);
+		frame.getContentPane().add(label1);
 		
-		JButton btnNewButton_1_1 = new JButton("Middle drones");
+		middlebutton = new JButton();
 		Image img2 = new ImageIcon(this.getClass().getResource("/middle.png")).getImage();
-		btnNewButton_1_1.setIcon(new ImageIcon(img2));
-		btnNewButton_1_1.addActionListener(new ActionListener() {
+		middlebutton.setIcon(new ImageIcon(img2));
+		middlebutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();
 		        newWindow.setVisible(true);
 		        frame.setVisible(false);
 			}
 		});
-		btnNewButton_1_1.setBounds(453, 658, 221, 122);
-		frame.getContentPane().add(btnNewButton_1_1);
+		middlebutton.setBounds(453, 658, 221, 122);
+		frame.getContentPane().add(middlebutton);
 		
-		JButton btnNewButton_1_2 = new JButton("Slow drones");
-		Image img3 = new ImageIcon(this.getClass().getResource("/slow.png")).getImage();
-		btnNewButton_1_2.setIcon(new ImageIcon(img3));
-		btnNewButton_1_2.addActionListener(new ActionListener() {
+		slowbutton = new JButton();
+		Image img3 = new ImageIcon(this.getClass().getResource("/slow1.png")).getImage();
+		slowbutton.setIcon(new ImageIcon(img3));
+		slowbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();
 		        newWindow.setVisible(true);
 		        frame.setVisible(false);
 			}
 		});
-		btnNewButton_1_2.setBounds(711, 658, 221, 122);
-		frame.getContentPane().add(btnNewButton_1_2);
+		slowbutton.setBounds(711, 658, 221, 122);
+		frame.getContentPane().add(slowbutton);
+		
+		backbutton = new JButton("back");
+		backbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Firstwindow newfirstwindow = new Firstwindow();
+				newfirstwindow.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		backbutton.setBounds(10, 10, 114, 27);
+		frame.getContentPane().add(backbutton);
 	}
 }
