@@ -1,4 +1,4 @@
-package frontend;
+package drone_drone;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -15,13 +15,11 @@ import java.awt.event.ActionEvent;
 public class Firstwindow {
 
 	protected JFrame frame;
-	protected JTextField txtWelcomeToOur;
-	protected JButton btnNewButton;
-	protected JButton btnNewButton_1;
+	protected JTextField txt;
+	protected JButton yesbutton;
+	protected JButton nobutton;
+	protected JLabel label;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -35,16 +33,11 @@ public class Firstwindow {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Firstwindow() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	protected void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setEnabled(false);
@@ -52,41 +45,45 @@ public class Firstwindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		txtWelcomeToOur = new JTextField();
-		txtWelcomeToOur.setForeground(new Color(0, 128, 255));
-		txtWelcomeToOur.setText("                                               Welcome to our Dronesimulator |  Would you like to express the Drone world?");
-		txtWelcomeToOur.setBounds(118, 447, 667, 57);
-		frame.getContentPane().add(txtWelcomeToOur);
-		txtWelcomeToOur.setColumns(14);
+		txt = new JTextField();
+		txt.setForeground(new Color(0, 128, 255));
+		txt.setText("                                               Welcome to our Dronesimulator |  Would you like to express the Drone world?");
+		txt.setBounds(118, 447, 667, 57);
+		frame.getContentPane().add(txt);
+		txt.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		label = new JLabel("New label");
 		Image img = new ImageIcon(this.getClass().getResource("/drone3.png")).getImage();
-		lblNewLabel.setIcon(new ImageIcon(img));
-		lblNewLabel.setBounds(130, 34, 640, 402);
-		frame.getContentPane().add(lblNewLabel);
+		label.setIcon(new ImageIcon(img));
+		label.setBounds(130, 34, 640, 402);
+		frame.getContentPane().add(label);
 		
-		btnNewButton = new JButton("Yes please :)");
-		btnNewButton.setForeground(new Color(0, 0, 255));
-		btnNewButton.addActionListener(new ActionListener() {
+		yesbutton = new JButton("Yes please :)");
+		yesbutton.setForeground(new Color(0, 0, 255));
+		yesbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Drone_Gui newDroneGui = new Drone_Gui();
 				newDroneGui.frame.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(190, 515, 198, 75);
-		frame.getContentPane().add(btnNewButton);
+		yesbutton.setBounds(190, 515, 198, 75);
+		frame.getContentPane().add(yesbutton);
 		
-		btnNewButton_1 = new JButton("No not interested!!!");
-		btnNewButton_1.setForeground(new Color(255, 0, 0));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		nobutton = new JButton("No not interested!!!");
+		nobutton.setForeground(new Color(255, 0, 0));
+		nobutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Drone_Gui newDroneGui = new Drone_Gui();
 				newDroneGui.frame.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(530, 515, 198, 75);
-		frame.getContentPane().add(btnNewButton_1);
+		nobutton.setBounds(530, 515, 198, 75);
+		frame.getContentPane().add(nobutton);
+		
 	}
+	
+	
+	
 }
