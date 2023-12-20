@@ -14,7 +14,7 @@ public class test1 {
 		//tests time function
 		DroneTime y = new DroneTime("2023-12-01T15:43:27.940361+01:00");
 		System.out.println(y);
-		
+		//System.out.println(DroneBuilder.list);
 	}
 	
 }
