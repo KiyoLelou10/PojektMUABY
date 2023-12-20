@@ -17,10 +17,11 @@ public class DroneBuilder {
 	private String created,serialnumber,cartype;
 	
 	
-	private String drone;
-	private static String response;
 	
-	private static String droneType;
+	private static String response;
+	private static int Countdrone;
+	private static int Countdynamic;
+	
 	public static ArrayList<DroneDynamics> list = new ArrayList<DroneDynamics>();
 	
 	private static final String USER_AGENT = "Kiyotaka";
@@ -29,18 +30,18 @@ public class DroneBuilder {
 	private static final String ENDPOINT_URL2 = "http://dronesim.facets-labs.com/api/dronedynamics/";
 	
 	public DroneBuilder() {
+		getCount();
 		getDynamics();
-		APIreader(ENDPOINT_URL+"/?format=json");
+		APIreader(ENDPOINT_URL+"/?limit="+Countdrone+"&format=json");
 		Dronesbuilder();
-		APIreader("http://dronesim.facets-labs.com/api/drones/?limit=10&offset=10/&format=json");
-		Dronesbuilder();
+		
 		//getDynamics();
 		
 		
 	}
 	
-	public void getDynamics() {
-		APIreader(ENDPOINT_URL2+"?format=json");
+	private void getDynamics() {
+		APIreader(ENDPOINT_URL2+"?limit="+Countdynamic+"&format=json");
 		DronedynamicBuilder();
 		/*int i = 10;
 		 while(i<=28800){
@@ -52,6 +53,15 @@ public class DroneBuilder {
 		
 	}
 	
+	private void getCount() {
+		APIreader(ENDPOINT_URL+"/?format=json");
+		Countdrone = Integer.valueOf(response.split("[:,]")[1]);
+		
+		APIreader(ENDPOINT_URL2+"?format=json");
+		Countdynamic = Integer.valueOf(response.split("[:,]")[1]);
+		
+		System.out.println("These are the dynamics: " +Countdynamic +"/"+Countdrone);
+	}
 	
 	public static void APIreader(String x) {
 		URL url;
@@ -66,8 +76,8 @@ public class DroneBuilder {
 			System.out.println("Response Code " + responseCode);
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
+			StringBuilder response = new StringBuilder();
+			while ((inputLine = in.readLine()) != null && "next" != null) {
 				response.append(inputLine);
 			}
 			in.close();
@@ -82,7 +92,7 @@ public class DroneBuilder {
 		}
 		
 	}
-	public void Dronesbuilder() {
+	private void Dronesbuilder() {
 		JSONObject wholeFile = new JSONObject(response);
 		JSONArray jsonFile = wholeFile.getJSONArray("results");
 		for (int i = 0; i < jsonFile.length(); i++) {
@@ -92,14 +102,14 @@ public class DroneBuilder {
 			carrweight = o.getInt("carriage_weight");
 			droneid = o.getInt("id");
 			serialnumber = o.getString("serialnumber");
-			droneType = o.getString("dronetype");
-			DronesTypesbuilder();
+			String droneType = o.getString("dronetype");
+			DronesTypesbuilder(droneType);
 				
 			
 		}
 		
 	}
-	public void DronesTypesbuilder() {
+	private void DronesTypesbuilder(String droneType) {
 		APIreader(droneType);
 		JSONObject o = new JSONObject(response);
 		int typeid = o.getInt("id");
@@ -123,7 +133,7 @@ public class DroneBuilder {
 	}
 	
 	
-	public void DronedynamicBuilder() {
+	private void DronedynamicBuilder() {
 		JSONObject wholeFile = new JSONObject(response);
 		JSONArray jsonFile = wholeFile.getJSONArray("results");
 		for (int i = 0; i < jsonFile.length(); i++) {
@@ -135,12 +145,12 @@ public class DroneBuilder {
 			int battstat = o.getInt("battery_status");
 			String lastseen = o.getString("last_seen");
 			int speed = o.getInt("speed");
-			drone = o.getString("drone");
+			String drone = o.getString("drone");
 			double roll = o.getDouble("align_roll");
 			double pitch = o.getDouble("align_pitch");
 			double yaw = o.getDouble("align_yaw");
 			
-			int id = getid();
+			int id = getid(drone);
 			DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status,roll,pitch,yaw);
 			list.add(x);
 			
@@ -149,10 +159,9 @@ public class DroneBuilder {
 		}
 	}
 	
-	public int getid() {
-		APIreader(drone);
-		JSONObject o = new JSONObject(response);
-		int id = o.getInt("id");
+	private int getid(String drone) {
+		
+		int id = Integer.valueOf(drone.split("/")[5]);
 		return id;
 	}
 	
