@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -12,7 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Firstwindow {
+public class Firstwindow extends Frame {
 
 	protected JFrame frame;
 	protected JTextField txt;
@@ -64,7 +65,8 @@ public class Firstwindow {
 			public void actionPerformed(ActionEvent e) {
 				Drone_Gui newDroneGui = new Drone_Gui();
 				newDroneGui.frame.setVisible(true);
-				frame.setVisible(false);
+				frame.dispose();
+				
 			}
 		});
 		yesbutton.setBounds(190, 515, 198, 75);
@@ -76,7 +78,8 @@ public class Firstwindow {
 			public void actionPerformed(ActionEvent e) {
 				Drone_Gui newDroneGui = new Drone_Gui();
 				newDroneGui.frame.setVisible(true);
-				frame.setVisible(false);
+				frame.dispose();
+			
 			}
 		});
 		nobutton.setBounds(530, 515, 198, 75);
