@@ -45,10 +45,9 @@ public class Drone_Gui extends JFrame {
 		quickbutton.setIcon(new ImageIcon(img1));
 		quickbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        List<String> information = Arrays.asList("Item 1", "Item 2", "Item 3");
-		        Information_Window newWindow1 = new Information_Window(information);
-		        newWindow1.setVisible(true);
-		        frame.setVisible(false);
+				New_Window newWindow = new New_Window();
+		        newWindow.setVisible(true);
+		        frame.dispose();
 			}
 		});
 		quickbutton.setBounds(188, 658, 221, 122);
@@ -67,7 +66,7 @@ public class Drone_Gui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();
 		        newWindow.setVisible(true);
-		        frame.setVisible(false);
+		        frame.dispose();;
 			}
 		});
 		middlebutton.setBounds(453, 658, 221, 122);
@@ -80,7 +79,7 @@ public class Drone_Gui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				New_Window newWindow = new New_Window();
 		        newWindow.setVisible(true);
-		        frame.setVisible(false);
+		        frame.dispose();
 			}
 		});
 		slowbutton.setBounds(711, 658, 221, 122);
@@ -91,7 +90,7 @@ public class Drone_Gui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Firstwindow newfirstwindow = new Firstwindow();
 				newfirstwindow.frame.setVisible(true);
-				frame.setVisible(false);
+				frame.dispose();
 			}
 		});
 		backbutton.setBounds(10, 10, 114, 27);
