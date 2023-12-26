@@ -11,10 +11,10 @@ public class Count{
 	static protected void append(Drones object) {
 		list.add(object);
 		for(Drones x : list)x.getDynamics();
-		createLists();
+		
 	}
 	
-	static private void createLists() {
+	static public void createLists() {
 		
 		
 		for(Drones x: list) {

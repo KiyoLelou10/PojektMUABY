@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import background.Speedclasses;
+
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
@@ -25,21 +27,18 @@ import java.awt.event.ActionEvent;
 public class Drone_Gui extends JFrame {
 
 	protected JFrame  frame;
-	protected JLabel  label1;
-	protected JButton backbutton;
-	protected JButton quickbutton;
-	protected JButton middlebutton;
-	protected JButton slowbutton;
+	//instance of itself, Back button was trigerring this window twice so to avoid this , getting current instance made more sense 
+		private static Drone_Gui instance = null;
 	
 
 	public Drone_Gui() {
-		JFrame frame= initialize();
+		frame= initialize();
 		JLabel frontLabel= JlabelwithTextAndImage("Here we Present our Three Categories", "images/drone2.jpg");
 		frontLabel.setBounds(10,10,1000,1000);
 		frame.add(frontLabel, BorderLayout.CENTER);
 		JPanel panel= givePanel();
-		JButton primaryButton= giveMeFirstNavigationButton("Slow Drones!!", Color.DARK_GRAY);
-		JButton secondaryButton= giveMeFirstNavigationButton("Medium Speed Drones  !!", Color.blue);
+		JButton primaryButton= giveMeFirstNavigationButton("Slow Speed Drones!!", Color.DARK_GRAY);
+		JButton secondaryButton= giveMeFirstNavigationButton("Medium Speed Drones!!", Color.blue);
 		JButton tertiaryButton= giveMeFirstNavigationButton("Fast Speed Drones!!", new Color(231, 3, 119));
 		panel.add(primaryButton);
 		panel.add(secondaryButton);
@@ -105,11 +104,8 @@ public class Drone_Gui extends JFrame {
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
-		button.addActionListener(e->{
-			speedWindow newDroneGui = new speedWindow();
-			frame.dispose();
-			
-		});
+		button.setActionCommand(Text);
+		button.addActionListener(commonListener);
 		
 		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		return button;
@@ -123,6 +119,32 @@ public class Drone_Gui extends JFrame {
 		return panel;
 	}
 	
+	
+	ActionListener commonListener = new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        String command = e.getActionCommand();
+	        frame.dispose();
+	        if ("Slow Speed Drones!!".equals(command)) {
+	            JFrame frame= new speedWindow(Speedclasses.slowlist);
+	            System.out.println("Slow Drone Action");
+	        } else if ("Medium Speed Drones!!".equals(command)) {
+	        	JFrame frame= new speedWindow(Speedclasses.averagelist);
+	            System.out.println("Medium Drone Action");
+	        } else if ("Fast Speed Drones!!".equals(command)) {
+	        	JFrame frame= new speedWindow(Speedclasses.fastlist);
+	            System.out.println("Fast Drone Action");
+	        }
+	    }
+	};
+	
+	
+	public static Drone_Gui getInstance() {
+        if (instance == null) {
+            instance = new Drone_Gui();
+        }
+        return instance;
+    }
  	
  	
  	

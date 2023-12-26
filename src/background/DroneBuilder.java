@@ -34,7 +34,7 @@ public class DroneBuilder {
 		getDynamics();
 		APIreader(ENDPOINT_URL+"/?limit="+Countdrone+"&format=json");
 		Dronesbuilder();
-		
+		Count.createLists();
 		//getDynamics();
 		
 		
@@ -73,7 +73,7 @@ public class DroneBuilder {
 			connection.setRequestProperty("User-Agent", USER_AGENT);
 			int responseCode = connection.getResponseCode();
 		
-			System.out.println("Response Code " + responseCode);
+//			System.out.println("Response Code " + responseCode);
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String inputLine;
 			StringBuilder response = new StringBuilder();
