@@ -16,7 +16,7 @@ public class DroneBuilder {
 	private int droneid,carrweight,maxcarr;
 	private String created,serialnumber,cartype;
 	
-	
+	 
 	
 	private static String response;
 	private static int Countdrone;
@@ -81,7 +81,7 @@ public class DroneBuilder {
 				response.append(inputLine);
 			}
 			in.close();
-			System.out.println(response.toString());
+//			System.out.println(response.toString());
 			DroneBuilder.response =response.toString();
 		} catch (MalformedURLException e) {
 			System.err.println("Malformed URL: " + e.getLocalizedMessage());
