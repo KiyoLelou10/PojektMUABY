@@ -31,18 +31,18 @@ public class Firstwindow extends Frame {
 	protected JButton nobutton;
 	protected JLabel label;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Firstwindow window = new Firstwindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Firstwindow window = new Firstwindow();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	
 	public Firstwindow() {
@@ -58,6 +58,7 @@ public class Firstwindow extends Frame {
 		panel.add(secondaryButton);
 		frame.add(panel, BorderLayout.SOUTH);
 		
+		
 	}
 
 	protected JFrame initialize() {
@@ -72,6 +73,7 @@ public class Firstwindow extends Frame {
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		frame.setVisible(true);
 		
 		return frame;
 		

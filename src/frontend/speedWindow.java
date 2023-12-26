@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,13 +15,21 @@ import background.*;
 
 public class speedWindow extends JFrame {
 	
-	public speedWindow() {
-		JFrame frame=initialize();
-	}
+//	public speedWindow() {
+//		JFrame frame=initialize();
+//	}
+	private JFrame frame;
 
 	public speedWindow(ArrayList<Drones> list) {
-		JFrame frame=initialize();
+		frame=initialize();
+		JPanel headerPanel= GiveHeaderPlanner();
+		frame.add(headerPanel);
 		
+		for(Drones i: list) {
+			JPanel data= giveDataPanel(i);
+			data.setFont(new Font("MV Boli", Font.ITALIC, 15));
+			frame.add(data);
+			}
 		
 	}
 
@@ -29,17 +38,17 @@ public class speedWindow extends JFrame {
 	protected JFrame initialize() {
 		JFrame frame = new JFrame();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    int width = (int)screenSize.getWidth();
-	    int height = (int)screenSize.getHeight();
+//	    int width = (int)screenSize.getWidth();
+//	    int height = (int)screenSize.getHeight();
+	    frame.setExtendedState(MAXIMIZED_BOTH);
 	    frame.getContentPane().setEnabled(false);
-		frame.setSize(width, height);
+//		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(12,1,10,10));
+		frame.setLayout(new GridLayout(10,1,10,10));
 		
 		frame.setVisible(true);
 		
-		JPanel headerPanel= GiveHeaderPlanner();
-		frame.add(headerPanel);
+		
 		
 		return frame;
 		
@@ -47,22 +56,49 @@ public class speedWindow extends JFrame {
 	}
 	
 	
+	protected JPanel giveDataPanel(Drones drone) {
+		JPanel dataPanel=new JPanel();
+		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
+		JLabel j1= createJLabelWithValue(String.valueOf(drone.getId()));
+		JLabel j2= createJLabelWithValue(drone.getManufacturer());
+		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMax_speed()));
+		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMax_carriage()));
+		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControl_range()));
+		JButton J6= giveMeFirstNavigationButton("More Info", Color.blue);
+		
+		dataPanel.add(j1);
+		dataPanel.add(j2);
+		dataPanel.add(j3);
+		dataPanel.add(j4);
+		dataPanel.add(j5);
+		dataPanel.add(J6);
+
+		
+		
+		
+		return dataPanel;
+	}
+	
+	
 	protected JPanel GiveHeaderPlanner() {
 		
 		JPanel headerPanel=new JPanel();
-		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 70, 15));
+		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 15));
 		
 		
 		
-		JLabel j1= createJLabelWithValue("Drone Id");
-		JLabel j2= createJLabelWithValue("Manufacturer");
-		JLabel j3= createJLabelWithValue("Max Speed");
-		JLabel j4= createJLabelWithValue("Max Carriage ");
-		JLabel j5= createJLabelWithValue("Control Range");
+		JLabel j1= createHeaderJLabelWithValue("Drone Id");
+		JLabel j2= createHeaderJLabelWithValue("Manufacturer");
+		JLabel j3= createHeaderJLabelWithValue("Max Speed");
+		JLabel j4= createHeaderJLabelWithValue("Max Carriage ");
+		JLabel j5= createHeaderJLabelWithValue("Control Range");
 		JButton J6= giveMeFirstNavigationButton("<- Back", Color.RED);
 		J6.addActionListener(e->{
+			frame.dispose();
 			Drone_Gui gui= new Drone_Gui();
-			dispose();
+			
+			
+			
 		});
 
 		headerPanel.add(j1);
@@ -82,8 +118,17 @@ public class speedWindow extends JFrame {
 	
 	private JLabel createJLabelWithValue(String text) {
 		JLabel j1= new JLabel();
+		j1.setPreferredSize(new Dimension(70,30));
 		j1.setText(text);
-		j1.setFont(new Font("MV Boli", Font.BOLD, 18));
+		j1.setFont(new Font("Mv Boli", Font.PLAIN, 16));
+		return j1;
+		
+	}
+	
+	private JLabel createHeaderJLabelWithValue(String text) {
+		JLabel j1= new JLabel();
+		j1.setText(text);
+		j1.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		return j1;
 		
 	}
@@ -96,8 +141,10 @@ public class speedWindow extends JFrame {
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
 		button.addActionListener(e->{
-			Drone_Gui newDroneGui = new Drone_Gui();
-			dispose();
+			System.out.print("This got clicked");
+			frame.dispose();
+			Drone_Gui.getInstance();
+			
 			
 		});
 		
