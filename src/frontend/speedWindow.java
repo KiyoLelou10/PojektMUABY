@@ -22,14 +22,26 @@ public class speedWindow extends JFrame {
 
 	public speedWindow(ArrayList<Drones> list) {
 		frame=initialize();
+		//Content panel is thought to act as a one division in a frame which could
+		//be adjusted to a scroll pane
+		
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
 		JPanel headerPanel= GiveHeaderPlanner();
-		frame.add(headerPanel);
+		contentPanel.add(headerPanel);
 		
 		for(Drones i: list) {
 			JPanel data= giveDataPanel(i);
 			data.setFont(new Font("MV Boli", Font.ITALIC, 15));
-			frame.add(data);
+			contentPanel.add(data);
 			}
+			//This code is taken from Internet to add a scroller 
+		 	JScrollPane scrollPane = new JScrollPane(contentPanel,
+		 	JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+	        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	        frame.add(scrollPane, BorderLayout.CENTER);
+		
+		
 		
 	}
 
@@ -44,7 +56,7 @@ public class speedWindow extends JFrame {
 	    frame.getContentPane().setEnabled(false);
 //		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(10,1,10,10));
+		frame.setLayout(new GridLayout(0,1,10,8));
 		
 		frame.setVisible(true);
 		
@@ -83,7 +95,7 @@ public class speedWindow extends JFrame {
 	protected JPanel GiveHeaderPlanner() {
 		
 		JPanel headerPanel=new JPanel();
-		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 15));
+		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 20));
 		
 		
 		
@@ -118,7 +130,7 @@ public class speedWindow extends JFrame {
 	
 	private JLabel createJLabelWithValue(String text) {
 		JLabel j1= new JLabel();
-		j1.setPreferredSize(new Dimension(70,30));
+		j1.setPreferredSize(new Dimension(70,15));
 		j1.setText(text);
 		j1.setFont(new Font("Mv Boli", Font.PLAIN, 16));
 		return j1;
