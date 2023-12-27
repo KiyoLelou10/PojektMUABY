@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import background.Count;
 import background.Speedclasses;
 
 import java.awt.event.ActionListener;
@@ -121,16 +122,18 @@ public class Drone_Gui extends JFrame {
 	
 	
 	ActionListener commonListener = new ActionListener() {
-	    @Override
+	    
+		
+		@Override
 	    public void actionPerformed(ActionEvent e) {
-	        String command = e.getActionCommand();
+			String command = e.getActionCommand();
 	        frame.dispose();
 	        if ("Slow Speed Drones!!".equals(command)) {
 	            JFrame frame= new speedWindow(Speedclasses.slowlist);
 	            System.out.println("Slow Drone Action");
 	        } else if ("Medium Speed Drones!!".equals(command)) {
 	        	JFrame frame= new speedWindow(Speedclasses.averagelist);
-	        	System.out.println(Speedclasses.averagelist);
+	        	//System.out.println(Speedclasses.averagelist);
 	            System.out.println("Medium Drone Action");
 	        } else if ("Fast Speed Drones!!".equals(command)) {
 	        	JFrame frame= new speedWindow(Speedclasses.fastlist);

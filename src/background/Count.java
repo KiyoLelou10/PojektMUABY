@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 
 public class Count{
-	private static ArrayList<Drones> list = new ArrayList<>();
+	public static ArrayList<Drones> list = new ArrayList<>();
 	
 	
 	static protected void append(Drones object) {
@@ -15,7 +15,7 @@ public class Count{
 	}
 	
 	static public void createLists() {
-		
+		Speedclasses.clearList();
 		
 		for(Drones x: list) {
 			if(x.getMax_speed() < 35)Speedclasses.slowlist.add(x);

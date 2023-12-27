@@ -155,8 +155,8 @@ public class speedWindow extends JFrame {
 		button.addActionListener(e->{
 			System.out.print("This got clicked");
 			frame.dispose();
-			Drone_Gui.getInstance();
-			
+			//Drone_Gui.getInstance();
+			Drone_Gui guuu = new Drone_Gui();
 			
 		});
 		

@@ -30,13 +30,14 @@ public class DroneBuilder {
 	private static final String ENDPOINT_URL2 = "http://dronesim.facets-labs.com/api/dronedynamics/";
 	
 	public DroneBuilder() {
+		Count.list.clear();
 		getCount();
 		getDynamics();
 		APIreader(ENDPOINT_URL+"/?limit="+Countdrone+"&format=json");
 		Dronesbuilder();
+		
 		Count.createLists();
 		//getDynamics();
-		
 		
 	}
 	

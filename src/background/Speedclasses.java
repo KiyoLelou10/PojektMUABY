@@ -11,4 +11,11 @@ public class Speedclasses {
 		System.out.println(slowlist.toString());
 	}
 	
+	//function for clearing the list
+	protected static void clearList() {
+		slowlist.clear();
+		averagelist.clear();
+		fastlist.clear();
+	}
+	
 }
