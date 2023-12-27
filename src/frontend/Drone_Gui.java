@@ -130,6 +130,7 @@ public class Drone_Gui extends JFrame {
 	            System.out.println("Slow Drone Action");
 	        } else if ("Medium Speed Drones!!".equals(command)) {
 	        	JFrame frame= new speedWindow(Speedclasses.averagelist);
+	        	System.out.println(Speedclasses.averagelist);
 	            System.out.println("Medium Drone Action");
 	        } else if ("Fast Speed Drones!!".equals(command)) {
 	        	JFrame frame= new speedWindow(Speedclasses.fastlist);

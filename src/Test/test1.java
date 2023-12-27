@@ -21,6 +21,7 @@ public class test1 extends Thread {
 //		}
 		test1 thread1= new test1();
 		thread1.start();
+		
 		Firstwindow window= new Firstwindow();
 		
 		
