@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -32,7 +34,28 @@ public class Aditional_Info extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panel1.setFont(new Font("Times New Roman",Font.BOLD,40));
         //getContentPane().add(panel1);
+        JButton JB3= giveMeFirstNavigationButton("<-Back", Color.red);
+		JB3.addActionListener(e->{
+			System.out.print("This got clicked");
+			frame.dispose();
+			//THe JB3 Button should create an new instance of the class speedWindow! please add an argument to the constructor. 
+		   // speedWindow guuu = new speedWindow(ArrayList<Drones> list);
+			
+		});
+		
+        JButton JB4= giveMeFirstNavigationButton("History", Color.blue);
+		JB4.addActionListener(e->{
+			// This Button should display the last 5 DroneDynamics !!
+			System.out.print("This got clicked");
+			frame.dispose();
+	
+			
+		});
+		
         frame.add(panel1);
+        frame.add(JB3);
+        frame.add(JB4);
+    
 	}
 
 	protected JFrame initialize() {
@@ -54,14 +77,6 @@ public class Aditional_Info extends JFrame{
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
-		button.addActionListener(e->{
-			System.out.print("This got clicked");
-			frame.dispose();
-			//Drone_Gui.getInstance();
-			Drone_Gui guuu = new Drone_Gui();
-			
-		});
-		
 		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		return button;
 	}
@@ -112,14 +127,9 @@ public class Aditional_Info extends JFrame{
         JLabel d20 = new JLabel(String.valueOf(dd.getAlign_pitch()));
         JLabel d21 = new JLabel("DroneDynamics Yaw: \n");
         JLabel d22 = new JLabel(String.valueOf(dd.getAlign_yaw()));
+        //JButton JB3= giveMeFirstNavigationButton("Back", Color.red);
         
-        JButton JB3= giveMeFirstNavigationButton("Back", Color.red);
-        JB3.addActionListener(e->{
-			dispose();
-			speedWindow speedwindow2= new speedWindow(null);
-			
-		});
-
+        //dataPanel.add(JB3, BorderLayout.SOUTH);
         dataPanel.add(j1);
         dataPanel.add(j2);
         dataPanel.add(j3);
@@ -162,6 +172,11 @@ public class Aditional_Info extends JFrame{
         dataPanel.add(d20);
         dataPanel.add(d21);
         dataPanel.add(d22);
+        
+        JLabel[] labels1 = {j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17, j18, j19, j20, d1, d2, d3, d4, d5, d6 ,d7 ,d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22};
+        for (int i = 0; i < labels1.length; i++) {
+            labels1[i].setFont(new Font("Segoe UI", Font.ITALIC, 40));
+        }
         
         return dataPanel;
     }
