@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -76,14 +78,19 @@ public class speedWindow extends JFrame {
 		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMax_speed()));
 		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMax_carriage()));
 		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControl_range()));
-		JButton J6= giveMeFirstNavigationButton("More Info", Color.blue);
-		
+		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
+		j6.addActionListener(e->{
+			frame.dispose();
+			Aditional_Info info= new Aditional_Info(drone);
+			info.setVisible(true);
+		});
+
 		dataPanel.add(j1);
 		dataPanel.add(j2);
 		dataPanel.add(j3);
 		dataPanel.add(j4);
 		dataPanel.add(j5);
-		dataPanel.add(J6);
+		dataPanel.add(j6);
 
 		
 		
@@ -108,8 +115,6 @@ public class speedWindow extends JFrame {
 		J6.addActionListener(e->{
 			frame.dispose();
 			Drone_Gui gui= new Drone_Gui();
-			
-			
 			
 		});
 

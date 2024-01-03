@@ -1,4 +1,4 @@
-package frontend;
+/*package frontend;
 
 import java.util.List;
 
@@ -26,3 +26,4 @@ public class Information_Window extends JFrame {
      }
  }
 }
+*/

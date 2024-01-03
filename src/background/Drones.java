@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Drones extends DroneTypes {
 	
-	protected ArrayList<DroneDynamics> list = new ArrayList<>();
+	public ArrayList<DroneDynamics> list = new ArrayList<>();
 	protected int droneid;
 	protected DroneTime created;
 	protected String serialnumber;

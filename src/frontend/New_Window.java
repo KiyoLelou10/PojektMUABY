@@ -1,4 +1,4 @@
-package frontend;
+/*package frontend;
 
 import java.awt.Color;
 import java.awt.event.*;
@@ -45,6 +45,8 @@ public class New_Window extends JFrame {
 			infobutton = new JButton("Info");
 			infobutton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					//Aditional_Info info = new Aditional_Info();
+					//info.contentPane.setVisible(true);
 					dispose();
 				}
 			});
@@ -54,4 +56,4 @@ public class New_Window extends JFrame {
 		
 		
     }
-}
+}*/
