@@ -80,9 +80,9 @@ public class speedWindow extends JFrame {
 		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControl_range()));
 		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
 		j6.addActionListener(e->{
-			frame.dispose();
+			dispose();
 			Aditional_Info info= new Aditional_Info(drone);
-			info.setVisible(true);
+			info.setVisible(false);
 		});
 
 		dataPanel.add(j1);
