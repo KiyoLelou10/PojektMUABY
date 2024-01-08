@@ -22,6 +22,7 @@ import javax.swing.border.Border;
 
 import background.DroneDynamics;
 import background.Drones;
+import background.Speedclasses;
 
 public class Aditional_Info extends JFrame{
 
@@ -36,11 +37,15 @@ public class Aditional_Info extends JFrame{
         //getContentPane().add(panel1);
         JButton JB3= giveMeFirstNavigationButton("<-Back", Color.red);
 		JB3.addActionListener(e->{
-			System.out.print("This got clicked");
 			frame.dispose();
-			//THe JB3 Button should create an new instance of the class speedWindow! please add an argument to the constructor. 
-		   // speedWindow guuu = new speedWindow(ArrayList<Drones> list);
-			
+		        frame.dispose();
+		        if (drone.getMax_speed() < 35) {
+		            JFrame frame= new speedWindow(Speedclasses.slowlist);
+		        } else if (drone.getMax_speed()>= 35 && drone.getMax_speed() < 60) {
+		        	JFrame frame= new speedWindow(Speedclasses.averagelist);
+		        } else if (drone.getMax_speed() >= 60) {
+		        	JFrame frame= new speedWindow(Speedclasses.fastlist);
+		        }
 		});
 		
         JButton JB4= giveMeFirstNavigationButton("History", Color.blue);
@@ -53,8 +58,16 @@ public class Aditional_Info extends JFrame{
 		});
 		
         frame.add(panel1);
-        frame.add(JB3);
-        frame.add(JB4);
+        
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(JB3);
+        buttonPanel.add(JB4);
+        
+        frame.setLayout(new BorderLayout());
+        
+        frame.add(buttonPanel, BorderLayout.NORTH);
+        frame.add(panel1, BorderLayout.CENTER);
+        
     
 	}
 
