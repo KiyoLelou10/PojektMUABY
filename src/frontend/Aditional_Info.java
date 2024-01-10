@@ -40,11 +40,11 @@ public class Aditional_Info extends JFrame{
 			frame.dispose();
 		        frame.dispose();
 		        if (drone.getMax_speed() < 35) {
-		            JFrame frame= new speedWindow(Speedclasses.slowlist);
+		            JFrame frame= new speedWindow(Speedclasses.getSlowlist());
 		        } else if (drone.getMax_speed()>= 35 && drone.getMax_speed() < 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.averagelist);
+		        	JFrame frame= new speedWindow(Speedclasses.getAveragelist());
 		        } else if (drone.getMax_speed() >= 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.fastlist);
+		        	JFrame frame= new speedWindow(Speedclasses.getFastlist());
 		        }
 		});
 		
@@ -80,6 +80,7 @@ public class Aditional_Info extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout(20,20,20));
 		frame.setVisible(true);
+		frame.setResizable(true);
 		return frame;
 		
 	}
@@ -117,7 +118,7 @@ public class Aditional_Info extends JFrame{
         JLabel j18 = new JLabel(String.valueOf(drone.getBattery_capacity()));
         JLabel j19 = new JLabel("Control Range: \n");
         JLabel j20 = new JLabel(String.valueOf(drone.getControl_range()));
-        DroneDynamics dd = drone.list.get(drone.list.size()-1);
+        DroneDynamics dd = drone.getList().get(drone.getList().size()-1);
         JLabel d1 = new JLabel("DroneDynamics ID: \n");
         JLabel d2 = new JLabel(String.valueOf(dd.getId()));
         JLabel d3 = new JLabel("DroneDynamics Latitude: \n");
@@ -131,7 +132,7 @@ public class Aditional_Info extends JFrame{
         JLabel d11 = new JLabel("DroneDynamics LastSeen: \n");
         JLabel d12 = new JLabel(String.valueOf(dd.getLastSeen()));
         JLabel d13 = new JLabel("DroneDynamics BatteryStatus: \n");
-        JLabel d14 = new JLabel(String.valueOf(dd.getBatteryStatus()));
+        JLabel d14 = new JLabel(String.valueOf(dd.getBatteryStatus()/drone.getBattery_capacity()*100)+"%");
         JLabel d15 = new JLabel("DroneDynamics Status: \n");
         JLabel d16 = new JLabel(String.valueOf(dd.getStatus()));
         JLabel d17 = new JLabel("DroneDynamics Roll: \n");

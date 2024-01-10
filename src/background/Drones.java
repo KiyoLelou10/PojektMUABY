@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Drones extends DroneTypes {
 	
-	public ArrayList<DroneDynamics> list = new ArrayList<>();
+	protected ArrayList<DroneDynamics> list = new ArrayList<>();
 	protected int droneid;
 	protected DroneTime created;
 	protected String serialnumber;
@@ -81,6 +81,10 @@ public class Drones extends DroneTypes {
 	public String getCarriage_type() {
 		return carriage_type;
 	}
+	
+	public ArrayList<DroneDynamics> getList() {
+		return list;
+	}
 
 	public String toString() {
 		
@@ -92,6 +96,7 @@ public class Drones extends DroneTypes {
 				"\nIts carriage type is: " +carriage_type+
 				"\n"+list.get(list.size()-1).toString()+".\n";
 	}
+
 
 
 	

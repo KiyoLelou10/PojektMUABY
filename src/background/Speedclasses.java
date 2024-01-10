@@ -3,9 +3,9 @@ package background;
 import java.util.ArrayList;
 
 public class Speedclasses {
-	public static ArrayList<Drones> slowlist = new ArrayList<>();
-	public static ArrayList<Drones> averagelist = new ArrayList<>();
-	public static ArrayList<Drones> fastlist = new ArrayList<>();
+	protected static ArrayList<Drones> slowlist = new ArrayList<>();
+	protected static ArrayList<Drones> averagelist = new ArrayList<>();
+	protected static ArrayList<Drones> fastlist = new ArrayList<>();
 	
 	public static void  printslow() {
 		System.out.println(slowlist.toString());
@@ -16,6 +16,18 @@ public class Speedclasses {
 		slowlist.clear();
 		averagelist.clear();
 		fastlist.clear();
+	}
+
+	public static ArrayList<Drones> getSlowlist() {
+		return slowlist;
+	}
+
+	public static ArrayList<Drones> getAveragelist() {
+		return averagelist;
+	}
+
+	public static ArrayList<Drones> getFastlist() {
+		return fastlist;
 	}
 	
 }

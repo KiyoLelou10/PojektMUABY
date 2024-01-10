@@ -22,7 +22,7 @@ public class DroneBuilder {
 	private static int Countdrone;
 	private static int Countdynamic;
 	
-	public static ArrayList<DroneDynamics> list = new ArrayList<DroneDynamics>();
+	protected static ArrayList<DroneDynamics> list = new ArrayList<DroneDynamics>();
 	
 	private static final String USER_AGENT = "Kiyotaka";
 	private static final String ENDPOINT_URL = "http://dronesim.facets-labs.com/api/drones";
@@ -30,6 +30,7 @@ public class DroneBuilder {
 	private static final String ENDPOINT_URL2 = "http://dronesim.facets-labs.com/api/dronedynamics/";
 	
 	public DroneBuilder() {
+		Count.activity_flag = false;
 		Count.list.clear();
 		getCount();
 		getDynamics();
@@ -37,6 +38,7 @@ public class DroneBuilder {
 		Dronesbuilder();
 		
 		Count.createLists();
+		Count.activity_flag = true;
 		//getDynamics();
 		
 	}

@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 
 public class Count{
-	public static ArrayList<Drones> list = new ArrayList<>();
-	
+	protected static ArrayList<Drones> list = new ArrayList<>();
+	protected static boolean activity_flag = false;
 	
 	static protected void append(Drones object) {
 		list.add(object);
@@ -27,6 +27,10 @@ public class Count{
 	
 	public static void printlist() {
 		System.out.println(list.toString());
+	}
+	
+	static public boolean get_Flag() {
+		return activity_flag;
 	}
 
 	
