@@ -2,7 +2,7 @@ package background;
 
 
 
-public class DroneTime {
+public class DroneTime extends Thread {
 	private int year;
 	private int month;
 	private int day;
@@ -11,12 +11,13 @@ public class DroneTime {
 	private double seconds;
 	private int timezonehour;
 	private int timezonemin;
-	
+	private double exact_Time;
 	
 	
 	//divides time String into attributes for the exact time
 	public DroneTime(String time) {
 		String sub[] = time.split("[-T:+]");
+		this.start();
 		year = Integer.valueOf(sub[0]);
 		month = Integer.valueOf(sub[1]);
 		day = Integer.valueOf(sub[2]);
@@ -25,8 +26,14 @@ public class DroneTime {
 		seconds = Double.valueOf(sub[5]);
 		timezonehour = Integer.valueOf(sub[6]);
 		timezonemin = Integer.valueOf(sub[7]);
+		
 	}
 	
+	@Override
+	public void run() {
+		exact_Time = ((double)year * 365.25+(double)month*30.437+(double)day)*86400
+					 +(double)hour*3600+(double)minute*60+seconds;
+	}
 	
 	//compares if current time object is greater than another(only compares up to days)
 	public boolean greater(DroneTime other) {
@@ -51,9 +58,7 @@ public class DroneTime {
 	
 	//get exact number of seconds
 	public double getExactTime() {
-		double result = ((double)year * 365.25+(double)month*30.437+(double)day)*86400
-						+(double)hour*3600+(double)minute*60+seconds;
-		return result;
+		return exact_Time;
 	}
 	
 	//test with toString method

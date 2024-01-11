@@ -85,6 +85,10 @@ public class Drones extends DroneTypes {
 	public ArrayList<DroneDynamics> getList() {
 		return list;
 	}
+	
+	public int get_Current_Drone_Speed() {
+		return list.get(list.size()-1).getSpeed();
+	}
 
 	public String toString() {
 		

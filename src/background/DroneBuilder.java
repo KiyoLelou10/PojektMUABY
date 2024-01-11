@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class DroneBuilder {
+public class DroneBuilder extends Thread {
 	
 	private int droneid,carrweight,maxcarr;
 	private String created,serialnumber,cartype;
@@ -36,12 +36,13 @@ public class DroneBuilder {
 		getDynamics();
 		APIreader(ENDPOINT_URL+"/?limit="+Countdrone+"&format=json");
 		Dronesbuilder();
-		
 		Count.createLists();
 		Count.activity_flag = true;
 		//getDynamics();
 		
 	}
+	
+	
 	
 	private void getDynamics() {
 		APIreader(ENDPOINT_URL2+"?limit="+Countdynamic+"&format=json");
@@ -154,8 +155,14 @@ public class DroneBuilder {
 			double yaw = o.getDouble("align_yaw");
 			
 			int id = getid(drone);
-			DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status,roll,pitch,yaw);
-			list.add(x);
+			try {
+				DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status,roll,pitch,yaw);
+				list.add(x);
+			}
+			catch(ValueLessZeroException e) {
+				e.printStackTrace();
+			}
+			
 			
 				
 			

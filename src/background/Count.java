@@ -11,12 +11,10 @@ public class Count{
 	static protected void append(Drones object) {
 		list.add(object);
 		for(Drones x : list)x.getDynamics();
-		
 	}
 	
 	static public void createLists() {
 		Speedclasses.clearList();
-		
 		for(Drones x: list) {
 			if(x.getMax_speed() < 35)Speedclasses.slowlist.add(x);
 			if(x.getMax_speed() >= 35 && x.getMax_speed() < 60)Speedclasses.averagelist.add(x);
@@ -33,6 +31,5 @@ public class Count{
 		return activity_flag;
 	}
 
-	
 	
 }
