@@ -82,7 +82,6 @@ public class speedWindow extends JFrame {
 		j6.addActionListener(e->{
 			dispose();
 			Aditional_Info info= new Aditional_Info(drone);
-			info.setVisible(false);
 		});
 
 		dataPanel.add(j1);
@@ -150,6 +149,11 @@ public class speedWindow extends JFrame {
 		
 	}
 	
+	@Override
+		public void dispose() {
+			frame.dispose();
+		}
+	
 	
 	private JButton giveMeFirstNavigationButton(String Text, Color color) {
 		JButton button= new JButton(Text);
@@ -157,18 +161,9 @@ public class speedWindow extends JFrame {
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
-		button.addActionListener(e->{
-			System.out.print("This got clicked");
-			frame.dispose();
-			Drone_Gui guuu = new Drone_Gui();
-			
-		});
 		
 		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		return button;
 	}
-	
-	
-	
 	
 }

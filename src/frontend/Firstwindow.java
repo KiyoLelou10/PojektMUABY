@@ -57,6 +57,8 @@ public class Firstwindow extends Frame {
 		panel.add(primaryButton);
 		panel.add(secondaryButton);
 		frame.add(panel, BorderLayout.SOUTH);
+		frame.pack();
+		frame.setExtendedState(MAXIMIZED_BOTH);
 		
 		
 	}
@@ -66,13 +68,14 @@ public class Firstwindow extends Frame {
 		
 		
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	        int width = (int)screenSize.getWidth();
-	        int height = (int)screenSize.getHeight();
+	        int width = (int)(screenSize.getWidth());
+	        int height = (int)(screenSize.getHeight());
 	          
 	    frame.getContentPane().setEnabled(false);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		//frame.setExtendedState(MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		
 		return frame;
