@@ -20,8 +20,7 @@ public class Loading_Screen extends JFrame {
 	 
 	public Loading_Screen() {
 		JFrame frame = initialize();
-		centerFrameOnScreen(frame);
-        JLabel gifLabel = new JLabel("Loading data....................");
+        JLabel gifLabel = new JLabel("Loading the data..................");
         ImageIcon gifIcon = new ImageIcon("images/gif4.gif");
         gifLabel.setIcon(gifIcon);
         gifLabel.setVerticalAlignment(JLabel.TOP);
@@ -34,6 +33,7 @@ public class Loading_Screen extends JFrame {
         frame.add(gifLabel);
         frame.setLayout(new FlowLayout());
         frame.pack();
+        centerFrameOnScreen(frame);
  
     }
 	
@@ -48,10 +48,16 @@ public class Loading_Screen extends JFrame {
 		
 		
 	}
+	@Override
+	public void dispose() {
+		
+		frame.dispose();
+	}
+	
     private void centerFrameOnScreen(JFrame frame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int centerX = (int) ((screenSize.getWidth() - frame.getWidth()) / 2);
-        int centerY = (int) ((screenSize.getHeight() - frame.getHeight()) / 2);
+        int centerX = (int) ((screenSize.getWidth()-frame.getWidth())/2);
+        int centerY = (int) ((screenSize.getHeight() - frame.getHeight())/ 2);
         frame.setLocation(centerX, centerY);
     }
 }
