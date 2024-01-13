@@ -21,18 +21,39 @@ import background.Drones;
 
 public class HistoryScreen extends JFrame {
 	protected JFrame frame;
+	protected JTextField minute[];
+	protected JTextField hour[];
+	protected JTextField day[];
+	protected JTextField month[];
+	protected JTextField year[];
+	
 
 	public HistoryScreen(Drones drone) {
 		// TODO Auto-generated constructor stub
 		frame = initialize();
 
 		JLabel label = createJLabelWithValue("Search the dynamics!!!");
-		JPanel panels = createDatePanel(drone);
-
-		panels.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		int i = 0;
+		JPanel panels1 = createDatePanel(drone,i);
+		JPanel panels2 = createDatePanel(drone,i++);
+		
+		
+		
+		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
+		submitButton.addActionListener(e->{
+			
+			
+			
+		});
+		
+		panels2.add(submitButton);
+		
+		panels1.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
+		panels2.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
 		label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
 		frame.add(label, BorderLayout.NORTH);
-		frame.add(panels, BorderLayout.CENTER);
+		frame.add(panels1, BorderLayout.CENTER);
+		frame.add(panels2, BorderLayout.AFTER_LAST_LINE);
 		
 
 		centerFrameOnScreen(frame);
@@ -41,28 +62,28 @@ public class HistoryScreen extends JFrame {
 
 	}
 
-	public JPanel createDatePanel(Drones drone) {
-		JPanel panel = new JPanel(new GridLayout(4, 1,10,15));
+	public JPanel createDatePanel(Drones drone,int i) {
+		JPanel panel = new JPanel(new GridLayout(6, 1,10,15));
 
 		JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
 
-		JTextField dayField =  giveMeTextField("DD", 10);
-		JTextField monthField = giveMeTextField("MM", 10);
-		JTextField yearField = giveMeTextField("YYYY", 10);
-		inputPanel.add(dayField);
-		inputPanel.add(monthField);
-		inputPanel.add(yearField);
+		minute[i] = giveMeTextField("MI", 10);
+		hour[i] = giveMeTextField("HH", 10);
+		day[i] =  giveMeTextField("DD", 10);
+		month[i] = giveMeTextField("MM", 10);
+		year[i] = giveMeTextField("YYYY", 10);
+		
+		inputPanel.add(hour[i]);
+		inputPanel.add(minute[i]);
+		inputPanel.add(day[i]);
+		inputPanel.add(month[i]);
+		inputPanel.add(year[i]);
 
-		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
-		submitButton.addActionListener(e->{
-			System.out.println(drone.getCurrentDroneDynamics(new DroneDate(26, 12, 2023)).size());
-			
-		});
 		
 		
 		
 		panel.add(inputPanel);
-		panel.add(submitButton);
+
 
 		return panel;
 	}
