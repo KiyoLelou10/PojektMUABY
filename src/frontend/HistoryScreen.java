@@ -8,30 +8,33 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import background.DroneDate;
+import background.DroneDynamics;
+import background.DroneTime;
 import background.Drones;
 
-public class HistoryScreen extends JFrame {
+public class HistoryScreen extends JFrame{
 	protected JFrame frame;
-	protected JTextField minute1 =giveMeTextField("MI", 10);
-	protected JTextField minute2=giveMeTextField("MI", 10);
-	protected JTextField hour1=giveMeTextField("HH", 10);
-	protected JTextField hour2=giveMeTextField("HH", 10);
-	protected JTextField day1= giveMeTextField("DD", 10);
-	protected JTextField day2=giveMeTextField("HH", 10);
-	protected JTextField month1= giveMeTextField("MM", 10);
-	protected JTextField month2=giveMeTextField("HH", 10);
-	protected JTextField year1 = giveMeTextField("YYYY", 10);
-	protected JTextField year2= giveMeTextField("YYYY", 10);
+	protected JTextField minute1 =giveMeTextField("7", 10);
+	protected JTextField minute2=giveMeTextField("12", 10);
+	protected JTextField hour1=giveMeTextField("9", 10);
+	protected JTextField hour2=giveMeTextField("9", 10);
+	protected JTextField day1= giveMeTextField("26", 10);
+	protected JTextField day2=giveMeTextField("26", 10);
+	protected JTextField month1= giveMeTextField("12", 10);
+	protected JTextField month2=giveMeTextField("12", 10);
+	protected JTextField year1 = giveMeTextField("2023", 10);
+	protected JTextField year2= giveMeTextField("2023", 10);
 
 
 	public HistoryScreen(Drones drone) {
@@ -65,13 +68,24 @@ public class HistoryScreen extends JFrame {
 		JPanel panel = new JPanel(new GridLayout(6, 2,10,20));
 		JPanel inputPanel1= createDurationPanel(minute1,hour1, day1, month1,year1);
 		JPanel inputPanel2= createDurationPanel(minute2,hour2, day2, month2,year2);
+		System.out.println(year1.getText());
+		
 		
 		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
+			String x = stringifier(year1, month1, day1, hour1, minute1);
+			String y = stringifier(year2, month2, day2, hour2, minute2);
+			DroneTime a = new DroneTime(x);
+			DroneTime b = new DroneTime(y);
 			
-			System.out.println(minute1.getText());
+			if(a.getExactTime()-b.getExactTime()>300 || a.getExactTime()-b.getExactTime()<-300) {
+				JOptionPane f = new JOptionPane();
+				f.showMessageDialog(this,"The difference must be less than 5 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
+			}
 			
-			
+			else {
+				System.out.println(drone.getCurrentDroneDynamics(a, b));
+			}
 		});
 		
 
@@ -86,6 +100,11 @@ public class HistoryScreen extends JFrame {
 		
 
 		return panel;
+	}
+	
+	private String stringifier(JTextField a,JTextField b,JTextField c, JTextField d, JTextField e) {
+		String x = new String(a.getText()+"-"+b.getText()+"-"+c.getText()+"T"+d.getText()+":"+e.getText()+":0+0:0");
+		return x;
 	}
 	
 	
@@ -110,7 +129,7 @@ public class HistoryScreen extends JFrame {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.getContentPane().setEnabled(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// frame.setExtendedState(MAXIMIZED_BOTH);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
