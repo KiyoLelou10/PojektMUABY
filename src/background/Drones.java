@@ -89,6 +89,22 @@ public class Drones extends DroneTypes {
 	public int get_Current_Drone_Speed() {
 		return list.get(list.size()-1).getSpeed();
 	}
+	
+	public ArrayList<DroneDynamics> getCurrentDroneDynamics(DroneDate obj){
+		ArrayList<DroneDynamics> currentDroneDynamics= new ArrayList<DroneDynamics>();
+		
+		for(DroneDynamics a: list) {
+			
+			if(a.getTime().isEqualToTheDate(obj)) {
+				currentDroneDynamics.add(a);
+			}
+			
+		}
+		
+		
+		
+		return currentDroneDynamics;
+	}
 
 	public String toString() {
 		

@@ -146,8 +146,6 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 
 
 
-
-
 	@Override
 	public boolean opless(Object object) {
 		DroneDynamics other = (DroneDynamics) object;

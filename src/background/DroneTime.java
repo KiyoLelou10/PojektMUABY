@@ -1,6 +1,6 @@
 package background;
 
-
+import java.util.Objects;
 
 public class DroneTime extends Thread {
 	private int year;
@@ -56,6 +56,8 @@ public class DroneTime extends Thread {
 		
 	}
 	
+	
+	
 	//get exact number of seconds
 	public double getExactTime() {
 		return exact_Time;
@@ -67,6 +69,24 @@ public class DroneTime extends Thread {
 		Months monthName = Months.values()[month-1];
 		return year+"/"+monthName+"/"+day+"\t  "+hour+":"+minute+":"+seconds;
 	}
+
+	
+	public boolean isEqualToTheDate(DroneDate obj) {
+		if (obj==null) {
+			throw new NullPointerException();
+		}
+		
+		return obj.getDay()==day&&obj.getMonth()==month && obj.getYear()==year;
+	
+		
+	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(day, exact_Time, hour, minute, month, seconds, timezonehour, timezonemin, year);
+	}
+
 	
 	
 }
