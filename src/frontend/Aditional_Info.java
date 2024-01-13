@@ -100,7 +100,7 @@ public class Aditional_Info extends JFrame{
     private JPanel giveDataPanel(Drones drone) {
         JPanel dataPanel = new JPanel();
         dataPanel.setLayout(new GridLayout(30,2));
-        JLabel j1 = new JLabel("Drone ID: \\n");
+        JLabel j1 = new JLabel("Drone ID: \n");
         JLabel j2 = new JLabel(String.valueOf(drone.getId()));
         JLabel j3 = new JLabel("Created: \n");
         JLabel j4 = new JLabel(String.valueOf(drone.getCreated()));
