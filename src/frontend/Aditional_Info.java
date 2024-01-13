@@ -52,7 +52,8 @@ public class Aditional_Info extends JFrame{
         JButton JB4= giveMeFirstNavigationButton("History", Color.blue);
 		JB4.addActionListener(e->{
 			// This Button should display the last 5 DroneDynamics !!
-			HistoryScreen histScreen= new HistoryScreen();
+			//System.out.println(drone.getDynamicSize());
+			HistoryScreen histScreen= new HistoryScreen(drone);
 			frame.dispose();
 	
 			

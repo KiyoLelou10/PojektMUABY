@@ -37,9 +37,10 @@ public class test1 extends Thread {
 		System.out.println("THis is Thread working");
 		while(true) {
 			
-			//every 5 minutes the drone data is updated
+			//every 10 minutes the drone data is updated
 			try {
-				sleep(300000);
+			
+				sleep(600000);
 				DroneBuilder y = new DroneBuilder();
 				System.out.println("This is working");
 			} catch (InterruptedException e) {

@@ -45,12 +45,16 @@ public class Drones extends DroneTypes {
 	 
 	
 	 public void getDynamics() {
+		 System.out.println(DroneBuilder.list.size());
 			for(DroneDynamics x: DroneBuilder.list) {
 				if(x.getId() == this.droneid) {
 					this.list.add(x);
 				}
 			}
+			System.out.println(this.list.size());
 			sortDynamics();
+			
+			
 			
 	 }	
 	 
@@ -105,6 +109,12 @@ public class Drones extends DroneTypes {
 		
 		return currentDroneDynamics;
 	}
+	
+	public int getDynamicSize() {
+		
+		return list.size();
+	}
+	
 
 	public String toString() {
 		

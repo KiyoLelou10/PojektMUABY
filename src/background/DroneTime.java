@@ -8,7 +8,7 @@ public class DroneTime extends Thread {
 	private int day;
 	private int hour;
 	private int minute;
-	private double seconds;
+	private double seconds;   
 	private int timezonehour;
 	private int timezonemin;
 	private double exact_Time;
@@ -82,11 +82,7 @@ public class DroneTime extends Thread {
 	}
 	
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(day, exact_Time, hour, minute, month, seconds, timezonehour, timezonemin, year);
-	}
-
+	
 	
 	
 }

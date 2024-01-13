@@ -1,5 +1,6 @@
 package background;
 
+import java.awt.datatransfer.SystemFlavorMap;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -16,6 +17,7 @@ public class Count{
 	static public void createLists() {
 		Speedclasses.clearList();
 		for(Drones x: list) {
+			//System.out.println(x.getDynamicSize());
 			if(x.getMax_speed() < 35)Speedclasses.slowlist.add(x);
 			if(x.getMax_speed() >= 35 && x.getMax_speed() < 60)Speedclasses.averagelist.add(x);
 			if(x.getMax_speed() >= 60)Speedclasses.fastlist.add(x);

@@ -16,15 +16,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import background.DroneDate;
+import background.Drones;
+
 public class HistoryScreen extends JFrame {
 	protected JFrame frame;
 
-	public HistoryScreen() {
+	public HistoryScreen(Drones drone) {
 		// TODO Auto-generated constructor stub
 		frame = initialize();
 
 		JLabel label = createJLabelWithValue("Search the dynamics!!!");
-		JPanel panels = createDatePanel();
+		JPanel panels = createDatePanel(drone);
 
 		panels.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
@@ -38,7 +41,7 @@ public class HistoryScreen extends JFrame {
 
 	}
 
-	public JPanel createDatePanel() {
+	public JPanel createDatePanel(Drones drone) {
 		JPanel panel = new JPanel(new GridLayout(4, 1,10,15));
 
 		JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
@@ -51,7 +54,13 @@ public class HistoryScreen extends JFrame {
 		inputPanel.add(yearField);
 
 		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
-
+		submitButton.addActionListener(e->{
+			System.out.println(drone.getCurrentDroneDynamics(new DroneDate(26, 12, 2023)).size());
+			
+		});
+		
+		
+		
 		panel.add(inputPanel);
 		panel.add(submitButton);
 
