@@ -52,7 +52,7 @@ public class Aditional_Info extends JFrame{
         JButton JB4= giveMeFirstNavigationButton("History", Color.blue);
 		JB4.addActionListener(e->{
 			// This Button should display the last 5 DroneDynamics !!
-			System.out.print("This got clicked");
+			HistoryScreen histScreen= new HistoryScreen();
 			frame.dispose();
 	
 			
@@ -190,7 +190,7 @@ public class Aditional_Info extends JFrame{
         
         JLabel[] labels1 = {j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17, j18, j19, j20, d1, d2, d3, d4, d5, d6 ,d7 ,d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22};
         for (int i = 0; i < labels1.length; i++) {
-            labels1[i].setFont(new Font("Segoe UI", Font.ITALIC, 25));
+            labels1[i].setFont(new Font("Segoe UI", Font.BOLD, 25));
         }
         
         return dataPanel;
