@@ -22,16 +22,16 @@ import background.Drones;
 
 public class HistoryScreen extends JFrame {
 	protected JFrame frame;
-	protected JTextField minute1;
-	protected JTextField minute2;
-	protected JTextField hour1;
-	protected JTextField hour2;
-	protected JTextField day1;
-	protected JTextField day2;
-	protected JTextField month1;
-	protected JTextField month2;
-	protected JTextField year1;
-	protected JTextField year2;
+	protected JTextField minute1 =giveMeTextField("MI", 10);
+	protected JTextField minute2=giveMeTextField("MI", 10);
+	protected JTextField hour1=giveMeTextField("HH", 10);
+	protected JTextField hour2=giveMeTextField("HH", 10);
+	protected JTextField day1= giveMeTextField("DD", 10);
+	protected JTextField day2=giveMeTextField("HH", 10);
+	protected JTextField month1= giveMeTextField("MM", 10);
+	protected JTextField month2=giveMeTextField("HH", 10);
+	protected JTextField year1 = giveMeTextField("YYYY", 10);
+	protected JTextField year2= giveMeTextField("YYYY", 10);
 
 
 	public HistoryScreen(Drones drone) {
@@ -64,11 +64,12 @@ public class HistoryScreen extends JFrame {
 	public JPanel createDatePanel(Drones drone) {
 		JPanel panel = new JPanel(new GridLayout(6, 2,10,20));
 		JPanel inputPanel1= createDurationPanel(minute1,hour1, day1, month1,year1);
-		JPanel inputPanel2= createDurationPanel(minute1,hour1, day1, month1,year1);
+		JPanel inputPanel2= createDurationPanel(minute2,hour2, day2, month2,year2);
 		
 		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
 			
+			System.out.println(minute1.getText());
 			
 			
 		});
@@ -91,12 +92,6 @@ public class HistoryScreen extends JFrame {
 	
 	public JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d,JTextField e){
 		JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
-		a= giveMeTextField("MI", 10);
-		b = giveMeTextField("HH", 10);
-		c =  giveMeTextField("DD", 10);
-		d = giveMeTextField("MM", 10);
-		e = giveMeTextField("YYYY", 10);
-		
 		inputPanel1.add(a);
 		inputPanel1.add(b);
 		inputPanel1.add(c);
