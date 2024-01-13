@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import background.DroneDynamics;
 import background.DroneTime;
@@ -25,6 +26,7 @@ import background.Drones;
 
 public class HistoryScreen extends JFrame{
 	protected JFrame frame;
+	JLabel dynamicsLabel = new JLabel();
 	protected JTextField minute1 =giveMeTextField("7", 10);
 	protected JTextField minute2=giveMeTextField("12", 10);
 	protected JTextField hour1=giveMeTextField("9", 10);
@@ -35,26 +37,22 @@ public class HistoryScreen extends JFrame{
 	protected JTextField month2=giveMeTextField("12", 10);
 	protected JTextField year1 = giveMeTextField("2023", 10);
 	protected JTextField year2= giveMeTextField("2023", 10);
-
+	String x = stringifier(year1, month1, day1, hour1, minute1);
+	String y = stringifier(year2, month2, day2, hour2, minute2);
+	DroneTime a = new DroneTime(x);
+	DroneTime b = new DroneTime(y);
 
 	public HistoryScreen(Drones drone) {
 		// TODO Auto-generated constructor stub
 		frame = initialize();
 
-		JLabel label = createJLabelWithValue("Search the dynamics!!!");
-
+		JLabel label = createJLabelWithValue("Search the dynamics!!!  Please time period under 5 min!");
+		JPanel inputAndDynamicPanel = new JPanel(new BorderLayout());
 		JPanel panels1 = createDatePanel(drone);
 		
-		
-		
-		
-		
-		
-	
-		
 		panels1.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
-		
 		label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
+		
 		frame.add(label, BorderLayout.NORTH);
 		frame.add(panels1, BorderLayout.CENTER);
 
@@ -65,40 +63,32 @@ public class HistoryScreen extends JFrame{
 	}
 
 	public JPanel createDatePanel(Drones drone) {
-		JPanel panel = new JPanel(new GridLayout(6, 2,10,20));
+		JPanel panel = new JPanel(new GridLayout(7, 2,10,20));
 		JPanel inputPanel1= createDurationPanel(minute1,hour1, day1, month1,year1);
 		JPanel inputPanel2= createDurationPanel(minute2,hour2, day2, month2,year2);
-		System.out.println(year1.getText());
-		
-		
+
 		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
-			String x = stringifier(year1, month1, day1, hour1, minute1);
-			String y = stringifier(year2, month2, day2, hour2, minute2);
-			DroneTime a = new DroneTime(x);
-			DroneTime b = new DroneTime(y);
-			
+
 			if(a.getExactTime()-b.getExactTime()>300 || a.getExactTime()-b.getExactTime()<-300) {
 				JOptionPane f = new JOptionPane();
 				f.showMessageDialog(this,"The difference must be less than 5 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
 			}
-			
 			else {
-				System.out.println(drone.getCurrentDroneDynamics(a, b));
+				dynamicsLabel = createJLabelWithValue("             Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics during the specified period.");
+				dynamicsLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+				System.out.println(drone.getCurrentDroneDynamics(a, b).size());
+				panel.add(dynamicsLabel);
+	            //revalidate();
+	            //repaint();
+	            frame.pack();
 			}
 		});
 		
-
-		
-
 		panel.add(inputPanel1);
 		panel.add(inputPanel2);
 		panel.add(submitButton);
-
 		
-		
-		
-
 		return panel;
 	}
 	
@@ -106,9 +96,7 @@ public class HistoryScreen extends JFrame{
 		String x = new String(a.getText()+"-"+b.getText()+"-"+c.getText()+"T"+d.getText()+":"+e.getText()+":0+0:0");
 		return x;
 	}
-	
-	
-	
+
 	public JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d,JTextField e){
 		JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
 		inputPanel1.add(a);
@@ -117,14 +105,10 @@ public class HistoryScreen extends JFrame{
 		inputPanel1.add(d);
 		inputPanel1.add(e);
 		
-		
 		return inputPanel1;
 		
 	}
 	
-	
-	
-
 	protected JFrame initialize() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
@@ -148,8 +132,6 @@ public class HistoryScreen extends JFrame{
         return textField;
     }
 	
-	
-
 	@Override
 	public void dispose() {
 
