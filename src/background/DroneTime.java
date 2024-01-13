@@ -26,7 +26,11 @@ public class DroneTime extends Thread {
 		seconds = Double.valueOf(sub[5]);
 		timezonehour = Integer.valueOf(sub[6]);
 		timezonemin = Integer.valueOf(sub[7]);
-		
+		try {
+			this.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -70,7 +74,7 @@ public class DroneTime extends Thread {
 		return year+"/"+monthName+"/"+day+"\t  "+hour+":"+minute+":"+seconds;
 	}
 
-	
+	/*
 	public boolean isEqualToTheDate(DroneDate obj) {
 		if (obj==null) {
 			throw new NullPointerException();
@@ -80,7 +84,7 @@ public class DroneTime extends Thread {
 	
 		
 	}
-	
+	*/
 
 	
 	
