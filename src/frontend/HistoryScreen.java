@@ -33,7 +33,7 @@ public class HistoryScreen extends JFrame {
 		
 
 		centerFrameOnScreen(frame);
-		
+		frame.pack();
 		frame.setVisible(true);
 
 	}
