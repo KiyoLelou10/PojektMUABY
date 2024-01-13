@@ -24,8 +24,9 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 	private final static Logger LOG = Logger.getLogger(DroneDynamics.class.getName());
 	
 	
-	public DroneDynamics(int id,int speed,double latitude, 
-			double longitude,String time,String last,int battstat,String stat,double roll,double pitch,double yaw) throws ValueLessZeroException{
+	public DroneDynamics(int id,int speed,double latitude,double longitude,
+			String time,String last,int battstat,String stat,double roll,double pitch,double yaw) 
+		throws ValueLessZeroException{
 		
 		align_roll = roll;
 		align_pitch = pitch;

@@ -26,27 +26,23 @@ import background.Drones;
 
 public class HistoryScreen extends JFrame{
 	protected JFrame frame;
-	JLabel dynamicsLabel = new JLabel();
-	protected JTextField minute1 =giveMeTextField("7", 10);
-	protected JTextField minute2=giveMeTextField("12", 10);
-	protected JTextField hour1=giveMeTextField("9", 10);
-	protected JTextField hour2=giveMeTextField("9", 10);
-	protected JTextField day1= giveMeTextField("26", 10);
-	protected JTextField day2=giveMeTextField("26", 10);
-	protected JTextField month1= giveMeTextField("12", 10);
-	protected JTextField month2=giveMeTextField("12", 10);
-	protected JTextField year1 = giveMeTextField("2023", 10);
-	protected JTextField year2= giveMeTextField("2023", 10);
-	String x = stringifier(year1, month1, day1, hour1, minute1);
-	String y = stringifier(year2, month2, day2, hour2, minute2);
-	DroneTime a = new DroneTime(x);
-	DroneTime b = new DroneTime(y);
+	protected JLabel dynamicsLabel = new JLabel();
+	protected JTextField minute1 =giveMeTextField("MIN", 10);
+	protected JTextField minute2=giveMeTextField("MIN", 10);
+	protected JTextField hour1=giveMeTextField("H", 10);
+	protected JTextField hour2=giveMeTextField("H", 10);
+	protected JTextField day1= giveMeTextField("DD", 10);
+	protected JTextField day2=giveMeTextField("DD", 10);
+	protected JTextField month1= giveMeTextField("MM", 10);
+	protected JTextField month2=giveMeTextField("MM", 10);
+	protected JTextField year1 = giveMeTextField("YYYY", 10);
+	protected JTextField year2= giveMeTextField("YYYY", 10);
 
 	public HistoryScreen(Drones drone) {
 		// TODO Auto-generated constructor stub
 		frame = initialize();
 
-		JLabel label = createJLabelWithValue("Search the dynamics!!!  Please time period under 5 min!");
+		JLabel label = createJLabelWithValue("Search the dynamics!!! Time difference has to be under 10 min!");
 		JPanel inputAndDynamicPanel = new JPanel(new BorderLayout());
 		JPanel panels1 = createDatePanel(drone);
 		
@@ -69,13 +65,19 @@ public class HistoryScreen extends JFrame{
 
 		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
-
-			if(a.getExactTime()-b.getExactTime()>300 || a.getExactTime()-b.getExactTime()<-300) {
+			
+			String x = stringifier(year1, month1, day1, hour1, minute1);
+			String y = stringifier(year2, month2, day2, hour2, minute2);
+			DroneTime a = new DroneTime(x);
+			DroneTime b = new DroneTime(y);
+			
+			panel.remove(dynamicsLabel);
+			if(a.getExactTime()-b.getExactTime()>600 || a.getExactTime()-b.getExactTime()<-600) {
 				JOptionPane f = new JOptionPane();
-				f.showMessageDialog(this,"The difference must be less than 5 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
+				f.showMessageDialog(this,"The difference must be less than 10 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				dynamicsLabel = createJLabelWithValue("             Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics during the specified period.");
+				dynamicsLabel = createJLabelWithValue("               Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics where drone was 'ON'.");
 				dynamicsLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
 				System.out.println(drone.getCurrentDroneDynamics(a, b).size());
 				panel.add(dynamicsLabel);
@@ -83,6 +85,7 @@ public class HistoryScreen extends JFrame{
 	            //repaint();
 	            frame.pack();
 			}
+			
 		});
 		
 		panel.add(inputPanel1);

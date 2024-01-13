@@ -3,6 +3,9 @@ import frontend.Firstwindow;
 import frontend.Loading_Screen;
 import background.DroneTime;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.sound.midi.SysexMessage;
 
 import background.Count;
@@ -19,7 +22,8 @@ public class test1 extends Thread {
 //			System.out.print(Speedclasses.slowlist.get(i));
 //			
 //		}
-		
+		Logger log = Logger.getLogger("");
+		log.setLevel(Level.SEVERE);
 		test1 thread1= new test1();
 		thread1.start();
 		Loading_Screen load = new Loading_Screen();

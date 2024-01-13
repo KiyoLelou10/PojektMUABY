@@ -1,6 +1,7 @@
 package background;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class DroneTime extends Thread {
 	private int year;
@@ -12,20 +13,31 @@ public class DroneTime extends Thread {
 	private int timezonehour;
 	private int timezonemin;
 	private double exact_Time;
-	
+	private final static Logger LOG = Logger.getLogger(DroneTime.class.getName());
 	
 	//divides time String into attributes for the exact time
 	public DroneTime(String time) {
 		String sub[] = time.split("[-T:+]");
 		this.start();
-		year = Integer.valueOf(sub[0]);
-		month = Integer.valueOf(sub[1]);
-		day = Integer.valueOf(sub[2]);
-		hour = Integer.valueOf(sub[3]);
-		minute = Integer.valueOf(sub[4]);
-		seconds = Double.valueOf(sub[5]);
-		timezonehour = Integer.valueOf(sub[6]);
-		timezonemin = Integer.valueOf(sub[7]);
+		try {
+			year = Integer.valueOf(sub[0]);
+			month = Integer.valueOf(sub[1]);
+			day = Integer.valueOf(sub[2]);
+			hour = Integer.valueOf(sub[3]);
+			minute = Integer.valueOf(sub[4]);
+			seconds = Double.valueOf(sub[5]);
+			timezonehour = Integer.valueOf(sub[6]);
+			timezonemin = Integer.valueOf(sub[7]);
+		}
+		catch (NumberFormatException e) {
+			System.out.println("Something other than a number was assigned to a time attribute!");
+			e.printStackTrace();
+		}
+		if(year<2023||month>12||day>31||hour>24||minute>60||seconds>60) {
+			LOG.severe("This is not possible by our undertanding oftime documentation!!");
+			return;
+		}
+		
 		try {
 			this.join();
 		} catch (InterruptedException e) {
