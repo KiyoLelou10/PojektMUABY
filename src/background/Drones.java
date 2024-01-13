@@ -34,7 +34,9 @@ public class Drones extends DroneTypes {
 			return;
 		}
 		if(carriage_weight<0)throw new ValueLessZeroException("Carriage weight of id: " +typeid + "cannot be"); 
-		//getDynamics();
+		
+		getDynamics();
+		
 		Count.append(this); 
 		
 	 }
@@ -45,13 +47,12 @@ public class Drones extends DroneTypes {
 	 
 	
 	 public void getDynamics() {
-		 System.out.println(DroneBuilder.list.size());
 			for(DroneDynamics x: DroneBuilder.list) {
 				if(x.getId() == this.droneid) {
 					this.list.add(x);
 				}
 			}
-			System.out.println(this.list.size());
+			
 			sortDynamics();
 			
 			

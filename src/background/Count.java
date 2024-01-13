@@ -9,9 +9,11 @@ public class Count{
 	protected static ArrayList<Drones> list = new ArrayList<>();
 	protected static boolean activity_flag = false;
 	
+	
+	
 	static protected void append(Drones object) {
 		list.add(object);
-		for(Drones x : list)x.getDynamics();
+		
 	}
 	
 	static public void createLists() {

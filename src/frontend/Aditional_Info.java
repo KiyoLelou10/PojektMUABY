@@ -54,7 +54,7 @@ public class Aditional_Info extends JFrame{
 			// This Button should display the last 5 DroneDynamics !!
 			//System.out.println(drone.getDynamicSize());
 			HistoryScreen histScreen= new HistoryScreen(drone);
-			frame.dispose();
+			//frame.dispose();
 	
 			
 		});
