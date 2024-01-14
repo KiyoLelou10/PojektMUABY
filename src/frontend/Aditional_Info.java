@@ -1,4 +1,3 @@
-
 package frontend;
 
 import java.awt.EventQueue;
@@ -49,21 +48,27 @@ public class Aditional_Info extends JFrame{
 		        }
 		});
 		
-        JButton JB4= giveMeFirstNavigationButton("History", Color.blue);
-		JB4.addActionListener(e->{
-			// This Button should display the last 5 DroneDynamics !!
-			//System.out.println(drone.getDynamicSize());
-			HistoryScreen histScreen= new HistoryScreen(drone);
-			//frame.dispose();
-	
-			
+        JButton JB4 = giveMeFirstNavigationButton("Refresh", Color.darkGray);
+		JB4.addActionListener(e -> {
+			dispose();
+			new Aditional_Info(drone);
 		});
+
+		JButton JB5 = giveMeFirstNavigationButton("History", Color.blue);
+		JB5.addActionListener(e -> {
+			// This Button should display the last 5 DroneDynamics !!
+			// System.out.println(drone.getDynamicSize());
+			HistoryScreen histScreen = new HistoryScreen(drone);
+			// frame.dispose();
+		});
+
 		
         frame.add(panel1);
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(JB3);
         buttonPanel.add(JB4);
+        buttonPanel.add(JB5);
         
         frame.setLayout(new BorderLayout());
         
