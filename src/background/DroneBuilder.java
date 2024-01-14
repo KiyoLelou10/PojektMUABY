@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ public class DroneBuilder extends Thread {
 	private static int Countdynamic;
 	
 	protected static ArrayList<DroneDynamics> list = new ArrayList<DroneDynamics>();
+	
 	
 	private static final String USER_AGENT = "Kiyotaka";
 	private static final String ENDPOINT_URL = "http://dronesim.facets-labs.com/api/drones";
@@ -64,7 +66,8 @@ public class DroneBuilder extends Thread {
 		APIreader(ENDPOINT_URL2+"?format=json");
 		Countdynamic = Integer.valueOf(response.split("[:,]")[1]);
 		
-		System.out.println("These are the dynamics: " +Countdynamic +"/"+Countdrone);
+		Logger LOG = Logger.getLogger(DroneBuilder.class.getName());
+		LOG.info("These are the dynamics: " +Countdynamic +"/"+Countdrone);
 	}
 	
 	public static void APIreader(String x) {

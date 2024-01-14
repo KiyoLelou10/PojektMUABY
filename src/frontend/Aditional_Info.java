@@ -50,7 +50,7 @@ public class Aditional_Info extends JFrame{
 		
         JButton JB4 = giveMeFirstNavigationButton("Refresh", Color.darkGray);
 		JB4.addActionListener(e -> {
-			dispose();
+			frame.dispose();
 			new Aditional_Info(drone);
 		});
 

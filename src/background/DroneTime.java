@@ -34,7 +34,7 @@ public class DroneTime extends Thread {
 			e.printStackTrace();
 		}
 		if(year<2023||month>12||day>31||hour>24||minute>60||seconds>60) {
-			LOG.severe("This is not possible by our undertanding oftime documentation!!");
+			LOG.severe("This is not possible by our undertanding of time documentation!!");
 			return;
 		}
 		

@@ -38,7 +38,8 @@ public class test1 extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("THis is Thread working");
+		Logger log = Logger.getLogger(test1.class.getName());
+		log.info("THis is Thread working");
 		while(true) {
 			
 			//every 10 minutes the drone data is updated
@@ -46,7 +47,8 @@ public class test1 extends Thread {
 			
 				sleep(600000);
 				DroneBuilder y = new DroneBuilder();
-				System.out.println("This is working");
+				
+				log.info("This thread is working");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
