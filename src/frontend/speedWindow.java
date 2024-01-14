@@ -24,11 +24,13 @@ public class speedWindow extends JFrame {
 //		JFrame frame=initialize();
 //	}
 	private JFrame frame;
+	int speed;
 
 	public speedWindow(ArrayList<Drones> list) {
 		frame=initialize();
 		//Content panel is thought to act as a one division in a frame which could
 		//be adjusted to a scroll pane
+		speed = list.get(0).getMax_speed();
 		
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
@@ -119,6 +121,17 @@ public class speedWindow extends JFrame {
 			Drone_Gui gui= new Drone_Gui();
 			
 		});
+		JButton J7= giveMeFirstNavigationButton("Refresh",Color.DARK_GRAY);
+		J7.addActionListener(e->{
+			frame.dispose();
+			 if (speed < 35) {
+		            JFrame frame= new speedWindow(Speedclasses.getSlowlist());
+		        } else if (speed>= 35 && speed < 60) {
+		        	JFrame frame= new speedWindow(Speedclasses.getAveragelist());
+		        } else if (speed >= 60) {
+		        	JFrame frame= new speedWindow(Speedclasses.getFastlist());
+		        }
+		});
 
 		headerPanel.add(j1);
 		headerPanel.add(j2);
@@ -126,6 +139,7 @@ public class speedWindow extends JFrame {
 		headerPanel.add(j4);
 		headerPanel.add(j5);
 		headerPanel.add(J6);
+		headerPanel.add(J7);
 
 		
 		
