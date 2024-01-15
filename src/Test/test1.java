@@ -3,6 +3,7 @@ import frontend.Firstwindow;
 import frontend.Loading_Screen;
 import background.DroneTime;
 
+import java.net.ConnectException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +28,13 @@ public class test1 extends Thread {
 		test1 thread1= new test1();
 		thread1.start();
 		Loading_Screen load = new Loading_Screen();
-		DroneBuilder x = new DroneBuilder();
+		
+		try {
+			DroneBuilder x = new DroneBuilder();
+		} catch (ConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		load.dispose();
 		Firstwindow window= new Firstwindow();
 		
@@ -46,7 +53,12 @@ public class test1 extends Thread {
 			try {
 			
 				sleep(600000);
-				DroneBuilder y = new DroneBuilder();
+				try {
+					DroneBuilder y = new DroneBuilder();
+				} catch (ConnectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				log.info("This thread is working");
 			} catch (InterruptedException e) {

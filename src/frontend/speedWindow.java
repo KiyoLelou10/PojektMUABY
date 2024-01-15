@@ -24,7 +24,7 @@ public class speedWindow extends JFrame {
 //		JFrame frame=initialize();
 //	}
 	private JFrame frame;
-	int speed;
+	private int speed;
 
 	public speedWindow(ArrayList<Drones> list) {
 		frame=initialize();

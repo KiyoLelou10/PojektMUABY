@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import background.Count;
+import background.ListIsEmptyException;
 import background.Speedclasses;
 
 import java.awt.event.ActionListener;
@@ -129,14 +130,35 @@ public class Drone_Gui extends JFrame {
 			String command = e.getActionCommand();
 	        frame.dispose();
 	        if ("Slow Speed Drones!!".equals(command)) {
-	            JFrame frame= new speedWindow(Speedclasses.getSlowlist());
+	        	
+	        	try {
+	        		JFrame frame= new speedWindow(Speedclasses.getSlowlist());
+	        	}
+	        	catch(ListIsEmptyException f) {
+	        		System.out.println(f.getMessage());
+	        		Drone_Gui problem = new Drone_Gui();
+	        	}
 	            System.out.println("Slow Drone Action");
 	        } else if ("Medium Speed Drones!!".equals(command)) {
-	        	JFrame frame= new speedWindow(Speedclasses.getAveragelist());
+	        	
+	        	try {
+	        		JFrame frame= new speedWindow(Speedclasses.getAveragelist());
+	        	}
+	        	catch(ListIsEmptyException f) {
+	        		System.out.println(f.getMessage());
+	        		Drone_Gui problem = new Drone_Gui();
+	        	}
 	        	//System.out.println(Speedclasses.averagelist);
 	            System.out.println("Medium Drone Action");
 	        } else if ("Fast Speed Drones!!".equals(command)) {
-	        	JFrame frame= new speedWindow(Speedclasses.getFastlist());
+	        	
+	        	try {
+	        		JFrame frame= new speedWindow(Speedclasses.getFastlist());
+	        	}
+	        	catch(ListIsEmptyException f) {
+	        		System.out.println(f.getMessage());
+	        		Drone_Gui problem = new Drone_Gui();
+	        	}
 	            System.out.println("Fast Drone Action");
 	        }
 	    }

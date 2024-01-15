@@ -3,6 +3,7 @@ package background;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +32,7 @@ public class DroneBuilder extends Thread {
 	private static final String TOKEN = "Token f9590ca1e9c14e24c99e1adeb03429c10318c8d6";
 	private static final String ENDPOINT_URL2 = "http://dronesim.facets-labs.com/api/dronedynamics/";
 	
-	public DroneBuilder() {
+	public DroneBuilder() throws ConnectException{
 		Count.activity_flag = false;
 		Count.list.clear();
 		getCount();

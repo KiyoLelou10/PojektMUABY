@@ -20,15 +20,18 @@ public class Speedclasses {
 		fastlist.clear();
 	}
 
-	public static ArrayList<Drones> getSlowlist() {
+	public static ArrayList<Drones> getSlowlist() throws ListIsEmptyException {
+		if(slowlist.isEmpty() == true)throw new ListIsEmptyException();
 		return slowlist;
 	}
 
-	public static ArrayList<Drones> getAveragelist() {
+	public static ArrayList<Drones> getAveragelist() throws ListIsEmptyException {
+		if(averagelist.isEmpty() == true)throw new ListIsEmptyException();
 		return averagelist;
 	}
 
-	public static ArrayList<Drones> getFastlist() {
+	public static ArrayList<Drones> getFastlist() throws ListIsEmptyException {
+		if(fastlist.isEmpty() == true)throw new ListIsEmptyException();
 		return fastlist;
 	}
 	
