@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -24,13 +25,21 @@ public class speedWindow extends JFrame {
 //		JFrame frame=initialize();
 //	}
 	private JFrame frame;
-	private int speed;
+	protected Method meth;
+	
 
 	public speedWindow(ArrayList<Drones> list) {
 		frame=initialize();
 		//Content panel is thought to act as a one division in a frame which could
 		//be adjusted to a scroll pane
-		speed = list.get(0).getMax_speed();
+		String x;
+		try {
+			x = Speedclasses.get_Name();
+			meth = Speedclasses.class.getMethod(x);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 		
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
@@ -86,7 +95,7 @@ public class speedWindow extends JFrame {
 		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
 		j6.addActionListener(e->{
 			dispose();
-			Aditional_Info info= new Aditional_Info(drone);
+			Aditional_Info info= new Aditional_Info(drone,meth);
 		});
 
 		dataPanel.add(j1);
@@ -124,13 +133,17 @@ public class speedWindow extends JFrame {
 		JButton J7= giveMeFirstNavigationButton("Refresh",Color.DARK_GRAY);
 		J7.addActionListener(e->{
 			frame.dispose();
-			 if (speed < 35) {
-		            JFrame frame= new speedWindow(Speedclasses.getSlowlist());
-		        } else if (speed>= 35 && speed < 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.getAveragelist());
-		        } else if (speed >= 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.getFastlist());
-		        }
+			try {
+				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+				JFrame frame = new speedWindow(list); 
+				
+			} catch (ListIsEmptyException e1 ) {
+				e1.printStackTrace();
+				Drone_Gui gui= new Drone_Gui();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				Drone_Gui gui= new Drone_Gui();
+			}
 		});
 
 		headerPanel.add(j1);

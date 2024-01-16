@@ -8,6 +8,8 @@ public class Speedclasses {
 	protected static ArrayList<Drones> slowlist = new ArrayList<>();
 	protected static ArrayList<Drones> averagelist = new ArrayList<>();
 	protected static ArrayList<Drones> fastlist = new ArrayList<>();
+	protected static String name;
+	
 	
 	public static void  printslow() {
 		System.out.println(slowlist.toString());
@@ -22,16 +24,19 @@ public class Speedclasses {
 
 	public static ArrayList<Drones> getSlowlist() throws ListIsEmptyException {
 		if(slowlist.isEmpty() == true)throw new ListIsEmptyException();
+		name = new String("getSlowlist");
 		return slowlist;
 	}
 
 	public static ArrayList<Drones> getAveragelist() throws ListIsEmptyException {
 		if(averagelist.isEmpty() == true)throw new ListIsEmptyException();
+		name = new String("getAveragelist");
 		return averagelist;
 	}
 
 	public static ArrayList<Drones> getFastlist() throws ListIsEmptyException {
 		if(fastlist.isEmpty() == true)throw new ListIsEmptyException();
+		name = new String("getFastlist");
 		return fastlist;
 	}
 	
@@ -39,6 +44,12 @@ public class Speedclasses {
 	public static void sort_Speed_Classes() {
 		Collections.sort(slowlist,Comparator.comparing(Drones::get_Current_Drone_Speed));
 	}
+	
+	//this method is used to know in the front end which list is currently used
+	public static String get_Name() throws Exception {
+		if(name == null)throw new Exception("Utilizing this method at this point does not make sense");
+		return name;
+	} 
 	
 	
 	

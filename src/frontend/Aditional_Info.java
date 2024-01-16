@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -22,15 +24,19 @@ import javax.swing.border.Border;
 
 import background.DroneDynamics;
 import background.Drones;
+import background.ListIsEmptyException;
 import background.Speedclasses;
 
 public class Aditional_Info extends JFrame{
 
 	private JFrame frame;
 	protected Border border;
+	protected Method meth;
+	protected static HistoryScreen histScreen;
 	
-	public Aditional_Info(Drones drone) {
+	public Aditional_Info(Drones drone, Method meth) {
 		frame=initialize();
+		this.meth = meth;
 		JPanel panel1 = giveDataPanel(drone);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panel1.setFont(new Font("Times New Roman",Font.BOLD,40));
@@ -38,27 +44,46 @@ public class Aditional_Info extends JFrame{
         JButton JB3= giveMeFirstNavigationButton("<-Back", Color.red);
 		JB3.addActionListener(e->{
 			frame.dispose();
-		        frame.dispose();
-		        if (drone.getMax_speed() < 35) {
-		            JFrame frame= new speedWindow(Speedclasses.getSlowlist());
-		        } else if (drone.getMax_speed()>= 35 && drone.getMax_speed() < 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.getAveragelist());
-		        } else if (drone.getMax_speed() >= 60) {
-		        	JFrame frame= new speedWindow(Speedclasses.getFastlist());
-		        }
+		    try {
+				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+				speedWindow speedy = new speedWindow(list);
+			}
+				 catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+			}
+		        
 		});
 		
         JButton JB4 = giveMeFirstNavigationButton("Refresh", Color.darkGray);
 		JB4.addActionListener(e -> {
 			frame.dispose();
-			new Aditional_Info(drone);
+			try {
+				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+				for(Drones drone1: list) {
+					if(drone1.getDroneid() == drone.getDroneid()) {
+						Aditional_Info info= new Aditional_Info(drone,meth);
+					}
+				}
+				if(histScreen.flag == true) {
+					histScreen.dispose();
+					histScreen = new HistoryScreen(drone);
+				}
+				
+			} catch (ListIsEmptyException e1 ) {
+				e1.printStackTrace();
+				Drone_Gui gui= new Drone_Gui();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				Drone_Gui gui= new Drone_Gui();
+			}
 		});
 
 		JButton JB5 = giveMeFirstNavigationButton("History", Color.blue);
 		JB5.addActionListener(e -> {
 			// This Button should display the last 5 DroneDynamics !!
 			// System.out.println(drone.getDynamicSize());
-			HistoryScreen histScreen = new HistoryScreen(drone);
+			histScreen = new HistoryScreen(drone);
 			// frame.dispose();
 		});
 

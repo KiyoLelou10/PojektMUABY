@@ -8,6 +8,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -27,35 +32,54 @@ import background.Drones;
 public class HistoryScreen extends JFrame{
 	protected JFrame frame;
 	protected JLabel dynamicsLabel = new JLabel();
-	protected JTextField minute1 =giveMeTextField("MIN", 10);
-	protected JTextField minute2=giveMeTextField("MIN", 10);
-	protected JTextField hour1=giveMeTextField("H", 10);
-	protected JTextField hour2=giveMeTextField("H", 10);
-	protected JTextField day1= giveMeTextField("DD", 10);
-	protected JTextField day2=giveMeTextField("DD", 10);
-	protected JTextField month1= giveMeTextField("MM", 10);
-	protected JTextField month2=giveMeTextField("MM", 10);
-	protected JTextField year1 = giveMeTextField("YYYY", 10);
-	protected JTextField year2= giveMeTextField("YYYY", 10);
-
+	protected JTextField minute1 =giveMeTextField("", 10);
+	protected JTextField minute2=giveMeTextField("", 10);
+	protected JTextField hour1=giveMeTextField("", 10);
+	protected JTextField hour2=giveMeTextField("", 10);
+	protected JTextField day1= giveMeTextField("", 10);
+	protected JTextField day2=giveMeTextField("", 10);
+	protected JTextField month1= giveMeTextField("", 10);
+	protected JTextField month2=giveMeTextField("", 10);
+	protected JTextField year1 = giveMeTextField("", 10);
+	protected JTextField year2= giveMeTextField("", 10);
+	protected JTextField[] textFields = {minute1, hour1, day1, month1, year1, minute2, hour2, day2, month2, year2};
+	protected JButton submitButton;
+	protected static boolean flag = false;
+	
 	public HistoryScreen(Drones drone) {
 		// TODO Auto-generated constructor stub
 		frame = initialize();
-
-		JLabel label = createJLabelWithValue("Search the dynamics!!! Time difference has to be under 10 min!");
+		flag = true;
+		
+		JLabel label = createJLabelWithValue("Search the dynamics! Max difference 10 min! In this order: min,h,dd,mm,yyyy");
 		JPanel inputAndDynamicPanel = new JPanel(new BorderLayout());
 		JPanel panels1 = createDatePanel(drone);
-		
+		addEnterKeyListenerToTextFields(textFields);
 		panels1.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
 		label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
 		
+		frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    submitButton.doClick();
+                }
+            }
+        });
+		
+		frame.addWindowListener((WindowListener) new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		        flag = false;
+		        super.windowClosing(e);
+		    }
+		});
 		frame.add(label, BorderLayout.NORTH);
 		frame.add(panels1, BorderLayout.CENTER);
 
 		centerFrameOnScreen(frame);
 		frame.pack();
 		frame.setVisible(true);
-
 	}
 
 	public JPanel createDatePanel(Drones drone) {
@@ -63,7 +87,7 @@ public class HistoryScreen extends JFrame{
 		JPanel inputPanel1= createDurationPanel(minute1,hour1, day1, month1,year1);
 		JPanel inputPanel2= createDurationPanel(minute2,hour2, day2, month2,year2);
 
-		JButton submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
+		submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
 			
 			String x = stringifier(year1, month1, day1, hour1, minute1);
@@ -71,18 +95,24 @@ public class HistoryScreen extends JFrame{
 			DroneTime a = new DroneTime(x);
 			DroneTime b = new DroneTime(y);
 			
-			panel.remove(dynamicsLabel);
+			boolean isDynamicsLabelAdded = panel.isAncestorOf(dynamicsLabel);
+
+			if (isDynamicsLabelAdded) {
+		        // Remove the dynamicsLabel from the panel
+		        panel.remove(dynamicsLabel);
+		        panel.revalidate();
+		        panel.repaint();
+		    }
 			if(a.getExactTime()-b.getExactTime()>600 || a.getExactTime()-b.getExactTime()<-600) {
 				JOptionPane f = new JOptionPane();
 				f.showMessageDialog(this,"The difference must be less than 10 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
+				
 			}
 			else {
 				dynamicsLabel = createJLabelWithValue("               Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics where drone was 'ON'.");
 				dynamicsLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
 				System.out.println(drone.getCurrentDroneDynamics(a, b).size());
 				panel.add(dynamicsLabel);
-	            //revalidate();
-	            //repaint();
 	            frame.pack();
 			}
 			
@@ -126,6 +156,12 @@ public class HistoryScreen extends JFrame{
 
 	}
 	
+	/*@Override
+	public void setDefaultCloseOperation(int operation) {
+		System.out.println("Used");
+		super.setDefaultCloseOperation(operation);
+		flag = false;
+	}*/
 	
 	public JTextField giveMeTextField(String text, int len) {
         JTextField textField = new JTextField(text, len);
@@ -166,5 +202,28 @@ public class HistoryScreen extends JFrame{
 		return j1;
 		
 	}
+	private void addEnterKeyListenerToTextFields(JTextField... textFields) {
+        for (JTextField textField : textFields) {
+            textField.addActionListener(e -> focusNextTextField(textField));
+        }
+    }
+
+    private void focusNextTextField(JTextField currentTextField) {
+        // Find the index of the current text field
+        int currentIndex = -1;
+        for (int i = 0; i < textFields.length; i++) {
+            if (textFields[i] == currentTextField) {
+                currentIndex = i;
+                break;
+            }
+        }
+
+        // Set focus to the next text field
+        if (currentIndex != -1 && currentIndex < textFields.length - 1) {
+            textFields[currentIndex + 1].requestFocus();
+        }
+    }
+	
+	
 
 }
