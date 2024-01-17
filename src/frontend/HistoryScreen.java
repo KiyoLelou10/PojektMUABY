@@ -90,10 +90,8 @@ public class HistoryScreen extends JFrame{
 		submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
 			
-			String x = stringifier(year1, month1, day1, hour1, minute1);
-			String y = stringifier(year2, month2, day2, hour2, minute2);
-			DroneTime a = new DroneTime(x);
-			DroneTime b = new DroneTime(y);
+			DroneTime a = DroneTime.stringifier(year1, month1, day1, hour1, minute1);
+			DroneTime b = DroneTime.stringifier(year2, month2, day2, hour2, minute2);
 			
 			boolean isDynamicsLabelAdded = panel.isAncestorOf(dynamicsLabel);
 
@@ -125,10 +123,7 @@ public class HistoryScreen extends JFrame{
 		return panel;
 	}
 	
-	private String stringifier(JTextField a,JTextField b,JTextField c, JTextField d, JTextField e) {
-		String x = new String(a.getText()+"-"+b.getText()+"-"+c.getText()+"T"+d.getText()+":"+e.getText()+":0+0:0");
-		return x;
-	}
+	
 
 	public JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d,JTextField e){
 		JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
@@ -146,7 +141,7 @@ public class HistoryScreen extends JFrame{
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.getContentPane().setEnabled(false);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// frame.setExtendedState(MAXIMIZED_BOTH);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

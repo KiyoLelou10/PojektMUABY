@@ -65,14 +65,12 @@ public class Aditional_Info extends JFrame{
 						Aditional_Info info= new Aditional_Info(drone,meth);
 					}
 				}
-				if(histScreen.flag == true) {
+				if(histScreen.flag ) {
 					histScreen.dispose();
 					histScreen = new HistoryScreen(drone);
 				}
 				
-			} catch (ListIsEmptyException e1 ) {
-				e1.printStackTrace();
-				Drone_Gui gui= new Drone_Gui();
+			
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				Drone_Gui gui= new Drone_Gui();

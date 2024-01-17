@@ -67,9 +67,9 @@ public class Firstwindow extends Frame {
 		frame = new JFrame();
 		
 		
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	        int width = (int)(screenSize.getWidth());
-	        int height = (int)(screenSize.getHeight());
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    int width = (int)(screenSize.getWidth());
+	    int height = (int)(screenSize.getHeight());
 	          
 	    frame.getContentPane().setEnabled(false);
 		frame.setSize(width, height);

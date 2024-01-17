@@ -3,6 +3,8 @@ package background;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import javax.swing.JTextField;
+
 public class DroneTime extends Thread {
 	private int year;
 	private int month;
@@ -86,6 +88,10 @@ public class DroneTime extends Thread {
 		return year+"/"+monthName+"/"+day+"\t  "+hour+":"+minute+":"+seconds;
 	}
 
+	public static DroneTime stringifier(JTextField a,JTextField b,JTextField c, JTextField d, JTextField e) {
+		String x = new String(a.getText()+"-"+b.getText()+"-"+c.getText()+"T"+d.getText()+":"+e.getText()+":0+0:0");
+		return new DroneTime(x);
+	}
 	/*
 	public boolean isEqualToTheDate(DroneDate obj) {
 		if (obj==null) {

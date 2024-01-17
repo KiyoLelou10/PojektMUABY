@@ -137,9 +137,6 @@ public class speedWindow extends JFrame {
 				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
 				JFrame frame = new speedWindow(list); 
 				
-			} catch (ListIsEmptyException e1 ) {
-				e1.printStackTrace();
-				Drone_Gui gui= new Drone_Gui();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				Drone_Gui gui= new Drone_Gui();
