@@ -6,9 +6,7 @@ public class ValueLessZeroException extends RuntimeException{
 		super();
 	}
 
-	public ValueLessZeroException(String attr) {
-		super(attr+" below zero! ");
+	public ValueLessZeroException(String attribute) {
+		super(attribute+" below zero!");
 	};
-	
-	
 }
