@@ -3,7 +3,6 @@ package background;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,63 +14,57 @@ import org.json.JSONObject;
 
 public class DroneBuilder extends Thread {
 	
-	private int droneid,carrweight,maxcarr;
-	private String created,serialnumber,cartype;
-	
-	 
-	
-	private static String response;
-	private static int Countdrone;
-	private static int Countdynamic;
-	
-	protected static ArrayList<DroneDynamics> list = new ArrayList<DroneDynamics>();
-	
-	
+	private static ArrayList<DroneDynamics> dynamicsList = new ArrayList<DroneDynamics>();
 	private static final String USER_AGENT = "Kiyotaka";
 	private static final String ENDPOINT_URL = "http://dronesim.facets-labs.com/api/drones";
 	private static final String TOKEN = "Token f9590ca1e9c14e24c99e1adeb03429c10318c8d6";
 	private static final String ENDPOINT_URL2 = "http://dronesim.facets-labs.com/api/dronedynamics/";
+	private static String response;
+	private static JSONObject dataFile;
+	private static int droneCount;
+	private static int dynamicCount;
+	private int droneID,carriageWeight;
+	private String created,serialNumber,carriageType;
 	
-	public DroneBuilder() throws ConnectException{
+	/*
+	 * This constructor links our class instances with their various respective drone data received by the API.
+	 * This constructor also clears the list containing all old instances of the drones and overwrites them with the new.
+	 * It starts by receiving the amount of drones and drone dynamics, afterwards it receives the dynamics data and lastly 
+	 * it receives the drones data.   
+	 */
+	public DroneBuilder(){
 		Count.activity_flag = false;
 		Count.list.clear();
-		getCount();
-		getDynamics();
-		APIreader(ENDPOINT_URL+"/?limit="+Countdrone+"&format=json");
-		Dronesbuilder();
+		setCount();
+		readDynamics();
+		readAPI(ENDPOINT_URL+"/?limit="+droneCount+"&format=json");
+		dronesBuilder();
 		Count.createLists();
 		Count.activity_flag = true;
-		//getDynamics();
-		
 	}
 	
-	
-	
-	private void getDynamics() {
-		APIreader(ENDPOINT_URL2+"?limit="+Countdynamic+"&format=json");
-		DronedynamicBuilder();
-		/*int i = 10;
-		 while(i<=28800){
-			APIreader(ENDPOINT_URL2+"?limit=10&offset="+i+"&format=json");
-			DronedynamicBuilder();
-			i = i+10;
-			System.out.println(i);
-		}*/
-		
+	private void readDynamics() {
+		readAPI(ENDPOINT_URL2+"?limit="+dynamicCount+"&format=json");
+		droneDynamicBuilder();
 	}
 	
-	private void getCount() {
-		APIreader(ENDPOINT_URL+"/?format=json");
-		Countdrone = Integer.valueOf(response.split("[:,]")[1]);
+	//Reads the amount Drones and Dynamics, these are saved in count attributes.
+	private void setCount() {
+		readAPI(ENDPOINT_URL+"/?format=json");
+		droneCount = Integer.valueOf(response.split("[:,]")[1]);
 		
-		APIreader(ENDPOINT_URL2+"?format=json");
-		Countdynamic = Integer.valueOf(response.split("[:,]")[1]);
+		readAPI(ENDPOINT_URL2+"?format=json");
+		dynamicCount = Integer.valueOf(response.split("[:,]")[1]);
 		
 		Logger LOG = Logger.getLogger(DroneBuilder.class.getName());
-		LOG.info("These are the dynamics: " +Countdynamic +"/"+Countdrone);
+		LOG.info("These are the dynamics: " +dynamicCount +"/"+droneCount);
 	}
 	
-	public static void APIreader(String x) {
+	/*
+	 * This method is responsible for gaining access to the drone API, through an access token. 
+	 * It then follows up by reading all data available on the URL, this is afterwards saved in a JSON object attribute.  
+	 */
+	public static void readAPI(String x) {
 		URL url;
 		try {
 			url = new URL(x);
@@ -79,9 +72,7 @@ public class DroneBuilder extends Thread {
 			connection.setRequestProperty("Authorization", TOKEN);
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("User-Agent", USER_AGENT);
-			int responseCode = connection.getResponseCode();
-		
-//			System.out.println("Response Code " + responseCode);
+			
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String inputLine;
 			StringBuilder response = new StringBuilder();
@@ -89,94 +80,88 @@ public class DroneBuilder extends Thread {
 				response.append(inputLine);
 			}
 			in.close();
-//			System.out.println(response.toString());
-			DroneBuilder.response =response.toString();
-		} catch (MalformedURLException e) {
+			DroneBuilder.response = response.toString();
+			dataFile = new JSONObject(response);
+		} 
+		catch (MalformedURLException e) {
 			System.err.println("Malformed URL: " + e.getLocalizedMessage());
 			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("General IO Exception: " + e.getLocalizedMessage());
+		} 
+		catch (IOException e) {
+			System.err.println("General IO Exception: " + e.getLocalizedMessage());
 			e.printStackTrace();
 		}
-		
 	}
-	private void Dronesbuilder() {
-		JSONObject wholeFile = new JSONObject(response);
-		JSONArray jsonFile = wholeFile.getJSONArray("results");
+	
+	/*
+	 * The following three methods utilize the respective JSON object (response string) and generate our classes attributes 
+	 * by splitting set JSON object. Afterwards objects of the respective classes are instantiated.  
+	*/
+	private void dronesBuilder() {
+		JSONArray jsonFile = dataFile.getJSONArray("results");
 		for (int i = 0; i < jsonFile.length(); i++) {
-			JSONObject o = jsonFile.getJSONObject(i);
-			created = o.getString("created");
-			cartype = o.getString("carriage_type");
-			carrweight = o.getInt("carriage_weight");
-			droneid = o.getInt("id");
-			serialnumber = o.getString("serialnumber");
-			String droneType = o.getString("dronetype");
-			DronesTypesbuilder(droneType);
-				
-			
+			JSONObject dataFile = jsonFile.getJSONObject(i);
+			created = dataFile.getString("created");
+			carriageType = dataFile.getString("carriage_type");
+			carriageWeight = dataFile.getInt("carriage_weight");
+			droneID = dataFile.getInt("id");
+			serialNumber = dataFile.getString("serialnumber");
+			String droneType = dataFile.getString("dronetype");
+			droneTypesBuilder(droneType);
 		}
-		
 	}
-	private void DronesTypesbuilder(String droneType) {
-		APIreader(droneType);
-		JSONObject o = new JSONObject(response);
-		int typeid = o.getInt("id");
-		String manu = o.getString("manufacturer");
-		String name = o.getString("typename");
-		int weight = o.getInt("weight");
-		int maxspeed = o.getInt("max_speed");
-		int battcap = o.getInt("battery_capacity");
-		int contrange = o.getInt("control_range");
-		maxcarr = o.getInt("max_carriage");	
+	private void droneTypesBuilder(String droneType) {
+		readAPI(droneType);
+		int typeID = dataFile.getInt("id");
+		String manufacturer = dataFile.getString("manufacturer");
+		String typeName = dataFile.getString("typename");
+		int weight = dataFile.getInt("weight");
+		int maxSpeed = dataFile.getInt("max_speed");
+		int batteryCapacity = dataFile.getInt("battery_capacity");
+		int controlRange = dataFile.getInt("control_range");
+		int maxcarr = dataFile.getInt("max_carriage");	
 		try{
-			Drones x = new Drones(droneid,created,serialnumber,carrweight,cartype,typeid,manu,name,maxspeed,battcap,contrange,maxcarr,weight);		
-			
+			Drones newDrone = new Drones(droneID,created,serialNumber,carriageWeight,carriageType,
+					typeID,manufacturer,typeName,maxSpeed,batteryCapacity,controlRange,maxcarr,weight);		
 		}
 		catch(ValueLessZeroException | NullPointerException e) {
 			e.printStackTrace();
 		}
-			
-		
-		
 	}
 	
-	
-	private void DronedynamicBuilder() {
-		JSONObject wholeFile = new JSONObject(response);
-		JSONArray jsonFile = wholeFile.getJSONArray("results");
+	private void droneDynamicBuilder() {
+		JSONArray jsonFile = dataFile.getJSONArray("results");
 		for (int i = 0; i < jsonFile.length(); i++) {
-			JSONObject o = jsonFile.getJSONObject(i);
-			String Status = o.getString("status");
-			String time = o.getString("timestamp");
-			double longitude = o.getDouble("longitude");
-			double latitude = o.getDouble("latitude");
-			int battstat = o.getInt("battery_status");
-			String lastseen = o.getString("last_seen");
-			int speed = o.getInt("speed");
-			String drone = o.getString("drone");
-			double roll = o.getDouble("align_roll");
-			double pitch = o.getDouble("align_pitch");
-			double yaw = o.getDouble("align_yaw");
-			
-			int id = getid(drone);
+			JSONObject dataFile = jsonFile.getJSONObject(i);
+			String Status = dataFile.getString("status");
+			String time = dataFile.getString("timestamp");
+			double longitude = dataFile.getDouble("longitude");
+			double latitude = dataFile.getDouble("latitude");
+			int batteryStatus = dataFile.getInt("battery_status");
+			String lastSeen = dataFile.getString("last_seen");
+			int speed = dataFile.getInt("speed");
+			String drone = dataFile.getString("drone");
+			double roll = dataFile.getDouble("align_roll");
+			double pitch = dataFile.getDouble("align_pitch");
+			double yaw = dataFile.getDouble("align_yaw");
+			int id = getID(drone);
 			try {
-				DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastseen, battstat, Status,roll,pitch,yaw);
-				list.add(x);
+				DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastSeen, batteryStatus, Status,roll,pitch,yaw);
+				dynamicsList.add(x);
 			}
 			catch(ValueLessZeroException e) {
 				e.printStackTrace();
-			}
-			
-			
-				
-			
+			}	
 		}
 	}
 	
-	private int getid(String drone) {
-		
+	private int getID(String drone) {
 		int id = Integer.valueOf(drone.split("/")[5]);
 		return id;
+	}
+	
+	public static ArrayList<DroneDynamics> getDynamicsList(){
+		return dynamicsList;
 	}
 	
 }

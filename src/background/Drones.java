@@ -47,7 +47,7 @@ public class Drones extends DroneTypes {
 	 
 	
 	 public void getDynamics() {
-			for(DroneDynamics x: DroneBuilder.list) {
+			for(DroneDynamics x: DroneBuilder.getDynamicsList()) {
 				if(x.getId() == this.droneid) {
 					this.list.add(x);
 				}
