@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Count{
 	
-	//list of all drones
-	private static ArrayList<Drones> list = new ArrayList<>();
+	//List of all drones
+	private static ArrayList<Drones> droneList = new ArrayList<>();
 	protected static boolean activityFlag = false;
 	
 	static protected void append(Drones object) {
-		list.add(object);	
+		droneList.add(object);	
 	}
 	
 	/*
@@ -20,7 +20,7 @@ public class Count{
 	 */
 	static public void createLists() {
 		Speedclasses.clearList();
-		for(Drones x: list) {
+		for(Drones x: droneList) {
 			if(x.getMaxSpeed() < 35)Speedclasses.slowList.add(x);
 			if(x.getMaxSpeed() >= 35 && x.getMaxSpeed() < 60)Speedclasses.averageList.add(x);
 			if(x.getMaxSpeed() >= 60)Speedclasses.fastList.add(x);
@@ -28,7 +28,7 @@ public class Count{
 	}
 	
 	public static void printlist() {
-		System.out.println(list.toString());
+		System.out.println(droneList.toString());
 	}
 	
 	static public boolean isFlag() {
@@ -36,7 +36,7 @@ public class Count{
 	}
 
 	static protected void clearList() {
-		list.clear();
+		droneList.clear();
 	}
 	
 }

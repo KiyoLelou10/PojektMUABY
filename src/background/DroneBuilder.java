@@ -81,7 +81,7 @@ public class DroneBuilder extends Thread {
 			}
 			in.close();
 			DroneBuilder.response = response.toString();
-			dataFile = new JSONObject(response);
+			dataFile = new JSONObject(DroneBuilder.response);
 		} 
 		catch (MalformedURLException e) {
 			System.err.println("Malformed URL: " + e.getLocalizedMessage());
