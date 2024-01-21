@@ -17,7 +17,7 @@ public class DroneTime extends Thread {
 	private int timeZoneMin;
 	private double exactTime;
 	
-	//divides String time into DroneTime attributes for the exact time
+	//Divides String time into DroneTime attributes for the exact time
 	public DroneTime(String time) {
 		String sub[] = time.split("[-T:+]");
 		this.start();

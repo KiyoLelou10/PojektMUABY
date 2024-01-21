@@ -39,7 +39,6 @@ public class DroneTypes extends DroneMethods implements Comparison{
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "\nThe drone : " +typeID +
 				"\nHas the manufacturer: " + manufacturer+
 				"\nIts typename is: " +typeName+
