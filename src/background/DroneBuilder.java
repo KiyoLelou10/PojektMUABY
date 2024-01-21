@@ -34,7 +34,7 @@ public class DroneBuilder extends Thread {
 	 */
 	public DroneBuilder(){
 		Count.activity_flag = false;
-		Count.list.clear();
+		Count.clearList();
 		setCount();
 		readDynamics();
 		readAPI(ENDPOINT_URL+"/?limit="+droneCount+"&format=json");
