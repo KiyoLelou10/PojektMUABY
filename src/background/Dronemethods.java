@@ -9,9 +9,4 @@ public abstract class Dronemethods {
 	@Override
 	public abstract boolean equals(Object object);
 	
-	
-	
-	
-	
-	
 }

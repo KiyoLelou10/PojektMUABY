@@ -2,7 +2,7 @@ package background;
 
 public interface Comparison {
 	
-	public boolean opmore(Object object);
+	public boolean isMore(Object object);
 	
-	public boolean opless(Object object);
+	public boolean isLess(Object object);
 }

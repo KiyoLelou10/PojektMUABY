@@ -6,9 +6,8 @@ import java.util.ArrayList;
 
 public class DroneDynamics extends Dronemethods implements Comparison{
 	
-	
+	private final static Logger LOG = Logger.getLogger(DroneDynamics.class.getName());
 	private int id;
-	//private int battery_capacity;
 	private int speed;
 	private double latitude;
 	private double longitude;
@@ -16,32 +15,28 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 	private DroneTime lastSeen;
 	private int BatteryStatus; 
 	private String Status;
-	private double align_roll;
-	private double align_pitch;
-	private double align_yaw;
-	
-	
-	private final static Logger LOG = Logger.getLogger(DroneDynamics.class.getName());
-	
+	private double alignRoll;
+	private double alignPitch;
+	private double alignYaw;
 	
 	public DroneDynamics(int id,int speed,double latitude,double longitude,
-			String time,String last,int battstat,String stat,double roll,double pitch,double yaw) 
-		throws ValueLessZeroException{
+			String time,String lastSeen,int batteryStatus,String status,
+			double alignRoll,double alignPitch,double alignYaw) throws ValueLessZeroException{
 		
-		align_roll = roll;
-		align_pitch = pitch;
-		align_yaw = yaw;
+		this.alignRoll = alignRoll;
+		this.alignPitch = alignPitch;
+		this.alignYaw = alignYaw;
 		this.id = id;
 		this.speed = speed;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.time = new DroneTime(time);
-		lastSeen = new DroneTime(last);
-		BatteryStatus = battstat;
-		if(stat.equals("OF"))this.Status = "OFF";
-		else if(stat.equals("ON"))this.Status = "ON";
+		this.lastSeen = new DroneTime(lastSeen);
+		BatteryStatus = batteryStatus;
+		if(status.equals("OF"))this.Status = "OFF";
+		else if(status.equals("ON"))this.Status = "ON";
 		else {
-			LOG.severe("Status cannot be neither on or off");
+			LOG.severe("Status cannot be neither on nor off");
 			return;
 		}
 		
@@ -49,33 +44,18 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 		if(getBatteryStatus() <0)throw new ValueLessZeroException("Batterie status of" +id + "cannot be");
 		if(getLongitude() <0)throw new ValueLessZeroException("Longitude of" +id + "cannot be");
 		if(getLatitude() <0)throw new ValueLessZeroException("Latitude of" +id + "cannot be");
-		/*if(getBatteryStatus() > this.battery_capacity) {
-			LOG.severe("Batterie of cannot exceed 2147483647 off");
-			return;
-		}*/
-		
-		
-		
-		
-		
 	}
 	
-	//gets the exact time for this object from class DroneTime and returns it
-	public double getExactTime() {
-		return time.getExactTime();
-	}
-	
-	
-
 	public String toString() {
-	
 		return "Its speed is currently: " +speed+
 				"\nIts current coordinates are: " +latitude +"/"+ longitude+
 				"\nIt was last seen on: "+ lastSeen+
 				"\nIts battery status is currently: " +BatteryStatus+
 				"\nIts Status is: " +Status;
-		
-		
+	}
+	
+	public double getExactTime() {
+		return time.getExactTime();
 	}
 	
 	public int getSpeed() {
@@ -115,44 +95,32 @@ public class DroneDynamics extends Dronemethods implements Comparison{
 	}
 	
 	public double getAlign_roll() {
-		return align_roll;
+		return alignRoll;
 	}
 
 	public double getAlign_pitch() {
-		return align_pitch;
+		return alignPitch;
 	}
 
 	public double getAlign_yaw() {
-		return align_yaw;
+		return alignYaw;
 	}
-
-
 
 	public boolean equals(Object object) {
 		DroneDynamics other = (DroneDynamics) object;
-		
-		
 		return this.speed == other.speed;
 	}
 
 	@Override
-	public boolean opmore(Object object) {
+	public boolean isMore(Object object) {
 		DroneDynamics other = (DroneDynamics) object;
 		return this.getSpeed()>other.getSpeed();
 	}
 
-
-
-
-
-
-
 	@Override
-	public boolean opless(Object object) {
+	public boolean isLess(Object object) {
 		DroneDynamics other = (DroneDynamics) object;
 		return this.getSpeed()<other.getSpeed();
 	}
-
 	
-
 }
