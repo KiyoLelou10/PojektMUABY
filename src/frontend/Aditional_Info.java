@@ -61,7 +61,7 @@ public class Aditional_Info extends JFrame{
 			try {
 				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
 				for(Drones drone1: list) {
-					if(drone1.getDroneid() == drone.getDroneid()) {
+					if(drone1.getDroneID() == drone.getDroneID()) {
 						Aditional_Info info= new Aditional_Info(drone,meth);
 					}
 				}
@@ -133,21 +133,21 @@ public class Aditional_Info extends JFrame{
         JLabel j3 = new JLabel("Created: \n");
         JLabel j4 = new JLabel(String.valueOf(drone.getCreated()));
         JLabel j5 = new JLabel("Drone Number: \n");
-        JLabel j6 = new JLabel(String.valueOf(drone.getDroneid()));
+        JLabel j6 = new JLabel(String.valueOf(drone.getDroneID()));
         JLabel j7 = new JLabel("Drone Carrweight: \n");
-        JLabel j8 = new JLabel(String.valueOf(drone.getCarriage_weight()));
+        JLabel j8 = new JLabel(String.valueOf(drone.getCarriageWeight()));
         JLabel j9 = new JLabel("Drone carrtype: \n");
-        JLabel j10 = new JLabel(String.valueOf(drone.getCarriage_type()));
+        JLabel j10 = new JLabel(String.valueOf(drone.getCarriageType()));
         JLabel j11 = new JLabel("Manufacturer: \n");
         JLabel j12 = new JLabel(String.valueOf(drone.getManufacturer()));
         JLabel j13 = new JLabel("Max Speed: \n");
-        JLabel j14 = new JLabel(String.valueOf(drone.getMax_speed()));
+        JLabel j14 = new JLabel(String.valueOf(drone.getMaxSpeed()));
         JLabel j15 = new JLabel("Max Carriage: \n");
-        JLabel j16 = new JLabel(String.valueOf(drone.getMax_carriage()));
+        JLabel j16 = new JLabel(String.valueOf(drone.getMaxCarriage()));
         JLabel j17 = new JLabel("Battery Capacity: \n");
-        JLabel j18 = new JLabel(String.valueOf(drone.getBattery_capacity()));
+        JLabel j18 = new JLabel(String.valueOf(drone.getBatteryCapacity()));
         JLabel j19 = new JLabel("Control Range: \n");
-        JLabel j20 = new JLabel(String.valueOf(drone.getControl_range()));
+        JLabel j20 = new JLabel(String.valueOf(drone.getControlRange()));
         DroneDynamics dd = drone.getList().get(drone.getList().size()-1);
         JLabel d1 = new JLabel("DroneDynamics ID: \n");
         JLabel d2 = new JLabel(String.valueOf(dd.getId()));
@@ -162,15 +162,15 @@ public class Aditional_Info extends JFrame{
         JLabel d11 = new JLabel("DroneDynamics LastSeen: \n");
         JLabel d12 = new JLabel(String.valueOf(dd.getLastSeen()));
         JLabel d13 = new JLabel("DroneDynamics BatteryStatus: \n");
-        JLabel d14 = new JLabel(String.valueOf(dd.getBatteryStatus()/drone.getBattery_capacity()*100)+"%");
+        JLabel d14 = new JLabel(String.valueOf(dd.getBatteryStatus()/drone.getBatteryCapacity()*100)+"%");
         JLabel d15 = new JLabel("DroneDynamics Status: \n");
         JLabel d16 = new JLabel(String.valueOf(dd.getStatus()));
         JLabel d17 = new JLabel("DroneDynamics Roll: \n");
-        JLabel d18 = new JLabel(String.valueOf(dd.getAlign_roll()));
+        JLabel d18 = new JLabel(String.valueOf(dd.getAlignRoll()));
         JLabel d19 = new JLabel("DroneDynamics Pitch: \n");
-        JLabel d20 = new JLabel(String.valueOf(dd.getAlign_pitch()));
+        JLabel d20 = new JLabel(String.valueOf(dd.getAlignPitch()));
         JLabel d21 = new JLabel("DroneDynamics Yaw: \n");
-        JLabel d22 = new JLabel(String.valueOf(dd.getAlign_yaw()));
+        JLabel d22 = new JLabel(String.valueOf(dd.getAlignYaw()));
         //JButton JB3= giveMeFirstNavigationButton("Back", Color.red);
         
         //dataPanel.add(JB3, BorderLayout.SOUTH);

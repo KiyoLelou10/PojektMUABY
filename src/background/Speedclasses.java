@@ -10,10 +10,6 @@ public class Speedclasses {
 	protected static ArrayList<Drones> fastList = new ArrayList<>();
 	protected static String name;
 	
-	public static void  printslow() {
-		System.out.println(slowList.toString());
-	}
-	
 	//function for clearing the lists
 	protected static void clearList() {
 		slowList.clear();
@@ -49,15 +45,17 @@ public class Speedclasses {
 		Collections.sort(fastList,Comparator.comparing(Drones::getCurrentDroneSpeed));
 	}
 	
-	//this method is used to know in the front end which list is currently used
+	//Returns method name in order to know in the front end which list is currently being accessed.
 	public static String getName() throws Exception {
 		if(name == null)throw new Exception("Utilizing this method at this point does not make sense");
 		return name;
 	} 
 	
-	/*not really practical as this sort algorithm is in O(n^2), presumably the Collections.sort algorithm is at
-	least in = (n*log(n)) this method was created a possible solution if sorting the lists by hand*/
-	public static void sort_Slow_Class_Beatifully() {
+	/*
+	 * Not really practical as this sort algorithm is in O(n^2), presumably the Collections.sort algorithm is at least in = (n*log(n)).
+	 * This method was created as a possible solution if sorting the lists by hand.
+	*/
+	public static void sortSlowListBeautifully() {
 		int i= 0;
 		int j = 0;
 		for(Drones x: slowList) {
@@ -65,7 +63,7 @@ public class Speedclasses {
 				j++;
 				DroneDynamics d1 = x.getList().get(x.getList().size()-1);
 				DroneDynamics d2 = y.getList().get(y.getList().size()-1);
-				if(d1.opmore(d2)) {
+				if(d1.isMore(d2)) {
 					Drones f = x;
 					slowList.set(i, y);
 					slowList.set(j, f);

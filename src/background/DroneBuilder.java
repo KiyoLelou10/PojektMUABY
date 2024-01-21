@@ -33,14 +33,14 @@ public class DroneBuilder extends Thread {
 	 * it receives the drones data.   
 	 */
 	public DroneBuilder(){
-		Count.activity_flag = false;
+		Count.activityFlag = false;
 		Count.clearList();
 		setCount();
 		readDynamics();
 		readAPI(ENDPOINT_URL+"/?limit="+droneCount+"&format=json");
 		dronesBuilder();
 		Count.createLists();
-		Count.activity_flag = true;
+		Count.activityFlag = true;
 	}
 	
 	private void readDynamics() {

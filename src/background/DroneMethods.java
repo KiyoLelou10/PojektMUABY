@@ -1,6 +1,6 @@
 package background;
 
-public abstract class Dronemethods {
+public abstract class DroneMethods {
 	private String name;
 	
 	@Override

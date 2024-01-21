@@ -3,9 +3,10 @@ package background;
 import java.util.ArrayList;
 
 public class Count{
+	
 	//list of all drones
 	private static ArrayList<Drones> list = new ArrayList<>();
-	protected static boolean activity_flag = false;
+	protected static boolean activityFlag = false;
 	
 	static protected void append(Drones object) {
 		list.add(object);	
@@ -20,11 +21,10 @@ public class Count{
 	static public void createLists() {
 		Speedclasses.clearList();
 		for(Drones x: list) {
-			if(x.getMax_speed() < 35)Speedclasses.slowlist.add(x);
-			if(x.getMax_speed() >= 35 && x.getMax_speed() < 60)Speedclasses.averagelist.add(x);
-			if(x.getMax_speed() >= 60)Speedclasses.fastlist.add(x);
-		}
-		
+			if(x.getMaxSpeed() < 35)Speedclasses.slowList.add(x);
+			if(x.getMaxSpeed() >= 35 && x.getMaxSpeed() < 60)Speedclasses.averageList.add(x);
+			if(x.getMaxSpeed() >= 60)Speedclasses.fastList.add(x);
+		}	
 	}
 	
 	public static void printlist() {
@@ -32,7 +32,7 @@ public class Count{
 	}
 	
 	static public boolean isFlag() {
-		return activity_flag;
+		return activityFlag;
 	}
 
 	static protected void clearList() {

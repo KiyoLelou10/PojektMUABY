@@ -34,7 +34,7 @@ public class speedWindow extends JFrame {
 		//be adjusted to a scroll pane
 		String x;
 		try {
-			x = Speedclasses.get_Name();
+			x = Speedclasses.getName();
 			meth = Speedclasses.class.getMethod(x);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,9 +89,9 @@ public class speedWindow extends JFrame {
 		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
 		JLabel j1= createJLabelWithValue(String.valueOf(drone.getId()));
 		JLabel j2= createJLabelWithValue(drone.getManufacturer());
-		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMax_speed()));
-		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMax_carriage()));
-		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControl_range()));
+		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMaxSpeed()));
+		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMaxCarriage()));
+		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControlRange()));
 		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
 		j6.addActionListener(e->{
 			dispose();
