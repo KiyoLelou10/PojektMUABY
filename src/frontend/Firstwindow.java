@@ -31,41 +31,26 @@ public class Firstwindow extends Frame {
 	protected JButton nobutton;
 	protected JLabel label;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Firstwindow window = new Firstwindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	
 	public Firstwindow() {
 		JFrame frame=initialize(); //All the default properties are set 
 		
 		JLabel frontLabel= JlabelwithTextAndImage("Welcome to the World of Drones, Would you like to explore this Universe??", "images/drone4.png");
 		frontLabel.setBounds(10,10,1000,1000);
 		frame.add(frontLabel, BorderLayout.CENTER);
+
 		JPanel panel= givePanel();
 		JButton primaryButton= giveMeFirstNavigationButton("Yes Please !!", Color.BLUE);
 		JButton secondaryButton= giveMeFirstNavigationButton("Not Interseted !!", Color.RED);
+
 		panel.add(primaryButton);
 		panel.add(secondaryButton);
 		frame.add(panel, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setExtendedState(MAXIMIZED_BOTH);
-		
-		
 	}
 
 	protected JFrame initialize() {
 		frame = new JFrame();
-		
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    int width = (int)(screenSize.getWidth());
@@ -75,23 +60,19 @@ public class Firstwindow extends Frame {
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		//frame.setExtendedState(MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		
 		return frame;
-		
-		
 	}
-	
 	
 	private JLabel JlabelwithTextAndImage(String text,String imgPath) {
 		JLabel a= new JLabel();
 		a.setText(text);
+
 		//adding image 
 		ImageIcon img= new ImageIcon(imgPath);
 		Image resizedImage= img.getImage().getScaledInstance(400, 400,Image.SCALE_SMOOTH);
 		a.setIcon(new ImageIcon(resizedImage));
-		
 		
 		//Alignment of image and text 
 		a.setVerticalAlignment(JLabel.TOP);
@@ -101,10 +82,9 @@ public class Firstwindow extends Frame {
 		
 		a.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		a.setForeground(Color.GRAY);
+		
 		return a;
 	}
-	
-
 	
 	//it is supposed to be a joke: To have similar type of navigation button 
 	private JButton giveMeFirstNavigationButton(String Text, Color color) {
@@ -116,23 +96,17 @@ public class Firstwindow extends Frame {
 		button.addActionListener(e->{
 			Drone_Gui newDroneGui = new Drone_Gui();
 			frame.dispose();
-			
 		});
-		
 		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		
 		return button;
 	}
 	
 	private JPanel givePanel() {
 		JPanel panel= new JPanel();
-		
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 50,0));
 		panel.setBorder(new EmptyBorder(0, 0, 160, 0));
+		
 		return panel;
 	}
-	
-	
-	
-	
-	
 }
