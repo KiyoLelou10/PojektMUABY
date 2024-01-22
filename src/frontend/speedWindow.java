@@ -1,7 +1,6 @@
 package frontend;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,146 +13,153 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import background.*;
+
+import background.Drones;
+import background.Speedclasses;
 
 public class speedWindow extends JFrame {
-	private JFrame frame;
-	protected Method meth;
-	
-	public speedWindow(ArrayList<Drones> list) {
-		
-		frame=initialize();
-		//Content panel is thought to act as a one division in a frame which could be adjusted to a scroll pane
-		String x;
-		try {
-			x = Speedclasses.getName();
-			meth = Speedclasses.class.getMethod(x);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
-		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
-		JPanel headerPanel= giveHeaderPlanner();
-		contentPanel.add(headerPanel);
-		
-		for(Drones i: list) {
-			JPanel data= giveDataPanel(i);
-			data.setFont(new Font("MV Boli", Font.ITALIC, 15));
-			contentPanel.add(data);
-		}
-		
-		JScrollPane scrollPane = new JScrollPane(contentPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    frame.add(scrollPane, BorderLayout.CENTER);
-	}
+    private JFrame frame;
+    protected Method meth;
 
-	protected JFrame initialize() {
-		JFrame frame = new JFrame();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    frame.setExtendedState(MAXIMIZED_BOTH);
-	    frame.getContentPane().setEnabled(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(0,1,10,8));
-		frame.setVisible(true);
-		
-		return frame;
-	}
-	
-	protected JPanel giveDataPanel(Drones drone) {
-		JPanel dataPanel=new JPanel();
-		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
-		JLabel j1= createJLabelWithValue(String.valueOf(drone.getId()));
-		JLabel j2= createJLabelWithValue(drone.getManufacturer());
-		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMaxSpeed()));
-		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMaxCarriage()));
-		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControlRange()));
+    public speedWindow(ArrayList<Drones> list) {
+        frame = initialize();
 
-		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
-		j6.addActionListener(e->{
-			dispose();
-			Aditional_Info info= new Aditional_Info(drone,meth);
-		});
+        // Content panel is thought to act as a division in a frame which could be adjusted to a scroll pane
+        String x;
+        try {
+            x = Speedclasses.getName();
+            meth = Speedclasses.class.getMethod(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		dataPanel.add(j1);
-		dataPanel.add(j2);
-		dataPanel.add(j3);
-		dataPanel.add(j4);
-		dataPanel.add(j5);
-		dataPanel.add(j6);
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
+        JPanel headerPanel = giveHeaderPlanner();
+        contentPanel.add(headerPanel);
 
-		return dataPanel;
-	}
-	
-	protected JPanel giveHeaderPlanner() {
-		JPanel headerPanel=new JPanel();
-		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 20));
-		
-		JLabel j1= createHeaderJLabelWithValue("Drone Id");
-		JLabel j2= createHeaderJLabelWithValue("Manufacturer");
-		JLabel j3= createHeaderJLabelWithValue("Max Speed");
-		JLabel j4= createHeaderJLabelWithValue("Max Carriage ");
-		JLabel j5= createHeaderJLabelWithValue("Control Range");
+        for (Drones i : list) {
+            JPanel data = giveDataPanel(i);
+            data.setFont(new Font("MV Boli", Font.ITALIC, 15));
+            contentPanel.add(data);
+        }
 
-		JButton J6= giveMeFirstNavigationButton("<- Back", Color.RED);
-		J6.addActionListener(e->{
-			frame.dispose();
-			Drone_Gui gui= new Drone_Gui();
-		});
+        JScrollPane scrollPane = new JScrollPane(contentPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        frame.add(scrollPane, BorderLayout.CENTER);
+    }
 
-		JButton J7= giveMeFirstNavigationButton("Refresh",Color.DARK_GRAY);
-		J7.addActionListener(e->{
-			frame.dispose();
-			try {
-				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
-				JFrame frame = new speedWindow(list); 
-				
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				Drone_Gui gui= new Drone_Gui();
-			}
-		});
+    protected JFrame initialize() {
+        JFrame frame = new JFrame();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setExtendedState(MAXIMIZED_BOTH);
+        frame.getContentPane().setEnabled(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new GridLayout(0, 1, 10, 8));
+        frame.setVisible(true);
 
-		headerPanel.add(j1);
-		headerPanel.add(j2);
-		headerPanel.add(j3);
-		headerPanel.add(j4);
-		headerPanel.add(j5);
-		headerPanel.add(J6);
-		headerPanel.add(J7);
+        return frame;
+    }
 
-		return headerPanel;
-	}
-	
-	private JLabel createJLabelWithValue(String text) {
-		JLabel j1= new JLabel();
-		j1.setPreferredSize(new Dimension(70,15));
-		j1.setText(text);
-		j1.setFont(new Font("Mv Boli", Font.PLAIN, 16));
+    protected JPanel giveDataPanel(Drones drone) {
+        JPanel dataPanel = new JPanel();
+        dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
 
-		return j1;
-	}
-	
-	private JLabel createHeaderJLabelWithValue(String text) {
-		JLabel j1= new JLabel();
-		j1.setText(text);
-		j1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        // Create an array of labels
+        JLabel[] labels = new JLabel[5];
+        labels[0] = createJLabelWithValue(String.valueOf(drone.getId()));
+        labels[1] = createJLabelWithValue(drone.getManufacturer());
+        labels[2] = createJLabelWithValue(String.valueOf(drone.getMaxSpeed()));
+        labels[3] = createJLabelWithValue(String.valueOf(drone.getMaxCarriage()));
+        labels[4] = createJLabelWithValue(String.valueOf(drone.getControlRange()));
 
-		return j1;
-	}
-	
-	@Override
-	public void dispose() {
-		frame.dispose();
-	}
-	
-	private JButton giveMeFirstNavigationButton(String Text, Color color) {
-		JButton button= new JButton(Text);
-		button.setSize(300,75);
-		button.setFocusable(false);
-		button.setBackground(color);
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		
-		return button;
-	}
+        JButton j6 = giveMeFirstNavigationButton("More Info", Color.blue);
+        j6.addActionListener(e -> {
+            dispose();
+            Aditional_Info info = new Aditional_Info(drone);
+        });
+
+        // Add labels to the data panel using a loop
+        for (JLabel label : labels) {
+            dataPanel.add(label);
+        }
+        dataPanel.add(j6);
+
+        return dataPanel;
+    }
+
+    protected JPanel giveHeaderPlanner() {
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 20));
+
+        // Create an array of header labels
+        JLabel[] headerLabels = new JLabel[5];
+        headerLabels[0] = createHeaderJLabelWithValue("Drone Id");
+        headerLabels[1] = createHeaderJLabelWithValue("Manufacturer");
+        headerLabels[2] = createHeaderJLabelWithValue("Max Speed");
+        headerLabels[3] = createHeaderJLabelWithValue("Max Carriage ");
+        headerLabels[4] = createHeaderJLabelWithValue("Control Range");
+
+        JButton J6 = giveMeFirstNavigationButton("<- Back", Color.RED);
+        J6.addActionListener(e -> {
+            frame.dispose();
+            Drone_Gui gui = new Drone_Gui();
+        });
+
+        JButton J7 = giveMeFirstNavigationButton("Refresh", Color.DARK_GRAY);
+        J7.addActionListener(e -> {
+            frame.dispose();
+            try {
+                ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+                JFrame frame = new speedWindow(list);
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                Drone_Gui gui = new Drone_Gui();
+            }
+        });
+
+        // Add header labels to the header panel using a loop
+        for (JLabel label : headerLabels) {
+            headerPanel.add(label);
+        }
+        headerPanel.add(J6);
+        headerPanel.add(J7);
+
+        return headerPanel;
+    }
+
+
+    private JLabel createJLabelWithValue(String text) {
+        JLabel j1 = new JLabel();
+        j1.setPreferredSize(new Dimension(70, 15));
+        j1.setText(text);
+        j1.setFont(new Font("Mv Boli", Font.PLAIN, 16));
+
+        return j1;
+    }
+
+    private JLabel createHeaderJLabelWithValue(String text) {
+        JLabel j1 = new JLabel();
+        j1.setText(text);
+        j1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+
+        return j1;
+    }
+
+    @Override
+    public void dispose() {
+        frame.dispose();
+    }
+
+    private JButton giveMeFirstNavigationButton(String Text, Color color) {
+        JButton button = new JButton(Text);
+        button.setSize(300, 75);
+        button.setFocusable(false);
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        return button;
+    }
 }
