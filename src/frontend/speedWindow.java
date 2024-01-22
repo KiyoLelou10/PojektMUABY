@@ -1,6 +1,3 @@
-
-
-
 package frontend;
 
 import java.awt.BorderLayout;
@@ -20,18 +17,13 @@ import javax.swing.*;
 import background.*;
 
 public class speedWindow extends JFrame {
-	
-//	public speedWindow() {
-//		JFrame frame=initialize();
-//	}
 	private JFrame frame;
 	protected Method meth;
 	
-
 	public speedWindow(ArrayList<Drones> list) {
+		
 		frame=initialize();
-		//Content panel is thought to act as a one division in a frame which could
-		//be adjusted to a scroll pane
+		//Content panel is thought to act as a one division in a frame which could be adjusted to a scroll pane
 		String x;
 		try {
 			x = Speedclasses.getName();
@@ -40,49 +32,32 @@ public class speedWindow extends JFrame {
 			e.printStackTrace();
 		}
 	
-		
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(0, 1, 10, 8));
-		JPanel headerPanel= GiveHeaderPlanner();
+		JPanel headerPanel= giveHeaderPlanner();
 		contentPanel.add(headerPanel);
 		
 		for(Drones i: list) {
 			JPanel data= giveDataPanel(i);
 			data.setFont(new Font("MV Boli", Font.ITALIC, 15));
 			contentPanel.add(data);
-			}
-			//This code is taken from Internet to add a scroller 
-		 	JScrollPane scrollPane = new JScrollPane(contentPanel,
-		 	JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-	        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	        frame.add(scrollPane, BorderLayout.CENTER);
+		}
 		
-		
-		
+		JScrollPane scrollPane = new JScrollPane(contentPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    frame.add(scrollPane, BorderLayout.CENTER);
 	}
 
-	
-	
 	protected JFrame initialize() {
 		JFrame frame = new JFrame();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//	    int width = (int)screenSize.getWidth();
-//	    int height = (int)screenSize.getHeight();
 	    frame.setExtendedState(MAXIMIZED_BOTH);
 	    frame.getContentPane().setEnabled(false);
-//		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(0,1,10,8));
-		
 		frame.setVisible(true);
 		
-		
-		
 		return frame;
-		
-		
 	}
-	
 	
 	protected JPanel giveDataPanel(Drones drone) {
 		JPanel dataPanel=new JPanel();
@@ -92,6 +67,7 @@ public class speedWindow extends JFrame {
 		JLabel j3= createJLabelWithValue(String.valueOf(drone.getMaxSpeed()));
 		JLabel j4= createJLabelWithValue(String.valueOf(drone.getMaxCarriage()));
 		JLabel j5= createJLabelWithValue(String.valueOf(drone.getControlRange()));
+
 		JButton j6= giveMeFirstNavigationButton("More Info", Color.blue);
 		j6.addActionListener(e->{
 			dispose();
@@ -105,31 +81,25 @@ public class speedWindow extends JFrame {
 		dataPanel.add(j5);
 		dataPanel.add(j6);
 
-		
-		
-		
 		return dataPanel;
 	}
 	
-	
-	protected JPanel GiveHeaderPlanner() {
-		
+	protected JPanel giveHeaderPlanner() {
 		JPanel headerPanel=new JPanel();
 		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 20));
-		
-		
 		
 		JLabel j1= createHeaderJLabelWithValue("Drone Id");
 		JLabel j2= createHeaderJLabelWithValue("Manufacturer");
 		JLabel j3= createHeaderJLabelWithValue("Max Speed");
 		JLabel j4= createHeaderJLabelWithValue("Max Carriage ");
 		JLabel j5= createHeaderJLabelWithValue("Control Range");
+
 		JButton J6= giveMeFirstNavigationButton("<- Back", Color.RED);
 		J6.addActionListener(e->{
 			frame.dispose();
 			Drone_Gui gui= new Drone_Gui();
-			
 		});
+
 		JButton J7= giveMeFirstNavigationButton("Refresh",Color.DARK_GRAY);
 		J7.addActionListener(e->{
 			frame.dispose();
@@ -151,36 +121,30 @@ public class speedWindow extends JFrame {
 		headerPanel.add(J6);
 		headerPanel.add(J7);
 
-		
-		
-		
 		return headerPanel;
 	}
-	
-
 	
 	private JLabel createJLabelWithValue(String text) {
 		JLabel j1= new JLabel();
 		j1.setPreferredSize(new Dimension(70,15));
 		j1.setText(text);
 		j1.setFont(new Font("Mv Boli", Font.PLAIN, 16));
+
 		return j1;
-		
 	}
 	
 	private JLabel createHeaderJLabelWithValue(String text) {
 		JLabel j1= new JLabel();
 		j1.setText(text);
 		j1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+
 		return j1;
-		
 	}
 	
 	@Override
-		public void dispose() {
-			frame.dispose();
-		}
-	
+	public void dispose() {
+		frame.dispose();
+	}
 	
 	private JButton giveMeFirstNavigationButton(String Text, Color color) {
 		JButton button= new JButton(Text);
@@ -188,9 +152,8 @@ public class speedWindow extends JFrame {
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
-		
 		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		
 		return button;
 	}
-	
 }
