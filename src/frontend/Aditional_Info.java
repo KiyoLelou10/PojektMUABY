@@ -1,368 +1,204 @@
 package frontend;
 
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.Toolkit;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import background.DroneDynamics;
+import background.DroneTime;
 import background.Drones;
-import background.ListIsEmptyException;
-import background.Speedclasses;
 
-public class Aditional_Info extends JFrame{
-
-	private JFrame frame;
-	protected Border border;
-	protected Method meth;
-	protected static HistoryScreen histScreen;
+public class HistoryScreen extends JFrame{
+	protected JFrame frame;
+	protected JLabel dynamicsLabel = new JLabel();
+	protected JTextField minute1 =giveMeTextField("", 10);
+	protected JTextField minute2=giveMeTextField("", 10);
+	protected JTextField hour1=giveMeTextField("", 10);
+	protected JTextField hour2=giveMeTextField("", 10);
+	protected JTextField day1= giveMeTextField("", 10);
+	protected JTextField day2=giveMeTextField("", 10);
+	protected JTextField month1= giveMeTextField("", 10);
+	protected JTextField month2=giveMeTextField("", 10);
+	protected JTextField year1 = giveMeTextField("", 10);
+	protected JTextField year2= giveMeTextField("", 10);
+	protected JTextField[] textFields = {minute1, hour1, day1, month1, year1, minute2, hour2, day2, month2, year2};
+	protected JButton submitButton;
+	protected static boolean flag = false;
 	
-	public Aditional_Info(Drones drone, Method meth) {
-		frame=initialize();
-		this.meth = meth;
-		JPanel panel1 = giveDataPanel(drone);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        panel1.setFont(new Font("Times New Roman",Font.BOLD,40));
-        //getContentPane().add(panel1);
-        JButton JB3= giveMeFirstNavigationButton("<-Back", Color.red);
-		JB3.addActionListener(e->{
-			frame.dispose();
-		    try {
-				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
-				speedWindow speedy = new speedWindow(list);
-			}
-				 catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-			}
-		        
-		});
+	public HistoryScreen(Drones drone) {
+		frame = initialize();
+		flag = true;
 		
-        JButton JB4 = giveMeFirstNavigationButton("Refresh", Color.darkGray);
-		JB4.addActionListener(e -> {
-			frame.dispose();
-			try {
-				ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
-				for(Drones drone1: list) {
-					if(drone1.getDroneID() == drone.getDroneID()) {
-						Aditional_Info info= new Aditional_Info(drone,meth);
-					}
-				}
-				if(histScreen.flag ) {
-					histScreen.dispose();
-					histScreen = new HistoryScreen(drone);
-				}
-				
-			
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				Drone_Gui gui= new Drone_Gui();
-			}
-		});
-
-		JButton JB5 = giveMeFirstNavigationButton("History", Color.blue);
-		JB5.addActionListener(e -> {
-			// This Button should display the last 5 DroneDynamics !!
-			// System.out.println(drone.getDynamicSize());
-			histScreen = new HistoryScreen(drone);
-			// frame.dispose();
-		});
-
+		JLabel label = createJLabelWithValue("Search the dynamics! Max difference 10 min! In this order: min,h,dd,mm,yyyy");
+		JPanel inputAndDynamicPanel = new JPanel(new BorderLayout());
+		JPanel panels1 = createDatePanel(drone);
+		addEnterKeyListenerToTextFields(textFields);
+		panels1.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
+		label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
 		
-        frame.add(panel1);
-        
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(JB3);
-        buttonPanel.add(JB4);
-        buttonPanel.add(JB5);
-        
-        frame.setLayout(new BorderLayout());
-        
-        frame.add(buttonPanel, BorderLayout.NORTH);
-        frame.add(panel1, BorderLayout.CENTER);
-        
-    
-	}
+		frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    submitButton.doClick();
+                }
+            }
+        });
+		
+		frame.addWindowListener((WindowListener) new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		        flag = false;
+		        super.windowClosing(e);
+		    }
+		});
 
-	protected JFrame initialize() {
-	
-		JFrame frame = new JFrame();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    frame.setExtendedState(MAXIMIZED_BOTH);
-	    frame.getContentPane().setEnabled(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new FlowLayout(20,20,20));
+		frame.add(label, BorderLayout.NORTH);
+		frame.add(panels1, BorderLayout.CENTER);
+
+		centerFrameOnScreen(frame);
+		frame.pack();
 		frame.setVisible(true);
-		frame.setResizable(true);
-		return frame;
+	}
+
+	public JPanel createDatePanel(Drones drone) {
+		JPanel panel = new JPanel(new GridLayout(7, 2,10,20));
+		JPanel inputPanel1= createDurationPanel(minute1,hour1, day1, month1,year1);
+		JPanel inputPanel2= createDurationPanel(minute2,hour2, day2, month2,year2);
+
+		submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
+		submitButton.addActionListener(e->{
+			DroneTime a = DroneTime.stringifier(year1, month1, day1, hour1, minute1);
+			DroneTime b = DroneTime.stringifier(year2, month2, day2, hour2, minute2);
+			
+			boolean isDynamicsLabelAdded = panel.isAncestorOf(dynamicsLabel);
+
+			if (isDynamicsLabelAdded) {
+		        // Remove the dynamicsLabel from the panel
+		        panel.remove(dynamicsLabel);
+		        panel.revalidate();
+		        panel.repaint();
+		    }
+
+			if(a.getExactTime()-b.getExactTime()>600 || a.getExactTime()-b.getExactTime()<-600){
+				JOptionPane f = new JOptionPane();
+				f.showMessageDialog(this,"The difference must be less than 10 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
+			} else {
+				dynamicsLabel = createJLabelWithValue("               Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics where drone was 'ON'.");
+				dynamicsLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+				System.out.println(drone.getCurrentDroneDynamics(a, b).size());
+				panel.add(dynamicsLabel);
+	            frame.pack();
+			}
+		});
 		
+		panel.add(inputPanel1);
+		panel.add(inputPanel2);
+		panel.add(submitButton);
+		
+		return panel;
 	}
 	
+	public JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d,JTextField e){
+		JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+		inputPanel1.add(a);
+		inputPanel1.add(b);
+		inputPanel1.add(c);
+		inputPanel1.add(d);
+		inputPanel1.add(e);
+		
+		return inputPanel1;
+	}
+	
+	protected JFrame initialize() {
+		frame = new JFrame();
+		frame.setLayout(new BorderLayout());
+		frame.getContentPane().setEnabled(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(screenSize.width / 4, screenSize.height / 4);
+
+		return frame;
+	}
+	
+	public JTextField giveMeTextField(String text, int len) {
+        JTextField textField = new JTextField(text, len);
+        textField.setHorizontalAlignment(JTextField.CENTER); 
+        textField.setFont(new Font("Arial", Font.PLAIN, 14)); 
+        textField.setSize(50, 50);
+
+        return textField;
+    }
+	
+	@Override
+	public void dispose() {
+		frame.dispose();
+	}
+
+	private void centerFrameOnScreen(JFrame frame) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocationRelativeTo(null);
+	}
+
 	private JButton giveMeFirstNavigationButton(String Text, Color color) {
-		JButton button= new JButton(Text);
-		button.setSize(300,75);
+		JButton button = new JButton(Text);
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
 		return button;
 	}
 	
-    private JPanel giveDataPanel(Drones drone) {
-        JPanel dataPanel = new JPanel();
-        dataPanel.setLayout(new GridLayout(30,2));
-        JLabel j1 = new JLabel("Drone ID: \n");
-        JLabel j2 = new JLabel(String.valueOf(drone.getId()));
-        JLabel j3 = new JLabel("Created: \n");
-        JLabel j4 = new JLabel(String.valueOf(drone.getCreated()));
-        JLabel j5 = new JLabel("Drone Number: \n");
-        JLabel j6 = new JLabel(String.valueOf(drone.getDroneID()));
-        JLabel j7 = new JLabel("Drone Carrweight: \n");
-        JLabel j8 = new JLabel(String.valueOf(drone.getCarriageWeight()));
-        JLabel j9 = new JLabel("Drone carrtype: \n");
-        JLabel j10 = new JLabel(String.valueOf(drone.getCarriageType()));
-        JLabel j11 = new JLabel("Manufacturer: \n");
-        JLabel j12 = new JLabel(String.valueOf(drone.getManufacturer()));
-        JLabel j13 = new JLabel("Max Speed: \n");
-        JLabel j14 = new JLabel(String.valueOf(drone.getMaxSpeed()));
-        JLabel j15 = new JLabel("Max Carriage: \n");
-        JLabel j16 = new JLabel(String.valueOf(drone.getMaxCarriage()));
-        JLabel j17 = new JLabel("Battery Capacity: \n");
-        JLabel j18 = new JLabel(String.valueOf(drone.getBatteryCapacity()));
-        JLabel j19 = new JLabel("Control Range: \n");
-        JLabel j20 = new JLabel(String.valueOf(drone.getControlRange()));
-        DroneDynamics dd = drone.getList().get(drone.getList().size()-1);
-        JLabel d1 = new JLabel("DroneDynamics ID: \n");
-        JLabel d2 = new JLabel(String.valueOf(dd.getId()));
-        JLabel d3 = new JLabel("DroneDynamics Latitude: \n");
-        JLabel d4 = new JLabel(String.valueOf(dd.getLatitude()));
-        JLabel d5 = new JLabel("DroneDynamics Speed: \n");
-        JLabel d6 = new JLabel(String.valueOf(dd.getSpeed()));
-        JLabel d7 = new JLabel("DroneDynamics Longitude: \n");
-        JLabel d8 = new JLabel(String.valueOf(dd.getLongitude()));
-        JLabel d9 = new JLabel("DroneDynamics Time: \n");
-        JLabel d10 = new JLabel(String.valueOf(dd.getTime()));
-        JLabel d11 = new JLabel("DroneDynamics LastSeen: \n");
-        JLabel d12 = new JLabel(String.valueOf(dd.getLastSeen()));
-        JLabel d13 = new JLabel("DroneDynamics BatteryStatus: \n");
-        JLabel d14 = new JLabel(String.valueOf(dd.getBatteryStatus()/drone.getBatteryCapacity()*100)+"%");
-        JLabel d15 = new JLabel("DroneDynamics Status: \n");
-        JLabel d16 = new JLabel(String.valueOf(dd.getStatus()));
-        JLabel d17 = new JLabel("DroneDynamics Roll: \n");
-        JLabel d18 = new JLabel(String.valueOf(dd.getAlignRoll()));
-        JLabel d19 = new JLabel("DroneDynamics Pitch: \n");
-        JLabel d20 = new JLabel(String.valueOf(dd.getAlignPitch()));
-        JLabel d21 = new JLabel("DroneDynamics Yaw: \n");
-        JLabel d22 = new JLabel(String.valueOf(dd.getAlignYaw()));
-        //JButton JB3= giveMeFirstNavigationButton("Back", Color.red);
-        
-        //dataPanel.add(JB3, BorderLayout.SOUTH);
-        dataPanel.add(j1);
-        dataPanel.add(j2);
-        dataPanel.add(j3);
-        dataPanel.add(j4);
-        dataPanel.add(j5);
-        dataPanel.add(j6);
-        dataPanel.add(j7);
-        dataPanel.add(j8);
-        dataPanel.add(j9);
-        dataPanel.add(j10);
-        dataPanel.add(j11);
-        dataPanel.add(j12);
-        dataPanel.add(j13);
-        dataPanel.add(j14);
-        dataPanel.add(j15);
-        dataPanel.add(j16);
-        dataPanel.add(j17);
-        dataPanel.add(j18);
-        dataPanel.add(j19);
-        dataPanel.add(j20);
-        dataPanel.add(d1);
-        dataPanel.add(d2);
-        dataPanel.add(d3);
-        dataPanel.add(d4);
-        dataPanel.add(d5);
-        dataPanel.add(d6);
-        dataPanel.add(d7);
-        dataPanel.add(d8);
-        dataPanel.add(d9);
-        dataPanel.add(d10);
-        dataPanel.add(d11);
-        dataPanel.add(d12);
-        dataPanel.add(d13);
-        dataPanel.add(d14);
-        dataPanel.add(d15);
-        dataPanel.add(d16);
-        dataPanel.add(d17);
-        dataPanel.add(d18);
-        dataPanel.add(d19);
-        dataPanel.add(d20);
-        dataPanel.add(d21);
-        dataPanel.add(d22);
-        
-        JLabel[] labels1 = {j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17, j18, j19, j20, d1, d2, d3, d4, d5, d6 ,d7 ,d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22};
-        for (int i = 0; i < labels1.length; i++) {
-            labels1[i].setFont(new Font("Segoe UI", Font.BOLD, 25));
+	private JLabel createJLabelWithValue(String text) {
+		JLabel j1= new JLabel();
+		j1.setPreferredSize(new Dimension(70,15));
+		j1.setText(text);
+		j1.setFont(new Font("Segoe UI", Font.BOLD, 18));
+
+		return j1;
+	}
+
+	private void addEnterKeyListenerToTextFields(JTextField... textFields) {
+        for (JTextField textField : textFields) {
+            textField.addActionListener(e -> focusNextTextField(textField));
         }
-        
-        return dataPanel;
     }
 
-}
-
-		
-		
-		
-		
-		
-		/*	border = BorderFactory.createLineBorder(Color.green);
-		frame = new JFrame();
-		//frame.getContentPane().setBackground(new Color(0, 0, 255));
-		frame.getContentPane().setLayout(null);
-		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setFont(new Font("MV Boli", Font.PLAIN, 16));
-		btnNewButton.setBounds(1242, 71, 125, 45);
-		frame.getContentPane().add(btnNewButton);
-
-		JButton btnHistory = new JButton("History");
-		btnHistory.setFont(new Font("MV Boli", Font.PLAIN, 16));
-		btnHistory.setBounds(255, 71, 125, 45);
-		frame.getContentPane().add(btnHistory);
-		JLabel dronedetails = new JLabel("DroneDetails");
-		dronedetails.setBounds(765, 126, 602, 584);
-		frame.getContentPane().add(dronedetails);
-		dronedetails.setBorder(border);	
-		JLabel drone_image = new JLabel("drone_Image");
-		drone_image.setBounds(255, 126, 490, 584);
-		frame.getContentPane().add(drone_image);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		drone_image.setBorder(border);
-		frame.setResizable(false);
-		frame.setVisible(true);
-	}
-}
-
-	protected JPanel giveDataPanel(Drones drone) {
-		JPanel dataPanel=new JPanel();
-		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
-		
-		JLabel j1 = new JLabel("Drone ID: ");
-        JLabel j2 = new JLabel(String.valueOf(drone.getDroneid()));
-        JLabel j3 = new JLabel("Created: ");
-        JLabel j4 = new JLabel(String.valueOf(drone.getCreated()));
-        JLabel j5 = new JLabel("Drone Number: ");
-        JLabel j6 = new JLabel(String.valueOf(drone.getId()));
-        JLabel j7 = new JLabel("Drone Carrweight: ");
-        JLabel j8 = new JLabel(String.valueOf(drone.getCarriage_weight()));
-        JLabel j9 = new JLabel("Drone carrtype: ");
-        JLabel j10 = new JLabel(String.valueOf(drone.getCarriage_type()));
-        JLabel j11 = new JLabel("Manufacturer: ");
-        JLabel j12 = new JLabel(String.valueOf(drone.getManufacturer()));
-        JButton J7= giveMeFirstNavigationButton("", Color.blue);
-
-        dataPanel.add(j1);
-        dataPanel.add(j2);
-        dataPanel.add(j3);
-        dataPanel.add(j4);
-        dataPanel.add(j5);
-        dataPanel.add(j6);
-        
-        
-		return dataPanel;
-	}
-
-private JButton giveMeFirstNavigationButton(String Text, Color color) {
-	JButton button= new JButton(Text);
-	button.setSize(300,75);
-	button.setFocusable(false);
-	button.setBackground(color);
-	button.setForeground(Color.WHITE);
-	button.addActionListener(e->{
-		System.out.print("This got clicked");
-		frame.dispose();
-		speedWindow guuu = new speedWindow(null);
-		
-	});
-	
-	button.setFont(new Font("Segoe UI", Font.BOLD, 14));
-	return button;
-}
-}
-
-
-
-
-/*public class Aditional_Info extends JFrame {
-    private Drones drone;
-    public Aditional_Info(Drones drone) {
-        this.drone = drone;
-        initialize();
-        
+    private void focusNextTextField(JTextField currentTextField) {
+        // Find the index of the current text field
+        int currentIndex = -1;
+        for (int i = 0; i < textFields.length; i++) {
+            if (textFields[i] == currentTextField) {
+                currentIndex = i;
+                break;
+            }
+        }
+        // Set focus to the next text field
+        if (currentIndex != -1 && currentIndex < textFields.length - 1) {
+            textFields[currentIndex + 1].requestFocus();
+        }
     }
-    
-    protected JFrame initialize() {
-		JFrame frame = new JFrame();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    frame.setExtendedState(MAXIMIZED_BOTH);
-	    frame.getContentPane().setEnabled(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(0,1,10,8));
-		frame.setVisible(true);
-		
-		return frame;
-	}
-
-    private void giveDataPanel() {
-        JPanel dataPanel = new JPanel();
-        dataPanel.setLayout(new GridLayout(0, 2, 10, 10));
-        JLabel j1 = new JLabel("Drone ID: ");
-        JLabel j2 = new JLabel(String.valueOf(drone.getDroneid()));
-        JLabel j3 = new JLabel("Created: ");
-        JLabel j4 = new JLabel(String.valueOf(drone.getCreated()));
-        JLabel j5 = new JLabel("Drone Number: ");
-        JLabel j6 = new JLabel(String.valueOf(drone.getId()));
-        JLabel j7 = new JLabel("Drone Carrweight: ");
-        JLabel j8 = new JLabel(String.valueOf(drone.getCarriage_weight()));
-        JLabel j9 = new JLabel("Drone carrtype: ");
-        JLabel j10 = new JLabel(String.valueOf(drone.getCarriage_type()));
-        JLabel j11 = new JLabel("Manufacturer: ");
-        JLabel j12 = new JLabel(String.valueOf(drone.getManufacturer()));
-        JButton J7= giveMeFirstNavigationButton("More Info", Color.blue);
-
-        dataPanel.add(j1);
-        dataPanel.add(j2);
-        dataPanel.add(j3);
-        dataPanel.add(j4);
-        dataPanel.add(j5);
-        dataPanel.add(j6);
-
-        setTitle("Drone Info");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        getContentPane().add(dataPanel);
-    }
-
-	private JButton giveMeFirstNavigationButton(String string, Color blue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}*/
+}
