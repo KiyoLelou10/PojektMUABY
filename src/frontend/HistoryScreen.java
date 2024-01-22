@@ -47,7 +47,6 @@ public class HistoryScreen extends JFrame{
 	protected static boolean flag = false;
 	
 	public HistoryScreen(Drones drone) {
-		// TODO Auto-generated constructor stub
 		frame = initialize();
 		flag = true;
 		
@@ -74,6 +73,7 @@ public class HistoryScreen extends JFrame{
 		        super.windowClosing(e);
 		    }
 		});
+
 		frame.add(label, BorderLayout.NORTH);
 		frame.add(panels1, BorderLayout.CENTER);
 
@@ -89,7 +89,6 @@ public class HistoryScreen extends JFrame{
 
 		submitButton = giveMeFirstNavigationButton("Submit", Color.BLUE);
 		submitButton.addActionListener(e->{
-			
 			DroneTime a = DroneTime.stringifier(year1, month1, day1, hour1, minute1);
 			DroneTime b = DroneTime.stringifier(year2, month2, day2, hour2, minute2);
 			
@@ -101,19 +100,17 @@ public class HistoryScreen extends JFrame{
 		        panel.revalidate();
 		        panel.repaint();
 		    }
-			if(a.getExactTime()-b.getExactTime()>600 || a.getExactTime()-b.getExactTime()<-600) {
+
+			if(a.getExactTime()-b.getExactTime()>600 || a.getExactTime()-b.getExactTime()<-600){
 				JOptionPane f = new JOptionPane();
 				f.showMessageDialog(this,"The difference must be less than 10 minutes","errorbox",JOptionPane.ERROR_MESSAGE);
-				
-			}
-			else {
+			} else {
 				dynamicsLabel = createJLabelWithValue("               Recorded " + drone.getCurrentDroneDynamics(a, b).size() + " dynamics where drone was 'ON'.");
 				dynamicsLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
 				System.out.println(drone.getCurrentDroneDynamics(a, b).size());
 				panel.add(dynamicsLabel);
 	            frame.pack();
 			}
-			
 		});
 		
 		panel.add(inputPanel1);
@@ -123,8 +120,6 @@ public class HistoryScreen extends JFrame{
 		return panel;
 	}
 	
-	
-
 	public JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d,JTextField e){
 		JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
 		inputPanel1.add(a);
@@ -134,7 +129,6 @@ public class HistoryScreen extends JFrame{
 		inputPanel1.add(e);
 		
 		return inputPanel1;
-		
 	}
 	
 	protected JFrame initialize() {
@@ -142,39 +136,29 @@ public class HistoryScreen extends JFrame{
 		frame.setLayout(new BorderLayout());
 		frame.getContentPane().setEnabled(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// frame.setExtendedState(MAXIMIZED_BOTH);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width / 4, screenSize.height / 4);
 
 		return frame;
-
 	}
-	
-	/*@Override
-	public void setDefaultCloseOperation(int operation) {
-		System.out.println("Used");
-		super.setDefaultCloseOperation(operation);
-		flag = false;
-	}*/
 	
 	public JTextField giveMeTextField(String text, int len) {
         JTextField textField = new JTextField(text, len);
         textField.setHorizontalAlignment(JTextField.CENTER); 
         textField.setFont(new Font("Arial", Font.PLAIN, 14)); 
         textField.setSize(50, 50);
+
         return textField;
     }
 	
 	@Override
 	public void dispose() {
-
 		frame.dispose();
 	}
 
 	private void centerFrameOnScreen(JFrame frame) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
 		frame.setLocationRelativeTo(null);
 	}
 
@@ -183,20 +167,20 @@ public class HistoryScreen extends JFrame{
 		button.setFocusable(false);
 		button.setBackground(color);
 		button.setForeground(Color.WHITE);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-		button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		return button;
 	}
-	
 	
 	private JLabel createJLabelWithValue(String text) {
 		JLabel j1= new JLabel();
 		j1.setPreferredSize(new Dimension(70,15));
 		j1.setText(text);
 		j1.setFont(new Font("Segoe UI", Font.BOLD, 18));
+
 		return j1;
-		
 	}
+
 	private void addEnterKeyListenerToTextFields(JTextField... textFields) {
         for (JTextField textField : textFields) {
             textField.addActionListener(e -> focusNextTextField(textField));
@@ -212,13 +196,9 @@ public class HistoryScreen extends JFrame{
                 break;
             }
         }
-
         // Set focus to the next text field
         if (currentIndex != -1 && currentIndex < textFields.length - 1) {
             textFields[currentIndex + 1].requestFocus();
         }
     }
-	
-	
-
 }
