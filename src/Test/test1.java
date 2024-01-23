@@ -1,6 +1,6 @@
 package Test;
 import frontend.Firstwindow;
-import frontend.Loading_Screen;
+import frontend.LoadingScreen;
 import background.DroneTime;
 
 import java.net.ConnectException;
@@ -28,7 +28,7 @@ public class test1 extends Thread {
 		log.setLevel(Level.SEVERE);
 		test1 thread1= new test1();
 		thread1.start();
-		Loading_Screen load = new Loading_Screen();
+		LoadingScreen load = new LoadingScreen();
 		DroneBuilder x = new DroneBuilder();
 		load.dispose();
 		Firstwindow window= new Firstwindow();
