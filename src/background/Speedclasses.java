@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+* Class for the three distinct speed classes of the drones.
+* 
+* @author andrej,yunsee
+* @since 1.8
+* @version 1.0
+*/
 public class Speedclasses {
 	protected static ArrayList<Drones> slowList = new ArrayList<>();
 	protected static ArrayList<Drones> averageList = new ArrayList<>();
 	protected static ArrayList<Drones> fastList = new ArrayList<>();
 	protected static String name;
 	
-	//function for clearing the lists
+	/**Function for clearing the lists*/
 	protected static void clearList() {
 		slowList.clear();
 		averageList.clear();
 		fastList.clear();
 	}
 
-	/*
+	/**
 	 * The following 3 getter-methods return the respective lists but also set the String 'name' to the method name.
 	 * This is done to save the current list accessed by the user.
 	 */
@@ -45,13 +52,13 @@ public class Speedclasses {
 		Collections.sort(fastList,Comparator.comparing(Drones::getCurrentDroneSpeed));
 	}
 	
-	//Returns method name in order to know in the front end which list is currently being accessed.
+	/**Returns method name in order to know in the front end which list is currently being accessed.*/
 	public static String getName() throws Exception {
 		if(name == null)throw new Exception("Utilizing this method at this point does not make sense");
 		return name;
 	} 
 	
-	/*
+	/**
 	 * Not really practical as this sort algorithm is in O(n^2), presumably the Collections.sort algorithm is at least in = (n*log(n)).
 	 * This method was created as a possible solution if sorting the lists by hand.
 	*/

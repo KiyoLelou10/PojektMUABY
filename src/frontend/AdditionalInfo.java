@@ -1,47 +1,51 @@
 package frontend;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 import javax.swing.*;
-
 import background.DroneDynamics;
 import background.Drones;
-import background.ListIsEmptyException;
 
+/**
+* Class for additional info frame of drones displaying types and dynamics.
+* 
+* @author bilal,andrej(partially)
+* @since 1.8
+* @version 1.0
+*/
 public class AdditionalInfo extends JFrame {
 
+	private static HistoryScreen histScreen;
     private JFrame frame;
-    protected Method meth;
-    protected static HistoryScreen histScreen;
+    private Method meth;
 
-    // Constructor for AdditionalInfo
     public AdditionalInfo(Drones drone, Method meth) {
-    	// Initialize the frame and set the method for dynamic retrieval
+    	/** Initialize the frame and set the method for dynamic retrieval (to know which list is currently accessed)*/
         frame = initialize();
         this.meth = meth;
-        // Create and populate the data panel with drone information
+        /** Create and populate the data panel with drone information */
         JPanel panel1 = giveDataPanel(drone);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        // Create navigation buttons for back, refresh, and history
+        /** Create navigation buttons for back, refresh, and history */
         JButton backButton = giveNavigationButton("<- Back", Color.red);
         backButton.addActionListener(e -> {
-        	// Dispose the current frame and navigate back to the previous screen
+        	/** Dispose the current frame and navigate back to the previous screen */
             frame.dispose();
             try {
                 ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
                 new SpeedWindow(list);
             } catch (Exception e1) {
+            	System.err.println("Invoking the method did not work or the lists were empty");
                 e1.printStackTrace();
+                /**Get back to screen without drone information*/
+                new DroneGui();
             }
         });
 
         JButton refreshButton = giveNavigationButton("Refresh", Color.darkGray);
         refreshButton.addActionListener(e -> {
-        	// Dispose the current frame and refresh the data for the current drone
+        	/** Dispose the current frame and refresh the data for the current drone */
             frame.dispose();
             try {
                 ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
@@ -50,23 +54,29 @@ public class AdditionalInfo extends JFrame {
                         new AdditionalInfo(drone, meth);
                     }
                 }
+                /**
+                 * It is also checked whether the history screen is
+                 * opened while refreshing, if so the history screen will aslo be refreshed 
+                 */
                 if (histScreen.isFlag()) {
                     histScreen.dispose();
                     histScreen = new HistoryScreen(drone);
                 }
             } catch (Exception e1) {
+            	System.err.println("Invoking the method did not work or the lists were empty");
                 e1.printStackTrace();
+                /**Get back to screen without drone information*/
                 new DroneGui();
             }
         });
         
         JButton historyButton = giveNavigationButton("History", Color.blue);
         historyButton.addActionListener(e -> {
-        	// Display the history screen for the current drone
+        	/** Display the history screen for the current drone*/
             histScreen = new HistoryScreen(drone);
         });
         
-        // Add components to the frame
+        /** Add components to the frame */
         frame.add(panel1);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(backButton);
@@ -103,7 +113,7 @@ public class AdditionalInfo extends JFrame {
         JPanel dataPanel = new JPanel();
         dataPanel.setLayout(new GridLayout(30, 2));
         
-        // Labels for drone information
+        /** Labels for drone information */
         JLabel[] labels1 = {
             new JLabel("Drone ID: "), new JLabel(String.valueOf(drone.getId())),
             new JLabel("Created: "), new JLabel(String.valueOf(drone.getCreated())),
@@ -117,7 +127,7 @@ public class AdditionalInfo extends JFrame {
             new JLabel("Control Range: "), new JLabel(String.valueOf(drone.getControlRange()))
         };
         
-        // Labels for DroneDynamics information
+        /** Labels for DroneDynamics information */
         DroneDynamics dd = drone.getList().get(drone.getList().size() - 1);
         JLabel[] labels2 = {
             new JLabel("DroneDynamics ID: "), new JLabel(String.valueOf(dd.getId())),
@@ -133,17 +143,15 @@ public class AdditionalInfo extends JFrame {
             new JLabel("DroneDynamics Yaw: "), new JLabel(String.valueOf(dd.getAlignYaw()))
         };
         
-        // Adding DroneDynamics and drone labels to dataPanel
         for (int i = 0; i < labels1.length; i++) {
             labels1[i].setFont(new Font("Segoe UI", Font.BOLD, 25));
             dataPanel.add(labels1[i]);
         }
-        // Adding DroneDynamics and drone labels to dataPanel
         for (int i = 0; i < labels2.length; i++) {
             labels2[i].setFont(new Font("Segoe UI", Font.BOLD, 25));
             dataPanel.add(labels2[i]);
         }
-
         return dataPanel;
     }
+    
 }

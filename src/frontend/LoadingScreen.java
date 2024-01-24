@@ -1,25 +1,27 @@
 package frontend;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
+/**
+* Class for loading frame.
+* 
+* @author utkrash,bilal,mohit
+* @since 1.8
+* @version 1.0
+*/
 public class LoadingScreen extends JFrame {
-    protected JFrame frame;
+    
+	private JFrame frame;
 
-    // Constructor for LoadingScreen
     public LoadingScreen() {
-        // Initialize the frame
         JFrame frame = initialize();
-
-        // Create a JLabel for displaying text and a GIF
+        /** Create a JLabel for displaying text and a GIF */
         JLabel gifLabel = new JLabel("Loading the data..................");
-        
-        // Load the GIF image
         ImageIcon gifIcon = new ImageIcon("images/gif4.gif");
         gifLabel.setIcon(gifIcon);
         
-        /*
+        /**
          * Set the alignment and positioning for the label
          * Set font and color for the label
          */
@@ -29,35 +31,29 @@ public class LoadingScreen extends JFrame {
         gifLabel.setVerticalTextPosition(JLabel.BOTTOM);
         gifLabel.setFont(new Font("Segoe UI", Font.BOLD, 30));
         gifLabel.setForeground(Color.GRAY);
-        /*
+        /**
          * Add the GIF label to the frame
          * Set layout and pack the frame
          */
         frame.add(gifLabel);
         frame.setLayout(new FlowLayout());
         frame.pack();
-
-        // Center the frame on the screen
         centerFrameOnScreen(frame);
     }
 
-    // Method to initialize the frame
     protected JFrame initialize() {
         frame = new JFrame();
         frame.getContentPane().setEnabled(false);
         frame.setUndecorated(true);
         frame.setVisible(true);
-
         return frame;
     }
 
-    // Override method to dispose of the frame
     @Override
     public void dispose() {
         frame.dispose();
     }
 
-    // Method to center the frame on the screen
     private void centerFrameOnScreen(JFrame frame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = (int) ((screenSize.getWidth() - frame.getWidth()) / 2);

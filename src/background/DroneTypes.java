@@ -2,6 +2,13 @@ package background;
 
 import java.util.logging.Logger;
 
+/**
+* Class for types of drones.
+* 
+* @author andrej,yunsee
+* @since 1.8
+* @version 1.0
+*/
 public class DroneTypes extends DroneMethods implements Comparison{
 	protected static int entityCount = 0;
 	private final static Logger LOG = Logger.getLogger(DroneTypes.class.getName());

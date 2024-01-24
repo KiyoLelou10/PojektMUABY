@@ -12,7 +12,14 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class DroneBuilder extends Thread {
+/**
+* Class for fetching all data from the API.
+* 
+* @author andrej,yunsee
+* @since 1.8
+* @version 1.0
+*/
+public class DroneBuilder implements Runnable {
 	
 	private static ArrayList<DroneDynamics> dynamicsList = new ArrayList<DroneDynamics>();
 	private static final String USER_AGENT = "Kiyotaka";
@@ -26,21 +33,24 @@ public class DroneBuilder extends Thread {
 	private int droneID,carriageWeight;
 	private String created,serialNumber,carriageType;
 	
-	/*
+	/**
 	 * This constructor links our class instances with their various respective drone data received by the API.
 	 * This constructor also clears the list containing all old instances of the drones and overwrites them with the new.
-	 * It starts by receiving the amount of drones and drone dynamics, afterwards it receives the dynamics data and lastly 
-	 * it receives the drones data.   
+	 * It starts by receiving the amount of drones, afterwards it receives the drones data.   
 	 */
 	public DroneBuilder(){
-		Count.activityFlag = false;
 		Count.clearList();
-		setCount();
-		readDynamics();
+		setCountDrone();
 		readAPI(ENDPOINT_URL+"/?limit="+droneCount+"&format=json");
 		dronesBuilder();
+	}
+	
+	/**This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data */
+	@Override
+	public void run() {
+		setCountDynamics();
+		readDynamics();
 		Count.createLists();
-		Count.activityFlag = true;
 	}
 	
 	private void readDynamics() {
@@ -48,11 +58,13 @@ public class DroneBuilder extends Thread {
 		droneDynamicBuilder();
 	}
 	
-	//Reads the amount Drones and Dynamics, these are saved in count attributes.
-	private void setCount() {
+	/**Reads the amount Drones and Dynamics, these are saved in count attributes.*/
+	private void setCountDrone() {
 		readAPI(ENDPOINT_URL+"/?format=json");
 		droneCount = Integer.valueOf(response.split("[:,]")[1]);
-		
+	}
+	
+	private void setCountDynamics() {
 		readAPI(ENDPOINT_URL2+"?format=json");
 		dynamicCount = Integer.valueOf(response.split("[:,]")[1]);
 		
@@ -60,7 +72,7 @@ public class DroneBuilder extends Thread {
 		LOG.info("These are the dynamics: " +dynamicCount +"/"+droneCount);
 	}
 	
-	/*
+	/**
 	 * This method is responsible for gaining access to the drone API, through an access token. 
 	 * It then follows up by reading all data available on the URL, this is afterwards saved in a JSON object attribute.  
 	 */
@@ -93,7 +105,7 @@ public class DroneBuilder extends Thread {
 		}
 	}
 	
-	/*
+	/**
 	 * The following three methods utilize the respective JSON object (response string) and generate our classes attributes 
 	 * by splitting set JSON object. Afterwards objects of the respective classes are instantiated.  
 	*/
@@ -125,6 +137,8 @@ public class DroneBuilder extends Thread {
 					typeID,manufacturer,typeName,maxSpeed,batteryCapacity,controlRange,maxcarr,weight);		
 		}
 		catch(ValueLessZeroException | NullPointerException e) {
+			System.err.println("A attribute was provided which is less or zero, "
+					+ "even though this is impossible for set attribute");
 			e.printStackTrace();
 		}
 	}
@@ -146,10 +160,13 @@ public class DroneBuilder extends Thread {
 			double yaw = dataFile.getDouble("align_yaw");
 			int id = getID(drone);
 			try {
-				DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastSeen, batteryStatus, Status,roll,pitch,yaw);
+				DroneDynamics x = new DroneDynamics(id, speed, latitude, longitude, time, lastSeen, 
+						batteryStatus, Status,roll,pitch,yaw);
 				dynamicsList.add(x);
 			}
 			catch(ValueLessZeroException e) {
+				System.err.println("A attribute was provided which is less zero, "
+						+ "even though this is impossible for set attribute");
 				e.printStackTrace();
 			}	
 		}
@@ -163,5 +180,7 @@ public class DroneBuilder extends Thread {
 	public static ArrayList<DroneDynamics> getDynamicsList(){
 		return dynamicsList;
 	}
+
+	
 	
 }

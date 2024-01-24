@@ -2,8 +2,14 @@ package background;
 
 
 import java.util.logging.Logger;
-import java.util.ArrayList;
 
+/**
+* Class of drone's drone dynamics.
+* 
+* @author andrej,yunsee
+* @since 1.8
+* @version 1.0
+*/
 public class DroneDynamics extends DroneMethods implements Comparison{
 	
 	private final static Logger LOG = Logger.getLogger(DroneDynamics.class.getName());

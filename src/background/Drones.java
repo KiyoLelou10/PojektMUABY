@@ -1,23 +1,29 @@
 package background;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+/**
+* Class for attributes of drones.
+* 
+* @author andrej,yunsee
+* @since 1.8
+* @version 1.0
+*/
 public class Drones extends DroneTypes {
 	
 	private final static Logger LOG = Logger.getLogger(Drones.class.getName());
-	//This list should contain all drone dynamics for the specific drone object 
-	protected ArrayList<DroneDynamics> dynamicList = new ArrayList<>();
-	protected int droneID;
-	protected DroneTime created;
-	protected String serialNumber;
-	protected int carriageWeight;
-	protected String carriageType;
+	/**This list should contain all drone dynamics for the specific drone object*/ 
+	private ArrayList<DroneDynamics> dynamicList = new ArrayList<>();
+	private int droneID;
+	private DroneTime created;
+	private String serialNumber;
+	private int carriageWeight;
+	private String carriageType;
 	
-	/*
+	/**
 	 * Alongside the normal and obvious things the constructor is meant to do, it also appends each
 	 * created object to the list of all drones. 
 	 */
@@ -38,7 +44,6 @@ public class Drones extends DroneTypes {
 		 }
 		 
 		 if(carriageWeight < 0)throw new ValueLessZeroException("Carriage weight of id: " + droneID + "cannot be"); 
-		 getDynamics();
 		 Count.append(this); 
    }
 	 
@@ -52,7 +57,7 @@ public class Drones extends DroneTypes {
 				"\n" + dynamicList.get(dynamicList.size()-1).toString()+".\n";
 	}
 	
-	/*
+	/**
 	 * This method takes the list of all drones and compares the object's ID to each ID in the list. 
 	 * If the IDs match, these objects of drone dynamics are added to this objects's list of drone dynamics.
 	 */
@@ -65,7 +70,7 @@ public class Drones extends DroneTypes {
 			sortDynamics();
 	 }	
 	 
-	//Sorts drone dynamics of drones based on the time of observation: latest observations at the end.
+	/**Sorts drone dynamics of drones based on the time of observation: latest observations at the end.*/
 	public void sortDynamics() {
 		Collections.sort(dynamicList,Comparator.comparing(DroneDynamics::getExactTime));
 	} 
@@ -98,7 +103,7 @@ public class Drones extends DroneTypes {
 		return dynamicList.get(dynamicList.size()-1).getSpeed();
 	}
 	
-	/*
+	/**
 	 * This method is responsible for returning a list of drone dynamics between two time stamps
 	 * where the drone was turned on. The loop is also broken from if the current time exceeds the later time stamp.
 	 */
@@ -113,7 +118,7 @@ public class Drones extends DroneTypes {
 		return currentDroneDynamics;
 	}
 	
-	/*
+	/**
 	 * This method has three time stamps and checks whether the first is between the other two and whether 
 	 * the drone was on.
 	*/
