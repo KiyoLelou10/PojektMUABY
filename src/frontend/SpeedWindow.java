@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import javax.swing.*;
 import background.Drones;
-import background.Speedclasses;
+import background.SpeedClasses;
 
 /**
 * Class for the speed window frames displaying the drone information of each drone in set list.
@@ -16,7 +16,7 @@ import background.Speedclasses;
 public class SpeedWindow extends JFrame {
 
     private JFrame frame;
-    private Method meth;
+    private Method method;
  
     public SpeedWindow(ArrayList<Drones> list) {
         frame = initialize();
@@ -26,8 +26,8 @@ public class SpeedWindow extends JFrame {
              * Get the method name using reflection.
              * This is done to know which list is currently accessed.
              */
-            methodName = Speedclasses.getName();
-            meth = Speedclasses.class.getMethod(methodName);
+            methodName = SpeedClasses.getName();
+            method = SpeedClasses.class.getMethod(methodName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class SpeedWindow extends JFrame {
         JButton j6 = giveNavigationButton("More Info", Color.blue);
         j6.addActionListener(e -> {
             dispose();
-            AdditionalInfo info = new AdditionalInfo(drone, meth);
+            AdditionalInfo info = new AdditionalInfo(drone, method);
         });
         for (JLabel label : labels) {
             dataPanel.add(label);
@@ -99,7 +99,7 @@ public class SpeedWindow extends JFrame {
         refreshButton.addActionListener(e -> {
             frame.dispose();
             try {
-                ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+                ArrayList<Drones> list = (ArrayList<Drones>) method.invoke(null);
                 new SpeedWindow(list);
             } catch (Exception e1) {
                 e1.printStackTrace();

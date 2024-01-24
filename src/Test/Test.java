@@ -11,7 +11,7 @@ import javax.sound.midi.SysexMessage;
 
 import background.Count;
 import background.DroneBuilder;
-import background.Speedclasses;
+import background.SpeedClasses;
 import frontend.FirstWindow;
 
 /**

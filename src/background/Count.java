@@ -25,12 +25,12 @@ public class Count{
 	 * It is also responsible for getting the dynamics of each drone.
 	 */
 	static public void createLists() {
-		Speedclasses.clearList();
+		SpeedClasses.clearList();
 		for(Drones drone: droneList) {
 			getDynamics(drone);
-			if(drone.getMaxSpeed() < 35)Speedclasses.slowList.add(drone);
-			if(drone.getMaxSpeed() >= 35 && drone.getMaxSpeed() < 60)Speedclasses.averageList.add(drone);
-			if(drone.getMaxSpeed() >= 60)Speedclasses.fastList.add(drone);
+			if(drone.getMaxSpeed() < 35)SpeedClasses.slowList.add(drone);
+			if(drone.getMaxSpeed() >= 35 && drone.getMaxSpeed() < 60)SpeedClasses.averageList.add(drone);
+			if(drone.getMaxSpeed() >= 60)SpeedClasses.fastList.add(drone);
 		}	
 	}
 	

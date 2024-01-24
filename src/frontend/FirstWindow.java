@@ -13,9 +13,9 @@ import javax.swing.border.EmptyBorder;
 public class FirstWindow extends Frame {
 
     protected JFrame frame;
-    private JLabel txt;
-    private JButton yesbutton;
-    private JButton nobutton;
+    private JLabel text;
+    private JButton yesButton;
+    private JButton noButton;
     private JLabel label;
 
     public FirstWindow() {

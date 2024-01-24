@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 import background.ListIsEmptyException;
-import background.Speedclasses;
+import background.SpeedClasses;
 
 /**
 * Class for drone gui frame which gives the user the opportunity to decide between the speed classes.
@@ -25,7 +25,6 @@ public class DroneGui extends JFrame {
     private static DroneGui instance = null;
     private JFrame frame;
 
-    /** Constructor for DroneGui */
     public DroneGui() {
         frame = initialize();
         /** Create a JLabel with text and image */
@@ -114,7 +113,7 @@ public class DroneGui extends JFrame {
             if ("Slow Speed Drones!!".equals(command)) {
 
                 try {
-                    JFrame frame = new SpeedWindow(Speedclasses.getSlowlist());
+                    JFrame frame = new SpeedWindow(SpeedClasses.getSlowlist());
                 } catch (ListIsEmptyException f) {
                 	f.printStackTrace();
                     DroneGui problem = new DroneGui();
@@ -123,7 +122,7 @@ public class DroneGui extends JFrame {
             } else if ("Medium Speed Drones!!".equals(command)) {
 
                 try {
-                    JFrame frame = new SpeedWindow(Speedclasses.getAveragelist());
+                    JFrame frame = new SpeedWindow(SpeedClasses.getAveragelist());
                 } catch (ListIsEmptyException f) {
                     f.printStackTrace();
                     DroneGui problem = new DroneGui();
@@ -132,7 +131,7 @@ public class DroneGui extends JFrame {
             } else if ("Fast Speed Drones!!".equals(command)) {
 
                 try {
-                    JFrame frame = new SpeedWindow(Speedclasses.getFastlist());
+                    JFrame frame = new SpeedWindow(SpeedClasses.getFastlist());
                 } catch (ListIsEmptyException f) {
                     f.printStackTrace();
                     DroneGui problem = new DroneGui();

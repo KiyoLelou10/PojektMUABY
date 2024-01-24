@@ -10,7 +10,7 @@ import java.util.Comparator;
 * @author andrej,yunsee
 * @version 1.0
 */
-public class Speedclasses {
+public class SpeedClasses {
 	protected static ArrayList<Drones> slowList = new ArrayList<>();
 	protected static ArrayList<Drones> averageList = new ArrayList<>();
 	protected static ArrayList<Drones> fastList = new ArrayList<>();

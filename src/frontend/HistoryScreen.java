@@ -51,7 +51,7 @@ public class HistoryScreen extends JFrame {
             }
         });
         /**
-         *  Add a window listener to set flag to false when the window is closing.
+         *  Adds a window listener to set flag to false when the window is closing.
          *  This is done for other classes to know whether there is an open history window.
          */
         frame.addWindowListener((WindowListener) new WindowAdapter() {
@@ -62,7 +62,7 @@ public class HistoryScreen extends JFrame {
             }
         });
         /**
-         * Add components to the frame
+         * Adds components to the frame
          * Set frame properties and make it visible
          */ 
         frame.add(label, BorderLayout.NORTH);
@@ -84,7 +84,7 @@ public class HistoryScreen extends JFrame {
             if (isDynamicsLabelAdded) {
                 /**
                  * Remove the dynamicsLabel from the panel if it is displayed,
-                 * Ensures that every re-submit removes the old dynamicslabel with the old information.  
+                 * Ensures that every re-submit removes the old dynamicsLabel with the old information.  
                  */
                 panel.remove(dynamicsLabel);
                 panel.revalidate();

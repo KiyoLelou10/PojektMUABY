@@ -15,14 +15,14 @@ import background.Drones;
 */
 public class AdditionalInfo extends JFrame {
 
-	private static HistoryScreen histScreen;
+	private static HistoryScreen historyScreen;
     private JFrame frame;
-    private Method meth;
+    private Method method;
 
-    public AdditionalInfo(Drones drone, Method meth) {
+    public AdditionalInfo(Drones drone, Method method) {
     	/** Initialize the frame and set the method for dynamic retrieval (to know which list is currently accessed)*/
         frame = initialize();
-        this.meth = meth;
+        this.method = method;
         /** Create and populate the data panel with drone information */
         JPanel panel1 = giveDataPanel(drone);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class AdditionalInfo extends JFrame {
         	/** Dispose the current frame and navigate back to the previous screen */
             frame.dispose();
             try {
-                ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+                ArrayList<Drones> list = (ArrayList<Drones>) method.invoke(null);
                 new SpeedWindow(list);
             } catch (Exception e1) {
             	System.err.println("Invoking the method did not work or the lists were empty");
@@ -47,19 +47,19 @@ public class AdditionalInfo extends JFrame {
         	/** Dispose the current frame and refresh the data for the current drone */
             frame.dispose();
             try {
-                ArrayList<Drones> list = (ArrayList<Drones>) meth.invoke(null);
+                ArrayList<Drones> list = (ArrayList<Drones>) method.invoke(null);
                 for (Drones drone1 : list) {
                     if (drone1.getDroneID() == drone.getDroneID()) {
-                        new AdditionalInfo(drone, meth);
+                        new AdditionalInfo(drone, method);
                     }
                 }
                 /**
                  * It is also checked whether the history screen is
-                 * opened while refreshing, if so the history screen will aslo be refreshed 
+                 * opened while refreshing, if so the history screen will also be refreshed 
                  */
-                if (histScreen.isFlag()) {
-                    histScreen.dispose();
-                    histScreen = new HistoryScreen(drone);
+                if (historyScreen.isFlag()) {
+                    historyScreen.dispose();
+                    historyScreen = new HistoryScreen(drone);
                 }
             } catch (Exception e1) {
             	System.err.println("Invoking the method did not work or the lists were empty");
@@ -72,7 +72,7 @@ public class AdditionalInfo extends JFrame {
         JButton historyButton = giveNavigationButton("History", Color.blue);
         historyButton.addActionListener(e -> {
         	/** Display the history screen for the current drone*/
-            histScreen = new HistoryScreen(drone);
+            historyScreen = new HistoryScreen(drone);
         });
         
         /** Add components to the frame */
