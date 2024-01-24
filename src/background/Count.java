@@ -3,14 +3,14 @@ package background;
 import java.util.ArrayList;
 
 /**
-* Class for creating a list of all drones and spliiting them in three lists.
+* Class for creating a list of all drones and splitting them in three lists.
 * 
 * @author andrej,yunsee
 * @version 1.0
 */
 public class Count{
 	
-	/**List of all drones*/
+	/**List of all drones.*/
 	private static ArrayList<Drones> droneList = new ArrayList<>();
 	
 	static protected void append(Drones object) {

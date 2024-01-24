@@ -44,7 +44,7 @@ public class DroneBuilder implements Runnable {
 		dronesBuilder();
 	}
 	
-	/**This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data */
+	/**This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data.*/
 	@Override
 	public void run() {
 		setCountDynamics();

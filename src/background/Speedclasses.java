@@ -16,7 +16,7 @@ public class Speedclasses {
 	protected static ArrayList<Drones> fastList = new ArrayList<>();
 	protected static String name;
 	
-	/**Function for clearing the lists*/
+	/**Function for clearing the lists.*/
 	protected static void clearList() {
 		slowList.clear();
 		averageList.clear();
@@ -26,7 +26,7 @@ public class Speedclasses {
 	/**
 	 * The following 3 getter-methods return the respective lists but also set the String 'name' to the method name.
 	 * This is done to save the current list accessed by the user.
-	 * @return the respective list
+	 * @return the respective list.
 	 */
 	public static ArrayList<Drones> getSlowlist() throws ListIsEmptyException {
 		if(slowList.isEmpty() == true)throw new ListIsEmptyException();

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class Drones extends DroneTypes {
 	
 	private final static Logger LOG = Logger.getLogger(Drones.class.getName());
-	/**This list should contain all drone dynamics for the specific drone object*/ 
+	/**This list should contain all drone dynamics for the specific drone object.*/ 
 	private ArrayList<DroneDynamics> dynamicList = new ArrayList<>();
 	private int droneID;
 	private DroneTime created;
