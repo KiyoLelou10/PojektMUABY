@@ -10,7 +10,6 @@ import background.Drones;
 * Class for history window which provides the user with the amount of drone dynamics between two time stamps.
 * 
 * @author utkrash,bilal,andrej
-* @since 1.8
 * @version 1.0
 */
 public class HistoryScreen extends JFrame {

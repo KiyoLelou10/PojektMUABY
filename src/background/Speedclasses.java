@@ -8,7 +8,6 @@ import java.util.Comparator;
 * Class for the three distinct speed classes of the drones.
 * 
 * @author andrej,yunsee
-* @since 1.8
 * @version 1.0
 */
 public class Speedclasses {
@@ -27,6 +26,7 @@ public class Speedclasses {
 	/**
 	 * The following 3 getter-methods return the respective lists but also set the String 'name' to the method name.
 	 * This is done to save the current list accessed by the user.
+	 * @return the respective list
 	 */
 	public static ArrayList<Drones> getSlowlist() throws ListIsEmptyException {
 		if(slowList.isEmpty() == true)throw new ListIsEmptyException();
@@ -52,7 +52,7 @@ public class Speedclasses {
 		Collections.sort(fastList,Comparator.comparing(Drones::getCurrentDroneSpeed));
 	}
 	
-	/**Returns method name in order to know in the front end which list is currently being accessed.*/
+	/**@return method name in order to know in the front end which list is currently being accessed.*/
 	public static String getName() throws Exception {
 		if(name == null)throw new Exception("Utilizing this method at this point does not make sense");
 		return name;

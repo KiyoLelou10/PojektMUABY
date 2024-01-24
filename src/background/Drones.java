@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 * Class for attributes of drones.
 * 
 * @author andrej,yunsee
-* @since 1.8
 * @version 1.0
 */
 public class Drones extends DroneTypes {
@@ -26,6 +25,7 @@ public class Drones extends DroneTypes {
 	/**
 	 * Alongside the normal and obvious things the constructor is meant to do, it also appends each
 	 * created object to the list of all drones. 
+	 * @param are all the values the drones have, these are provided by the API. 
 	 */
 	public Drones(int droneID,String created, String serialNumber, int carriageWeight, String carriageType,
 			 int typeID,String manufacturer, String name, int maxSpeed,int batteryCapacity,
@@ -104,8 +104,10 @@ public class Drones extends DroneTypes {
 	}
 	
 	/**
-	 * This method is responsible for returning a list of drone dynamics between two time stamps
+	 * This method is responsible for returning a list of drone dynamics between two time stamps.
 	 * where the drone was turned on. The loop is also broken from if the current time exceeds the later time stamp.
+	 *@param is the beginning and end time indicating the time period which is of relevance here.
+	 *@return is a list of drone dynamics containing all drone dynamics in the time period, when the drone was 'on'. 
 	 */
 	public ArrayList<DroneDynamics> getCurrentDroneDynamics(DroneTime beginning, DroneTime end){
 		ArrayList<DroneDynamics> currentDroneDynamics= new ArrayList<DroneDynamics>();
@@ -121,6 +123,8 @@ public class Drones extends DroneTypes {
 	/**
 	 * This method has three time stamps and checks whether the first is between the other two and whether 
 	 * the drone was on.
+	 * @param are a drone dynamic and the begging/end time.
+	 * @return true if the time of the drone dynamic is between the beginning and end time.
 	*/
 	private boolean isInside(DroneDynamics current, DroneTime beginning, DroneTime end) {
 		if(current.getExactTime() >= beginning.getExactTime() && 

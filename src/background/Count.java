@@ -6,7 +6,6 @@ import java.util.ArrayList;
 * Class for creating a list of all drones and spliiting them in three lists.
 * 
 * @author andrej,yunsee
-* @since 1.8
 * @version 1.0
 */
 public class Count{

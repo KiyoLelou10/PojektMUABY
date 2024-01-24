@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 * Class for first window frame.
 * 
 * @author utkrash,bilal,mohit
-* @since 1.8
 * @version 1.0
 */
 public class FirstWindow extends Frame {

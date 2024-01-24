@@ -11,7 +11,6 @@ import background.Speedclasses;
 * Class for the speed window frames displaying the drone information of each drone in set list.
 * 
 * @author utkrash,bilal,mohit,andrej(partially)
-* @since 1.8
 * @version 1.0
 */
 public class SpeedWindow extends JFrame {

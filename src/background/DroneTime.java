@@ -7,7 +7,6 @@ import javax.swing.JTextField;
 * Class for splitting the the string of times stamps into attributes and it can evaluate the exact value.
 * 
 * @author andrej,yunsee
-* @since 1.8
 * @version 1.0
 */
 public class DroneTime extends Thread {
@@ -21,7 +20,10 @@ public class DroneTime extends Thread {
 	private int timeZoneHour;
 	private int timeZoneMin;
 	
-	/**Divides String time into DroneTime attributes for the exact time */
+	/**
+	 * Divides String time into DroneTime attributes for the exact time. 
+	 * @param a String time stamp as it is provided in the API.
+	 */
 	public DroneTime(String time) {
 		String sub[] = time.split("[-T:+]");
 		try {
@@ -49,7 +51,13 @@ public class DroneTime extends Thread {
 		return year + "/" + monthName + "/" + day + "\t " + hour + ":" + minute + ":" + seconds;
 	}
 	
-	/**Compares if current DroneTime object is greater than another (only compares up to days).*/
+	/**
+	 * Compares if current DroneTime object is greater than another (only compares up to days).
+	 *@param another drone time which is compared to this.
+	 *@return false if other drone time is bigger (up to minutes).
+	 *@return true if this drone time is bigger (up to minutes).
+	 *@return isGreaterSeconds which compares both times up to seconds if the times are equal.
+	 */
 	public boolean isGreater(DroneTime other) {
 		
 		double thisDays = (double)this.year*365.25 + (double)this.month*30.437 + (double)this.day;
@@ -59,7 +67,12 @@ public class DroneTime extends Thread {
 		return false;
 	}
 	
-	/**Compares up to seconds.*/
+	/**
+	 * Compares two drone times up to seconds.
+	 *@param another drone time which is compared to this.
+	 *@return false if other drone time is bigger (up to seconds).
+	 *@return true if this drone time is bigger (up to seconds).
+	 */
 	public boolean isGreaterSeconds(DroneTime other) {
 		double thisSeconds = (double)this.hour*3600 + (double)this.minute * 60 + this.seconds;
 		double otherSeconds = (double)other.hour*3600 + (double)other.minute*60 + other.seconds;
@@ -67,7 +80,7 @@ public class DroneTime extends Thread {
 		return false;
 	}
 	
-	/**Gets exact time in seconds.*/
+	/**@return exact time in seconds*/
 	public double getExactTime() {
 		double exactTime = ((double)year*365.25 + (double)month*30.437 + (double)day)*86400
 				 + (double)hour*3600 + (double)minute*60 + seconds;
@@ -77,6 +90,9 @@ public class DroneTime extends Thread {
 	/**
 	 * Converts separate JTextField attributes a,b,c,d,e into a correctly formatted String timeString (by API convention).
 	 * Then converts timeString into DroneTime object and returns it.
+	 * @param 6 Jtextfields.
+	 * @return the constructor of DroneTime with the transformed String, thus, this method returns a Dronetime object
+	 * of the 6 Jtextfields.  
 	 */
 	public static DroneTime stringifier(JTextField a,JTextField b,JTextField c, JTextField d, JTextField e) {
 		String timeString = new String(a.getText()+"-"+b.getText()+"-"+c.getText()+"T"+d.getText()+":"+e.getText()+":0+0:0");

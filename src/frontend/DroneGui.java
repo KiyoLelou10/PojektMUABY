@@ -14,7 +14,6 @@ import background.Speedclasses;
 * Class for drone gui frame which gives the user the opportunity to decide between the speed classes.
 * 
 * @author utkrash,bilal,mohit
-* @since 1.8
 * @version 1.0
 */
 public class DroneGui extends JFrame {

@@ -11,7 +11,6 @@ import background.Drones;
 * Class for additional info frame of drones displaying types and dynamics.
 * 
 * @author bilal,andrej(partially)
-* @since 1.8
 * @version 1.0
 */
 public class AdditionalInfo extends JFrame {

@@ -16,7 +16,6 @@ import org.json.JSONObject;
 * Class for fetching all data from the API.
 * 
 * @author andrej,yunsee
-* @since 1.8
 * @version 1.0
 */
 public class DroneBuilder implements Runnable {
@@ -74,12 +73,13 @@ public class DroneBuilder implements Runnable {
 	
 	/**
 	 * This method is responsible for gaining access to the drone API, through an access token. 
-	 * It then follows up by reading all data available on the URL, this is afterwards saved in a JSON object attribute.  
+	 * It then follows up by reading all data available on the URL, this is afterwards saved in a JSON object attribute. 
+	 * @param is a string of the respective URL that needs to be read. 
 	 */
-	public static void readAPI(String x) {
+	public static void readAPI(String urlString) {
 		URL url;
 		try {
-			url = new URL(x);
+			url = new URL(urlString);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestProperty("Authorization", TOKEN);
 			connection.setRequestMethod("GET");
