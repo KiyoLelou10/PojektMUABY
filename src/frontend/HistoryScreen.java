@@ -37,7 +37,7 @@ public class HistoryScreen extends JFrame {
         JLabel label = createJLabelWithValue("Search the dynamics! Max difference 10 min! In this order: min,h,dd,mm,yyyy");
         JPanel inputAndDynamicPanel = new JPanel(new BorderLayout());
         JPanel panels1 = createDatePanel(drone);
-        addEnterKeyListenerToTextFields(textFields);
+        addEnterKeyListenerToTextField(textFields);
         panels1.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 20));
         label.setBorder(BorderFactory.createEmptyBorder(20, 10, 25, 10));
 
@@ -234,9 +234,9 @@ public class HistoryScreen extends JFrame {
      *
      *@param textFields Varargs parameter allowing for an array of JTextField components.
      */
-    private void addEnterKeyListenerToTextFields(JTextField... textFields) {
+    private void addEnterKeyListenerToTextField(JTextField... textFields) {
         for (JTextField textField : textFields) {
-            textField.addActionListener(e -> focusNextTextField(textField));
+            textField.addActionListener(e -> NextTextField(textField));
         }
     }
     
@@ -245,7 +245,7 @@ public class HistoryScreen extends JFrame {
      *It determines the index (currentIndex) of the currently focused JTextField 
      *If the current index is found (currentIndex != -1) and is not the last index of the array (currentIndex < textFields.length - 1), it sets the focus to the next text field in the array using requestFocus()
      */
-    private void focusNextTextField(JTextField currentTextField) {
+    private void NextTextField(JTextField currentTextField) {
         int currentIndex = -1;
         for (int i = 0; i < textFields.length; i++) {
             if (textFields[i] == currentTextField) {
