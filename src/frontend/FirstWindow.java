@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 /**
 * Class for first window frame.
 * 
-* @author utkrash,bilal,mohit
+* @author utkarsh,bilal, Mohit
 * @version 1.0
 */
 public class FirstWindow extends Frame {
@@ -35,7 +35,8 @@ public class FirstWindow extends Frame {
         frame.setExtendedState(MAXIMIZED_BOTH);
     }
 
-    protected JFrame initialize() {
+    /** Assigns some of the initial configuration to the window**/
+   private JFrame initialize() {
         JFrame frame = new JFrame();
 
         /** Get screen dimensions */
@@ -50,7 +51,16 @@ public class FirstWindow extends Frame {
         return frame;
     }
 
-    /** Helper method to create a JLabel with text and image */
+    /**
+     * Creates a JLabel with an image and text.
+     * This method sets up a JLabel with a specified image and text. The image is resized to fit
+     * the label, and the text is displayed below the image. Both the image and text are centered
+     * to ensure proper alignment and readability, preventing any overlap between them.
+     *
+     * @param text The text to be displayed on the JLabel.
+     * @param imgPath The path to the image file to be displayed on the JLabel.
+     * @return A JLabel with the specified image and text, formatted for proper alignment and readability.
+     */
     private JLabel createLabelWithTextAndImage(String text, String imgPath) {
         JLabel label = new JLabel();
         label.setText(text);
@@ -68,6 +78,18 @@ public class FirstWindow extends Frame {
         return label;
     }
 
+    
+    /**
+     * Creates a JButton with a standard size and specific color, primarily used for navigation.
+     * This method sets up a JButton with specified text and background color. The text color is
+     * set to white by default. The button size is standardized to maintain a consistent design
+     * across different windows. Additionally, an action listener is attached to the button which,
+     * when activated, disposes the current window and opens a new instance of DroneGUI.
+     *
+     * @param text The text to be displayed on the button.
+     * @param color The background color of the button.
+     * @return A JButton with the specified text and background color, along with a predefined action listener.
+     */
     private JButton giveNavigationButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setSize(300, 75);
@@ -83,6 +105,12 @@ public class FirstWindow extends Frame {
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         return button;
     }
+    
+    /**
+   	 * Gives a Panel with standard configuration.
+   	 * @return a panel with flow layout and empty borders to ensure good spacing between the components and this panel.
+   	 	
+   	 	*/
 
     private JPanel createPanel() {
         JPanel panel = new JPanel();

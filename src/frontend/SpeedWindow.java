@@ -10,7 +10,7 @@ import background.SpeedClasses;
 /**
 * Class for the speed window frames displaying the drone information of each drone in set list.
 * 
-* @author utkrash,bilal,mohit,andrej(partially)
+* @author utkarsh,bilal,mohit,andrej(partially)
 * @version 1.0
 */
 public class SpeedWindow extends JFrame {
@@ -48,7 +48,7 @@ public class SpeedWindow extends JFrame {
         frame.add(scrollPane, BorderLayout.CENTER);
     }
 
-    protected JFrame initialize() {
+    private JFrame initialize() {
         JFrame frame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setExtendedState(MAXIMIZED_BOTH);
@@ -58,8 +58,22 @@ public class SpeedWindow extends JFrame {
         frame.setVisible(true);
         return frame;
     }
+    
+    
+    
+    /**
+     * Creates a JPanel displaying data for a specific drone.
+     * This panel arranges drone data in a centered FlowLayout and includes labels for drone
+     * attributes like ID, manufacturer, max speed, max carriage, and control range. Additionally,
+     * there is a  button called more info in each row that triggers additional information display for the drone.
+     * This method is useful for presenting detailed information about a drone in a structured,
+     * visually appealing format.
+     *
+     * @param drone The Drones object whose data is to be displayed.
+     * @return A JPanel with labels for drone data and a button for more information.
+     */
 
-    protected JPanel giveDataPanel(Drones drone) {
+    private JPanel giveDataPanel(Drones drone) {
         JPanel dataPanel = new JPanel();
         dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 10));
         JLabel[] labels = new JLabel[5];
@@ -80,7 +94,19 @@ public class SpeedWindow extends JFrame {
         return dataPanel;
     }
 
-    protected JPanel giveHeaderPanel() {
+    
+    
+    
+    /**
+     * Constructs and returns a header panel for a user interface.
+     * This panel includes labeled sections for drone information (like Drone Id, Manufacturer,
+     * Max Speed, Max Carriage, and Control Range) and navigation buttons ("Back" and "Refresh").
+     * The layout is set to a centered FlowLayout. It's designed to provide a standardized 
+     * header for interfaces dealing with drone information and navigation.
+     *
+     * @return A JPanel containing labeled sections for drone details and navigation buttons.
+     */
+    private JPanel giveHeaderPanel() {
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 20));
         JLabel[] headerLabels = new JLabel[5];
@@ -114,6 +140,17 @@ public class SpeedWindow extends JFrame {
         return headerPanel;
     }
 
+    
+    
+    /**
+     * Creates and returns a JLabel with specified text.
+     * This method initializes a JLabel with the given text and sets its preferred size and font.
+     * This gives the label aesthetically pleasing appearance. This method is ideal for creating labels that require
+     * uniform styling across different parts of the user interface.
+     *
+     * @param text The text to be displayed on the JLabel.
+     * @return A JLabel with the specified text.
+     */
     private JLabel createJLabelWithValue(String text) {
         JLabel label = new JLabel();
         label.setPreferredSize(new Dimension(70, 15));
@@ -122,6 +159,18 @@ public class SpeedWindow extends JFrame {
         return label;
     }
 
+    
+    
+    /**
+     * Creates and returns a JLabel with specified text and the bold font desired for header.
+     * This method initializes a JLabel with the given text and sets its preferred size and font.
+     * This gives the label aesthetically pleasing appearance. This method is ideal for creating labels that require
+     * uniform styling across different parts of the user interface.
+     *
+     * @param text The text to be displayed on the JLabel.
+     * @return A JLabel with the specified text and bold Font.
+     */
+    
     private JLabel createHeaderJLabelWithValue(String text) {
         JLabel label = new JLabel();
         label.setText(text);
@@ -134,8 +183,19 @@ public class SpeedWindow extends JFrame {
         frame.dispose();
     }
 
-    private JButton giveNavigationButton(String Text, Color color) {
-        JButton button = new JButton(Text);
+    /**
+     * Creates a JButton with a standard size and specific color, primarily used for navigation.
+     * This method sets up a JButton with specified text and background color. The text color is
+     * set to white by default. The button size is standardized to maintain a consistent design
+     * across different windows. Additionally, an action listener is attached to the button which,
+     * when activated, disposes the current window and opens a new instance of DroneGUI.
+     *
+     * @param text The text to be displayed on the button.
+     * @param color The background color of the button.
+     * @return A JButton with the specified text and background color, along with a predefined action listener.
+     */
+    private JButton giveNavigationButton(String text, Color color) {
+        JButton button = new JButton(text);
         button.setSize(300, 75);
         button.setFocusable(false);
         button.setBackground(color);

@@ -13,7 +13,7 @@ import background.SpeedClasses;
 /**
 * Class for drone gui frame which gives the user the opportunity to decide between the speed classes.
 * 
-* @author utkrash,bilal,mohit
+* @author utkarsh,bilal, Mohit
 * @version 1.0
 */
 public class DroneGui extends JFrame {
@@ -51,7 +51,7 @@ public class DroneGui extends JFrame {
         System.exit(0);
     }
 
-    protected JFrame initialize() {
+    private JFrame initialize() {
         JFrame frame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) screenSize.getWidth();
@@ -63,6 +63,18 @@ public class DroneGui extends JFrame {
         frame.setLayout(new BorderLayout());
         return frame;
     }
+    
+    
+    /**
+     * Creates a JLabel with an image and text.
+     * This method sets up a JLabel with a specified image and text. The image is resized to fit
+     * the label, and the text is displayed below the image. Both the image and text are centered
+     * to ensure proper alignment and readability, preventing any overlap between them.
+     *
+     * @param text The text to be displayed on the JLabel.
+     * @param imgPath The path to the image file to be displayed on the JLabel.
+     * @return A JLabel with the specified image and text, formatted for proper alignment and readability.
+     */
 
     private JLabel createLabelWithTextAndImage(String text, String imgPath) {
         JLabel label = new JLabel();
@@ -84,6 +96,18 @@ public class DroneGui extends JFrame {
         return label;
     }
 
+    /**
+     * Creates a JButton with a standard size and specific color, primarily used for navigation.
+     * This method sets up a JButton with specified text and background color. The text color is
+     * set to white by default. The button size is standardized to maintain a consistent design
+     * across different windows. Additionally, an action listener is attached to the button which,
+     * when activated, disposes the current window and opens a new instance of DroneGUI.
+     *
+     * @param text The text to be displayed on the button.
+     * @param color The background color of the button.
+     * @return A JButton with the specified text and background color, along with a predefined action listener.
+     */
+    
     private JButton giveNavigationButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setSize(300, 75);
@@ -95,6 +119,11 @@ public class DroneGui extends JFrame {
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         return button;
     }
+    
+    /**
+     * Create a Jlabel with some standard configuration. This is done to ensure common panel styles among all the classes.
+     * @return a Jlabel with the layout set to flowlayout. Borders has been added to have proper spacing between other components and this panel.
+     */
 
     private JPanel createPanel() {
         JPanel panel = new JPanel();

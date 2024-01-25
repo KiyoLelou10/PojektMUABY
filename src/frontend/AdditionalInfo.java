@@ -10,7 +10,7 @@ import background.Drones;
 /**
 * Class for additional info frame of drones displaying types and dynamics.
 * 
-* @author bilal,andrej(partially)
+* @author bilal,andrej(partially), utkarsh(partially)
 * @version 1.0
 */
 public class AdditionalInfo extends JFrame {
@@ -86,7 +86,7 @@ public class AdditionalInfo extends JFrame {
         frame.add(panel1, BorderLayout.CENTER);
     }
 
-    protected JFrame initialize() {
+    private JFrame initialize() {
         JFrame frame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -98,6 +98,18 @@ public class AdditionalInfo extends JFrame {
         return frame;
     }
 
+    /**
+     * Creates a JButton with a standard size and specific color, primarily used for navigation.
+     * This method sets up a JButton with specified text and background color. The text color is
+     * set to white by default. The button size is standardized to maintain a consistent design
+     * across different windows. Additionally, an action listener is attached to the button which,
+     * when activated, disposes the current window and opens a new instance of DroneGUI.
+     *
+     * @param text The text to be displayed on the button.
+     * @param color The background color of the button.
+     * @return A JButton with the specified text and background color, along with a predefined action listener.
+     */
+    
     private JButton giveNavigationButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setSize(300, 75);
@@ -108,6 +120,22 @@ public class AdditionalInfo extends JFrame {
         return button;
     }
 
+    /**
+     * Constructs a JPanel displaying  information for a specific drone and its dynamics.
+     * The panel is organized in a grid layout, showing key drone attributes such as ID, creation date,
+     * manufacturer, speed, carriage details, and battery capacity. Additionally, it displays the latest
+     * dynamics of the drone including location, speed, time, battery status, and alignment. The information
+     * is displayed in a series of labeled pairs for easy readability, with each label styled for emphasis.
+     * This method is ideal for providing a detailed view of a drone's specifications and current status.
+     * Moreover, Refresh button is there as well for fetching the latest information from the API in case data 
+     * gets changed back there.
+     *
+     * @param drone The Drones object to display information from.
+     * @return A JPanel displaying detailed information about the drone and its dynamics.
+     */
+
+    
+    
     private JPanel giveDataPanel(Drones drone) {
         JPanel dataPanel = new JPanel();
         dataPanel.setLayout(new GridLayout(30, 2));

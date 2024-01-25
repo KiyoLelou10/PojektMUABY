@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
 * Class for loading frame.
 * 
-* @author utkrash,bilal,mohit
+* @author utkarsh,bilal,mohit
 * @version 1.0
 */
 public class LoadingScreen extends JFrame {
