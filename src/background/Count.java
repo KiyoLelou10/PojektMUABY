@@ -5,12 +5,12 @@ import java.util.ArrayList;
 /**
 * Class for creating a list of all drones and splitting them in three lists.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class Count{
 	
-	/**List of all drones.*/
+	/** List of all drones.*/
 	private static ArrayList<Drones> droneList = new ArrayList<>();
 	
 	static protected void append(Drones object) {

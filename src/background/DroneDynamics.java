@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 /**
 * Class of drone's drone dynamics.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class DroneDynamics extends DroneMethods implements Comparison{

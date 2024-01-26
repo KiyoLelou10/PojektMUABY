@@ -9,7 +9,7 @@ import background.Drones;
 /**
 * Class for history window which provides the user with the amount of drone dynamics between two time stamps.
 * 
-* @author utkarsh,bilal,andrej
+* @author Utkarsh, Bilal, Andrej
 * @version 1.0
 */
 public class HistoryScreen extends JFrame {
@@ -70,6 +70,7 @@ public class HistoryScreen extends JFrame {
         centerFrameOnScreen(frame);
         frame.pack();
         frame.setVisible(true);
+        frame.setResizable(false);
     }
     
     private JFrame initialize() {
@@ -93,8 +94,6 @@ public class HistoryScreen extends JFrame {
      * @param drone The drone to query dynamics for.
      * @return A JPanel with date-time selection and dynamic data display.
      */
-
-
     private JPanel createDatePanel(Drones drone) {
         JPanel panel = new JPanel(new GridLayout(7, 2, 10, 20));
         JPanel inputPanel1 = createDurationPanel(minute1, hour1, day1, month1, year1);
@@ -141,7 +140,7 @@ public class HistoryScreen extends JFrame {
     /**
      * Assembles a JPanel with five text fields for duration input. 
      * Arranges the fields in a central flow layout for easy time-related data entry.
-     *Format is mm/hh/dd/MM/yyyy
+     * Format is mm/hh/dd/MM/yyyy
      * @param a First duration input field, Min.
      * @param b Second duration input field, Hours.
      * @param c Third duration input field, Day.
@@ -149,8 +148,7 @@ public class HistoryScreen extends JFrame {
      * @param e Fifth duration input field, Year.
      * @return JPanel with the duration input fields.
      */
-
-    private  JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e) {
+    private JPanel createDurationPanel(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e) {
         JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         inputPanel1.add(a);
         inputPanel1.add(b);
@@ -164,13 +162,10 @@ public class HistoryScreen extends JFrame {
      * Creates and configures a JTextField.
      * Sets up a text field with specified initial text and length, centered alignment, 
      * a standard font, and predefined dimensions for uniformity between fields.
-     *
      * @param text The initial text to display in the text field.
      * @param len The length of the text field.
      * @return Configured JTextField instance.
      */
-
-   
     private JTextField giveMeTextField(String text, int len) {
         JTextField textField = new JTextField(text, len);
         textField.setHorizontalAlignment(JTextField.CENTER);
@@ -196,12 +191,10 @@ public class HistoryScreen extends JFrame {
      * set to white by default. The button size is standardized to maintain a consistent design
      * across different windows. Additionally, an action listener is attached to the button which,
      * when activated, disposes the current window and opens a new instance of DroneGUI.
-     *
      * @param text The text to be displayed on the button.
      * @param color The background color of the button.
      * @return A JButton with the specified text and background color, along with a predefined action listener.
      */
-    
     private JButton giveNavigationButton(String Text, Color color) {
         JButton button = new JButton(Text);
         button.setFocusable(false);
@@ -216,7 +209,6 @@ public class HistoryScreen extends JFrame {
      * This method initializes a JLabel with the given text and sets its preferred size and font.
      * This gives the label aesthetically pleasing appearance. This method is ideal for creating labels that require
      * uniform styling across different parts of the user interface.
-     *
      * @param text The text to be displayed on the JLabel.
      * @return A JLabel with the specified text.
      */
@@ -231,7 +223,6 @@ public class HistoryScreen extends JFrame {
      *This method takes an array of JTextField components as its parameters (using varargs JTextField... textFields).
      *It iterates through each JTextField in the array using an enhanced for loop (for each loop...)
      *For each JTextField it adds an ActionListener and calls the method focusNextTextField.
-     *
      *@param textFields Varargs parameter allowing for an array of JTextField components.
      */
     private void addEnterKeyListenerToTextField(JTextField... textFields) {

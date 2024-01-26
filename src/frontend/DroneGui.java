@@ -13,7 +13,7 @@ import background.SpeedClasses;
 /**
 * Class for drone gui frame which gives the user the opportunity to decide between the speed classes.
 * 
-* @author utkarsh,bilal, Mohit
+* @author Utkarsh, Bilal, Mohit
 * @version 1.0
 */
 public class DroneGui extends JFrame {
@@ -75,7 +75,6 @@ public class DroneGui extends JFrame {
      * @param imgPath The path to the image file to be displayed on the JLabel.
      * @return A JLabel with the specified image and text, formatted for proper alignment and readability.
      */
-
     private JLabel createLabelWithTextAndImage(String text, String imgPath) {
         JLabel label = new JLabel();
         label.setText(text);
@@ -107,7 +106,6 @@ public class DroneGui extends JFrame {
      * @param color The background color of the button.
      * @return A JButton with the specified text and background color, along with a predefined action listener.
      */
-    
     private JButton giveNavigationButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setSize(300, 75);
@@ -124,7 +122,6 @@ public class DroneGui extends JFrame {
      * Create a Jlabel with some standard configuration. This is done to ensure common panel styles among all the classes.
      * @return a Jlabel with the layout set to flowlayout. Borders has been added to have proper spacing between other components and this panel.
      */
-
     private JPanel createPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));

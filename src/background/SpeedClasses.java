@@ -7,7 +7,7 @@ import java.util.Comparator;
 /**
 * Class for the three distinct speed classes of the drones.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class SpeedClasses {
@@ -16,7 +16,7 @@ public class SpeedClasses {
 	protected static ArrayList<Drones> fastList = new ArrayList<>();
 	protected static String name;
 	
-	/**Function for clearing the lists.*/
+	/** Function for clearing the lists.*/
 	protected static void clearList() {
 		slowList.clear();
 		averageList.clear();
@@ -26,7 +26,7 @@ public class SpeedClasses {
 	/**
 	 * The following 3 getter-methods return the respective lists but also set the String 'name' to the method name.
 	 * This is done to save the current list accessed by the user.
-	 * @return the respective list.
+	 * @return The respective list.
 	 */
 	public static ArrayList<Drones> getSlowlist() throws ListIsEmptyException {
 		if(slowList.isEmpty() == true)throw new ListIsEmptyException();
@@ -52,7 +52,7 @@ public class SpeedClasses {
 		Collections.sort(fastList,Comparator.comparing(Drones::getCurrentDroneSpeed));
 	}
 	
-	/**@return method name in order to know in the front end which list is currently being accessed.*/
+	/**@return Method name in order to know in the front end which list is currently being accessed.*/
 	public static String getName() throws Exception {
 		if(name == null)throw new Exception("Utilizing this method at this point does not make sense");
 		return name;

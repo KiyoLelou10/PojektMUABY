@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 /**
 * Class for splitting the the string of times stamps into attributes and it can evaluate the exact value.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class DroneTime extends Thread {
@@ -22,7 +22,7 @@ public class DroneTime extends Thread {
 	
 	/**
 	 * Divides String time into DroneTime attributes for the exact time. 
-	 * @param a String time stamp as it is provided in the API.
+	 * @param time is a String time stamp as it is provided in the API.
 	 */
 	public DroneTime(String time) {
 		String sub[] = time.split("[-T:+]");
@@ -53,10 +53,10 @@ public class DroneTime extends Thread {
 	
 	/**
 	 * Compares if current DroneTime object is greater than another (only compares up to days).
-	 *@param another drone time which is compared to this.
-	 *@return false if other drone time is bigger (up to minutes).
-	 *@return true if this drone time is bigger (up to minutes).
-	 *@return isGreaterSeconds which compares both times up to seconds if the times are equal.
+	 *@param other is another drone time which is compared to this.
+	 *@return False if other drone time is bigger (up to minutes).
+	 * True if this drone time is bigger (up to minutes).
+	 * IsGreaterSeconds which compares both times up to seconds if the times are equal.
 	 */
 	public boolean isGreater(DroneTime other) {
 		
@@ -69,9 +69,9 @@ public class DroneTime extends Thread {
 	
 	/**
 	 * Compares two drone times up to seconds.
-	 *@param another drone time which is compared to this.
-	 *@return false if other drone time is bigger (up to seconds).
-	 *@return true if this drone time is bigger (up to seconds).
+	 *@param other is another drone time which is compared to this.
+	 *@return False if other drone time is bigger (up to seconds).
+	 * True if this drone time is bigger (up to seconds).
 	 */
 	public boolean isGreaterSeconds(DroneTime other) {
 		double thisSeconds = (double)this.hour*3600 + (double)this.minute * 60 + this.seconds;
@@ -90,8 +90,12 @@ public class DroneTime extends Thread {
 	/**
 	 * Converts separate JTextField attributes a,b,c,d,e into a correctly formatted String timeString (by API convention).
 	 * Then converts timeString into DroneTime object and returns it.
-	 * @param 6 Jtextfields.
-	 * @return the constructor of DroneTime with the transformed String, thus, this method returns a Dronetime object
+	 * @param a is a Jtextfield.
+	 * @param b is a Jtextfield.
+	 * @param c is a Jtextfield.
+	 * @param d is a Jtextfield.
+	 * @param e is a Jtextfield.
+	 * @return DroneTime(timeString) which is the constructor of DroneTime with the transformed String, thus, this method returns a Dronetime object
 	 * of the 6 Jtextfields.  
 	 */
 	public static DroneTime stringifier(JTextField a,JTextField b,JTextField c, JTextField d, JTextField e) {

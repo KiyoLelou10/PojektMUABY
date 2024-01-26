@@ -15,7 +15,7 @@ import org.json.JSONObject;
 /**
 * Class for fetching all data from the API.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class DroneBuilder implements Runnable {
@@ -44,7 +44,7 @@ public class DroneBuilder implements Runnable {
 		dronesBuilder();
 	}
 	
-	/**This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data.*/
+	/** This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data.*/
 	@Override
 	public void run() {
 		setCountDynamics();
@@ -57,7 +57,7 @@ public class DroneBuilder implements Runnable {
 		droneDynamicBuilder();
 	}
 	
-	/**Reads the amount Drones and Dynamics, these are saved in count attributes.*/
+	/** Reads the amount Drones and Dynamics, these are saved in count attributes.*/
 	private void setCountDrone() {
 		readAPI(ENDPOINT_URL+"/?format=json");
 		droneCount = Integer.valueOf(response.split("[:,]")[1]);
@@ -74,7 +74,7 @@ public class DroneBuilder implements Runnable {
 	/**
 	 * This method is responsible for gaining access to the drone API, through an access token. 
 	 * It then follows up by reading all data available on the URL, this is afterwards saved in a JSON object attribute. 
-	 * @param is a string of the respective URL that needs to be read. 
+	 * @param urlString is a string of the respective URL that needs to be read. 
 	 */
 	public static void readAPI(String urlString) {
 		URL url;

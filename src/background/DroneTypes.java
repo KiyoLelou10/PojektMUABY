@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 /**
 * Class for types of drones.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class DroneTypes extends DroneMethods implements Comparison{

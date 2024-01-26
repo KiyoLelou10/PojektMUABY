@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 /**
 * Class for first window frame.
 * 
-* @author utkarsh,bilal, Mohit
+* @author Utkarsh, Bilal
 * @version 1.0
 */
 public class FirstWindow extends Frame {
@@ -56,7 +56,6 @@ public class FirstWindow extends Frame {
      * This method sets up a JLabel with a specified image and text. The image is resized to fit
      * the label, and the text is displayed below the image. Both the image and text are centered
      * to ensure proper alignment and readability, preventing any overlap between them.
-     *
      * @param text The text to be displayed on the JLabel.
      * @param imgPath The path to the image file to be displayed on the JLabel.
      * @return A JLabel with the specified image and text, formatted for proper alignment and readability.
@@ -85,7 +84,6 @@ public class FirstWindow extends Frame {
      * set to white by default. The button size is standardized to maintain a consistent design
      * across different windows. Additionally, an action listener is attached to the button which,
      * when activated, disposes the current window and opens a new instance of DroneGUI.
-     *
      * @param text The text to be displayed on the button.
      * @param color The background color of the button.
      * @return A JButton with the specified text and background color, along with a predefined action listener.
@@ -109,9 +107,7 @@ public class FirstWindow extends Frame {
     /**
    	 * Gives a Panel with standard configuration.
    	 * @return a panel with flow layout and empty borders to ensure good spacing between the components and this panel.
-   	 	
-   	 	*/
-
+   	 */
     private JPanel createPanel() {
         JPanel panel = new JPanel();
 
