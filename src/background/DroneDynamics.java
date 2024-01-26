@@ -1,6 +1,5 @@
 package background;
 
-
 import java.util.logging.Logger;
 
 /**

@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,9 +43,13 @@ public class DroneBuilder implements Runnable {
 		dronesBuilder();
 	}
 	
-	/** This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data.*/
+	/** 
+	 * This Thread is responsible for enquiring the number of dynamics and afterwards reading the whole data.
+	 * It also clears the list of dynamics this is important for when the data is refreshed, that the list is empty again.
+	 */
 	@Override
 	public void run() {
+		dynamicsList.clear();
 		setCountDynamics();
 		readDynamics();
 		Count.createLists();

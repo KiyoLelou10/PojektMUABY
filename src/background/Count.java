@@ -19,8 +19,8 @@ public class Count{
 	
 	/**
 	 * This Method is responsible for dividing the list of all drones into three lists which are later referenced
-	 * in the front end. Before this is done the lists need to be cleared, this is done because the front end has an 
-	 * automatic and non-automatic way to refresh the data. 
+	 * in the front end. Before this is done the lists need to be cleared, this is done because the front end has a 
+	 * way to refresh the data. 
 	 * When accessing the new drone data the old should be deleted. 
 	 * It is also responsible for getting the dynamics of each drone.
 	 */

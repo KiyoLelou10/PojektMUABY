@@ -1,18 +1,10 @@
 package Test;
+
 import frontend.FirstWindow;
 import frontend.LoadingScreen;
-import background.DroneTime;
-
-import java.net.ConnectException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.sound.midi.SysexMessage;
-
-import background.Count;
 import background.DroneBuilder;
-import background.SpeedClasses;
-import frontend.FirstWindow;
 
 /**
 * Class for running the program it also automatically refreshes the data every 10 minutes. 
