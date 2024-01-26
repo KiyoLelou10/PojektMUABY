@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
 * Class for loading frame.
 * 
-* @author utkarsh,bilal,mohit
+* @author Utkarsh, Bilal, Mohit
 * @version 1.0
 */
 public class LoadingScreen extends JFrame {
@@ -59,4 +59,5 @@ public class LoadingScreen extends JFrame {
         int centerY = (int) ((screenSize.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(centerX, centerY);
     }
+    
 }

@@ -17,14 +17,14 @@ import frontend.FirstWindow;
 /**
 * Class for running the program it also automatically refreshes the data every 10 minutes. 
 * 
-* @author andrej,yunsee
+* @author Andrej
 * @since 1.8
 * @version 1.0
 */
 public class Test implements Runnable {
 	
 	/**
-	 * At first the LOG level is set to sever in order to only display severe messages.
+	 * At first the global LOG level is set to sever in order to only display severe messages.
 	 * This method starts the loading screen. Afterwards it immediately starts fetching all the data from the API.
 	 * When this is finished the loading screen is closed and the first window is opened.
 	 * It also starts a thread which automatically refreshes the drone data in the background.
@@ -44,7 +44,6 @@ public class Test implements Runnable {
 		dynamicsThread.join();
 		load.dispose();
 		FirstWindow window= new FirstWindow();
-		
 	}
 	
 	@Override

@@ -8,13 +8,13 @@ import java.util.logging.Logger;
 /**
 * Class for attributes of drones.
 * 
-* @author andrej,yunsee
+* @author Andrej, Yunsee
 * @version 1.0
 */
 public class Drones extends DroneTypes {
 	
 	private final static Logger LOG = Logger.getLogger(Drones.class.getName());
-	/**This list should contain all drone dynamics for the specific drone object.*/ 
+	/** This list should contain all drone dynamics for the specific drone object.*/ 
 	private ArrayList<DroneDynamics> dynamicList = new ArrayList<>();
 	private int droneID;
 	private DroneTime created;
@@ -106,8 +106,9 @@ public class Drones extends DroneTypes {
 	/**
 	 * This method is responsible for returning a list of drone dynamics between two time stamps.
 	 * where the drone was turned on. The loop is also broken from if the current time exceeds the later time stamp.
-	 *@param is the beginning and end time indicating the time period which is of relevance here.
-	 *@return is a list of drone dynamics containing all drone dynamics in the time period, when the drone was 'on'. 
+	 *@param beginning is the beginning time 
+	 *@param end is the end time. These two params indicate the time period which is of relevance here.
+	 *@return currentDroneDynamics is a list of drone dynamics containing all drone dynamics in the time period, when the drone was 'on'. 
 	 */
 	public ArrayList<DroneDynamics> getCurrentDroneDynamics(DroneTime beginning, DroneTime end){
 		ArrayList<DroneDynamics> currentDroneDynamics= new ArrayList<DroneDynamics>();

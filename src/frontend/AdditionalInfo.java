@@ -10,7 +10,7 @@ import background.Drones;
 /**
 * Class for additional info frame of drones displaying types and dynamics.
 * 
-* @author bilal,andrej(partially), utkarsh(partially)
+* @author Bilal, Andrej(partially), Mohit(partially)
 * @version 1.0
 */
 public class AdditionalInfo extends JFrame {
@@ -109,7 +109,6 @@ public class AdditionalInfo extends JFrame {
      * @param color The background color of the button.
      * @return A JButton with the specified text and background color, along with a predefined action listener.
      */
-    
     private JButton giveNavigationButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setSize(300, 75);
@@ -133,9 +132,6 @@ public class AdditionalInfo extends JFrame {
      * @param drone The Drones object to display information from.
      * @return A JPanel displaying detailed information about the drone and its dynamics.
      */
-
-    
-    
     private JPanel giveDataPanel(Drones drone) {
         JPanel dataPanel = new JPanel();
         dataPanel.setLayout(new GridLayout(30, 2));
@@ -163,7 +159,8 @@ public class AdditionalInfo extends JFrame {
             new JLabel("DroneDynamics Longitude: "), new JLabel(String.valueOf(dd.getLongitude())),
             new JLabel("DroneDynamics Time: "), new JLabel(String.valueOf(dd.getTime())),
             new JLabel("DroneDynamics LastSeen: "), new JLabel(String.valueOf(dd.getLastSeen())),
-            new JLabel("DroneDynamics BatteryStatus: "), new JLabel(String.valueOf(dd.getBatteryStatus() / drone.getBatteryCapacity() * 100) + "%"),
+            new JLabel("DroneDynamics BatteryStatus: "), new JLabel(String.valueOf(dd.getBatteryStatus()
+            												/ drone.getBatteryCapacity() * 100) + "%"),
             new JLabel("DroneDynamics Status: "), new JLabel(String.valueOf(dd.getStatus())),
             new JLabel("DroneDynamics Roll: "), new JLabel(String.valueOf(dd.getAlignRoll())),
             new JLabel("DroneDynamics Pitch: "), new JLabel(String.valueOf(dd.getAlignPitch())),
